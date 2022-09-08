@@ -51,7 +51,7 @@ public class ParserCsv implements Parser {
     }
 
 
-    private Questionnaire parseLine(List<String> values) {
+    public Questionnaire parseLine(List<String> values) {
         int id = parseId(values);
         Questionnaire questionnaire = new Questionnaire(id);
         questionnaire.setQuestion(values.get(1));
@@ -61,7 +61,7 @@ public class ParserCsv implements Parser {
         return questionnaire;
     }
 
-    private int parseId(List<String> values) {
+    public int parseId(List<String> values) {
         if (!isStringDigits(values.get(0))) {
             System.out.println(String.format("ERROR: id is not int so id will be set as -1. Line: ", values));
             return -1;
@@ -72,4 +72,16 @@ public class ParserCsv implements Parser {
     public String getFileWithData() {
         return fileWithData;
     }
+
+    public void printForm() {
+        for (int i = 0; i < form.getQuestionnaire().size(); i++) {
+            System.out.println("Number question: " + form.getQuestionnaire().get(i).getId());
+            System.out.println("Question: " + form.getQuestionnaire().get(i).getQuestion());
+            List<String> responses = form.getQuestionnaire().get(i).getResponses();
+            for (int j = 0; j < responses.size(); j++) {
+                System.out.println("" + 1 + ": " + responses.get(j));
+            }
+        }
+    }
+
 }

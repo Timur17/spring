@@ -1,77 +1,82 @@
 package ru.otus.spring.domain;
 
 import ru.otus.spring.form.Form;
+import ru.otus.spring.questionnaire.Questionnaire;
+import ru.otus.spring.services.ConsoleIOService;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Student implements Person {
     private final String OWN_RESPONSE = "Own response";
     private String firstName;
     private String lastName;
     private Form form;
+    private final ConsoleIOService consoleIOService;
 
     public Student(Form form) {
         this.form = form;
+        this.consoleIOService = new ConsoleIOService();
     }
 
     public void askName() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Your first name:");
-        firstName = sc.nextLine();
-        System.out.println("Your last name:");
-        lastName = sc.nextLine();
+        firstName = consoleIOService.readStringWithPrompt("Your first name:");
+        lastName = consoleIOService.readStringWithPrompt("Your last name:");
     }
 
     public void askQuestion() {
         for (int i = 0; i < form.getQuestionnaires().size(); i++) {
-            System.out.println("Question " + form.getQuestionnaires().get(i).getId() + ": " + form.getQuestionnaires().get(i).getQuestion());
-            List<String> responses = form.getQuestionnaires().get(i).getResponses();
-            for (int j = 0; j < responses.size(); j++) {
-                System.out.println(j + 1 + ": " + responses.get(j));
-            }
-            if (responses.size() == 1 && responses.get(0).equals(OWN_RESPONSE)) {
-                Scanner ownResponse = new Scanner(System.in);
-                form.getQuestionnaires().get(i).setSelectedAnswer(ownResponse.nextLine());
-                continue;
-            }
-            int numberResp = validateAnswer(responses);
-            if (responses.get(numberResp - 1).equals(OWN_RESPONSE)) {
-                System.out.println("Write own answer.");
-                Scanner ownResponse = new Scanner(System.in);
-                form.getQuestionnaires().get(i).setSelectedAnswer(ownResponse.nextLine());
+            Questionnaire questionnaire = form.getQuestionnaires().get(i);
+            consoleIOService.outputString("Question " + questionnaire.getId() + ": " + questionnaire.getQuestion());
+            List<String> responses = questionnaire.getResponses();
+            printResponses(responses);
+            int numberResp = validateInput(responses);
+            String chosenResponse = responses.get(numberResp - 1);
+            if (chosenResponse.equals(OWN_RESPONSE)) {
+                consoleIOService.outputString("Write own answer.");
+                questionnaire.setSelectedAnswer(consoleIOService.readString());
             } else
-                form.getQuestionnaires().get(i).setSelectedAnswer(responses.get(numberResp - 1));
+                questionnaire.setSelectedAnswer(chosenResponse);
         }
     }
 
-    public int parseNumber(){
-        Scanner sc = new Scanner(System.in);
+    private void printResponses(List<String> responses) {
+        for (int j = 0; j < responses.size(); j++) {
+            consoleIOService.outputString(j + 1 + ": " + responses.get(j));
+        }
+    }
+
+    private int parseNumber() {
         Integer numberResp = null;
         while (numberResp == null) {
             try {
-                numberResp = Integer.parseInt(sc.nextLine());
+                numberResp = consoleIOService.readInt();
             } catch (NumberFormatException e) {
-                System.out.println("Enter correct number.");
+                consoleIOService.outputString("Enter correct number.");
             }
         }
         return numberResp;
     }
 
-    public int validateAnswer(List<String> responses){
+    private int validateInput(List<String> responses) {
+        if (responses.size() == 1)
+            return 1;
+        else return chooseAnswerNumber(responses);
+    }
+
+    private int chooseAnswerNumber(List<String> responses) {
         int numberResp = 0;
         while (numberResp < 1 || numberResp > responses.size()) {
-            System.out.println("Please choose answer from 1 to " + responses.size());
+            consoleIOService.outputString("Please choose answer from 1 to " + responses.size());
             numberResp = parseNumber();
         }
         return numberResp;
     }
 
     public void printResult() {
-        System.out.println("Student: " + firstName + " " + lastName + "\n");
+        consoleIOService.outputString("Student: " + firstName + " " + lastName + "\n");
         for (int i = 0; i < form.getQuestionnaires().size(); i++) {
-            System.out.println("Question " + form.getQuestionnaires().get(i).getId() + ": " + form.getQuestionnaires().get(i).getQuestion());
-            System.out.println("Student answer: " + form.getQuestionnaires().get(i).getSelectedAnswer() + "\n");
+            consoleIOService.outputString("Question " + form.getQuestionnaires().get(i).getId() + ": " + form.getQuestionnaires().get(i).getQuestion());
+            consoleIOService.outputString("Student answer: " + form.getQuestionnaires().get(i).getSelectedAnswer() + "\n");
         }
     }
 

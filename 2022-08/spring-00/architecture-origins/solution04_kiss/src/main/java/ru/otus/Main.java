@@ -32,7 +32,7 @@ public class Main {
         }
     }
 
-    private static void outputMenu(){
+    private static void outputMenu() {
         System.out.println("Выберите одно из следующих действий...");
         System.out.println("1. Вывести все заметки");
         System.out.println("2. Добавить заметку");
@@ -51,7 +51,7 @@ public class Main {
             updateNote(userInput, notes);
         } else if (selectedMenuItem == MENU_OPTION_DELETE_NOTE) {
             deleteNote(userInput, notes);
-        } else if (selectedMenuItem == MENU_OPTION_EXIT){
+        } else if (selectedMenuItem == MENU_OPTION_EXIT) {
             executionFlag.set(false);
         } else {
             System.out.println("Введен неверный номер опции");
@@ -80,7 +80,8 @@ public class Main {
     private static void updateNote(Scanner userInput, List<String> notes) {
         System.out.println("Введите номер изменяемой заметки...");
 
-        var updatedNoteNumber = Integer.parseInt(userInput.nextLine());;
+        var updatedNoteNumber = Integer.parseInt(userInput.nextLine());
+        ;
         if (updatedNoteNumber <= 0 || updatedNoteNumber > notes.size()) {
             System.out.println("Введен несуществующий номер заметки");
             return;

@@ -14,7 +14,5 @@ public interface Form {
 
     public void setColumnNames(List<String> columnNames);
 
-//    public Person getPerson();
-
     public void printForm();
 }

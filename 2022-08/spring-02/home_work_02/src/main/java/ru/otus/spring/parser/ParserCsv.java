@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.otus.spring.form.Form;
 import ru.otus.spring.questionnaire.Questionnaire;
 import ru.otus.spring.questionnaire.StudentQuestionnaire;
+import ru.otus.spring.services.Converter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.otus.spring.utils.Helpers.convertStringToList;
 import static ru.otus.spring.utils.Helpers.isStringDigits;
 
 @Component
@@ -23,9 +23,11 @@ public class ParserCsv implements Parser {
     @Value("${srs.file}")
     private String fileWithData;
     private final Form form;
+    private final Converter converter;
 
-    public ParserCsv(Form form) {
+    public ParserCsv(Form form, Converter converter) {
         this.form = form;
+        this.converter = converter;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class ParserCsv implements Parser {
              BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
-                List<String> values = convertStringToList(line, ",");
+                List<String> values = converter.convertStringToList(line, ",");
                 if (countLines == 0) {
                     form.setColumnNames(values);
                 } else {

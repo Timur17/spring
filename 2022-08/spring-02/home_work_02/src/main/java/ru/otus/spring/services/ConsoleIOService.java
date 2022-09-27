@@ -1,7 +1,10 @@
 package ru.otus.spring.services;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Scanner;
 
+@Component
 public class ConsoleIOService {
     private final Scanner userInput;
 

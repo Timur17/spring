@@ -13,9 +13,9 @@ public class Student implements Person {
     private Form form;
     private final ConsoleIOService consoleIOService;
 
-    public Student(Form form) {
+    public Student(Form form, ConsoleIOService consoleIOService) {
         this.form = form;
-        this.consoleIOService = new ConsoleIOService();
+        this.consoleIOService = consoleIOService;
     }
 
     public void askName() {

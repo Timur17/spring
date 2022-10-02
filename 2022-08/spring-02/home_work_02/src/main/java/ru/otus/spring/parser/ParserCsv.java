@@ -55,7 +55,7 @@ public class ParserCsv implements Parser {
     }
 
 
-    public StudentQuestionnaire parseLine(List<String> values) {
+    private StudentQuestionnaire parseLine(List<String> values) {
         int id = parseId(values);
         StudentQuestionnaire studentQuestionnaire = new StudentQuestionnaire(id);
         studentQuestionnaire.setQuestion(values.get(1));
@@ -65,7 +65,7 @@ public class ParserCsv implements Parser {
         return studentQuestionnaire;
     }
 
-    public int parseId(List<String> values) {
+    private int parseId(List<String> values) {
         if (!isStringDigits(values.get(0))) {
             System.out.println(String.format("ERROR: id is not int so id will be set as -1. Line: ", values));
             return -1;

@@ -1,7 +1,8 @@
 package ru.otus.spring.services;
 
 import ru.otus.spring.domain.Person;
-import ru.otus.spring.domain.Student;
+import ru.otus.spring.services.person.PersonService;
+import ru.otus.spring.services.person.StudentService;
 import ru.otus.spring.form.Form;
 import ru.otus.spring.parser.Parser;
 
@@ -19,7 +20,7 @@ public class ApplicationRunner {
         parser.parseFile();
         Form form = parser.getForm();
 
-        Person student = new Student(form, consoleIOService);
+        PersonService student = new StudentService(form, consoleIOService, new Person());
         student.askName();
         student.askQuestion();
         student.printResult();

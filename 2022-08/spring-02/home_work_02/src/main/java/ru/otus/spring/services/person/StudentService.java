@@ -1,26 +1,27 @@
-package ru.otus.spring.domain;
+package ru.otus.spring.services.person;
 
+import ru.otus.spring.domain.Person;
 import ru.otus.spring.form.Form;
 import ru.otus.spring.questionnaire.Questionnaire;
 import ru.otus.spring.services.ConsoleIOService;
 
 import java.util.List;
 
-public class Student implements Person {
+public class StudentService implements PersonService {
     private final String OWN_RESPONSE = "Own response";
-    private String firstName;
-    private String lastName;
+    private Person person;
     private Form form;
     private final ConsoleIOService consoleIOService;
 
-    public Student(Form form, ConsoleIOService consoleIOService) {
+    public StudentService(Form form, ConsoleIOService consoleIOService, Person person) {
         this.form = form;
         this.consoleIOService = consoleIOService;
+        this.person = person;
     }
 
     public void askName() {
-        firstName = consoleIOService.readStringWithPrompt("Your first name:");
-        lastName = consoleIOService.readStringWithPrompt("Your last name:");
+        person.setFirstName(consoleIOService.readStringWithPrompt("Your first name:"));
+        person.setLastName(consoleIOService.readStringWithPrompt("Your last name:"));
     }
 
     public void askQuestion() {
@@ -73,34 +74,10 @@ public class Student implements Person {
     }
 
     public void printResult() {
-        consoleIOService.outputString("Student: " + firstName + " " + lastName + "\n");
+        consoleIOService.outputString("Student: " + person.getFirstName() + " " + person.getLastName() + "\n");
         for (int i = 0; i < form.getQuestionnaires().size(); i++) {
             consoleIOService.outputString("Question " + form.getQuestionnaires().get(i).getId() + ": " + form.getQuestionnaires().get(i).getQuestion());
             consoleIOService.outputString("Student answer: " + form.getQuestionnaires().get(i).getSelectedAnswer() + "\n");
         }
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
     }
 }

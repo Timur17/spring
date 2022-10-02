@@ -1,6 +1,5 @@
 package ru.otus.spring.form;
 
-import ru.otus.spring.domain.Person;
 import ru.otus.spring.questionnaire.Questionnaire;
 
 import java.util.List;

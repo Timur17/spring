@@ -1,11 +1,10 @@
-package ru.otus.spring;
+package ru.otus.spring.parser;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+import ru.otus.spring.Main;
 import ru.otus.spring.form.Form;
-import ru.otus.spring.parser.ParserCsv;
 import ru.otus.spring.questionnaire.Questionnaire;
 import ru.otus.spring.utils.CsvFile;
 
@@ -13,8 +12,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ComponentScan
-class IntegrationFormTest {
+class ParserCsvTest {
     static AnnotationConfigApplicationContext context;
 
     @BeforeAll
@@ -29,7 +27,7 @@ class IntegrationFormTest {
     }
 
     @Test
-    public void createCsvFile() {
+    public void parseFileTest() {
         ParserCsv parser = context.getBean(ParserCsv.class);
         Form form = parser.parseFile();
 
@@ -41,6 +39,7 @@ class IntegrationFormTest {
             Questionnaire studentQuestionnaire = form.getQuestionnaires().get(i);
             assertEquals(studentQuestionnaire.getId(), i + 1, "Invalid questionnaire: " + studentQuestionnaire);
             assertNotNull(studentQuestionnaire.getQuestion(), "Invalid questionnaire: " + studentQuestionnaire);
+            assertTrue(studentQuestionnaire.getQuestion().length() > 0);
             assertTrue(studentQuestionnaire.getResponses().size() > 0);
         }
     }

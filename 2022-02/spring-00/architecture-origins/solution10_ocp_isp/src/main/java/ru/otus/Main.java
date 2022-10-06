@@ -1,8 +1,6 @@
 package ru.otus;
 
 import ru.otus.config.AppSettings;
-import ru.otus.services.*;
-import ru.otus.services.processors.*;
 import ru.otus.services.menu.MenuOption;
 import ru.otus.services.menu.MenuOptionsRegistryImpl;
 

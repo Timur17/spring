@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="form" class="ru.otus.spring.domain.Form">
+    <bean id="form" class="ru.otus.spring.spring.domain.Form">
     </bean>
 
-    <bean id="parser" class="ru.otus.spring.parser.ParserCsv">
+    <bean id="parser" class="ru.otus.spring.spring.parser.ParserCsv">
         <property name="fileWithData" value="question.csv"/>
         <constructor-arg name="form" ref="form"/>
     </bean>

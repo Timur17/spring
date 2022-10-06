@@ -13,8 +13,7 @@ import ru.otus.spring.services.ConsoleIOService;
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
-        ParserCsv parser = context.getBean(ParserCsv.class);
-        ConsoleIOService consoleIOService = context.getBean(ConsoleIOService.class);
-        new ApplicationRunner(parser, consoleIOService).run();
+        ApplicationRunner applicationRunner = context.getBean(ApplicationRunner.class);
+        applicationRunner.run();
     }
 }

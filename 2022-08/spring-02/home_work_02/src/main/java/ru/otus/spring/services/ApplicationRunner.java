@@ -1,12 +1,13 @@
 package ru.otus.spring.services;
 
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Person;
 import ru.otus.spring.services.person.PersonService;
 import ru.otus.spring.services.person.StudentService;
 import ru.otus.spring.form.Form;
 import ru.otus.spring.parser.Parser;
 
-
+@Component
 public class ApplicationRunner {
     private Parser parser;
     private ConsoleIOService consoleIOService;

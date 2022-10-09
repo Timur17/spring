@@ -1,9 +1,9 @@
-package ru.otus.spring.spring.services.person;
+package ru.otus.spring.services.person;
 
-import ru.otus.spring.spring.domain.Person;
-import ru.otus.spring.spring.form.Form;
-import ru.otus.spring.spring.questionnaire.Questionnaire;
-import ru.otus.spring.spring.services.ConsoleIOService;
+import ru.otus.spring.domain.Person;
+import ru.otus.spring.form.Form;
+import ru.otus.spring.questionnaire.Questionnaire;
+import ru.otus.spring.services.ConsoleIOService;
 
 import java.util.List;
 

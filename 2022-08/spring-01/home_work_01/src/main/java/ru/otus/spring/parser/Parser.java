@@ -1,6 +1,6 @@
-package ru.otus.spring.spring.parser;
+package ru.otus.spring.parser;
 
-import ru.otus.spring.spring.domain.Form;
+import ru.otus.spring.domain.Form;
 
 public interface Parser {
     public Form parseFile();

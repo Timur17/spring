@@ -1,6 +1,6 @@
-package ru.otus.spring.spring.dao;
+package ru.otus.spring.dao;
 
-import ru.otus.spring.spring.domain.Person;
+import ru.otus.spring.domain.Person;
 
 public class PersonDaoSimple implements PersonDao {
 

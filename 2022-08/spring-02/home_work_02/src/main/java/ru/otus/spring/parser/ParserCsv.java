@@ -1,13 +1,13 @@
-package ru.otus.spring.spring.parser;
+package ru.otus.spring.parser;
 
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.otus.spring.spring.form.Form;
-import ru.otus.spring.spring.questionnaire.Questionnaire;
-import ru.otus.spring.spring.questionnaire.StudentQuestionnaire;
-import ru.otus.spring.spring.services.Converter;
-import ru.otus.spring.spring.utils.Helpers;
+import ru.otus.spring.form.Form;
+import ru.otus.spring.questionnaire.Questionnaire;
+import ru.otus.spring.questionnaire.StudentQuestionnaire;
+import ru.otus.spring.services.Converter;
+import ru.otus.spring.utils.Helpers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +19,7 @@ import java.util.List;
 
 @Component
 public class ParserCsv implements Parser {
+    @Value("${srs.file}")
     private String fileWithData;
     private final Form form;
     private final Converter converter;

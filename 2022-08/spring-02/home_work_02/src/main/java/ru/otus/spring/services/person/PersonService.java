@@ -1,4 +1,4 @@
-package ru.otus.spring.spring.services.person;
+package ru.otus.spring.services.person;
 
 public interface PersonService {
 

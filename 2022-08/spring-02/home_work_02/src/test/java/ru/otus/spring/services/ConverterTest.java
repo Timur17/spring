@@ -1,9 +1,9 @@
-package ru.otus.spring.spring.services;
+package ru.otus.spring.services;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.otus.spring.spring.Main;
+import ru.otus.spring.Main;
 
 import java.util.List;
 

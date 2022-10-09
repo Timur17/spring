@@ -1,4 +1,4 @@
-package ru.otus.spring.spring.domain;
+package ru.otus.spring.domain;
 
 public class Person {
     private String firstName;

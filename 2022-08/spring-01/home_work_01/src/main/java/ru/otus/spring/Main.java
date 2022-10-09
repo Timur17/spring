@@ -1,8 +1,8 @@
-package ru.otus.spring.spring;
+package ru.otus.spring;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.otus.spring.spring.domain.Form;
-import ru.otus.spring.spring.parser.ParserCsv;
+import ru.otus.spring.domain.Form;
+import ru.otus.spring.parser.ParserCsv;
 
 import java.io.IOException;
 

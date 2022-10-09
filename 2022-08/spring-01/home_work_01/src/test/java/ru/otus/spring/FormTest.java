@@ -1,13 +1,13 @@
-package ru.otus.spring.spring;
+package ru.otus.spring;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.otus.spring.spring.domain.Form;
-import ru.otus.spring.spring.domain.Questionnaire;
-import ru.otus.spring.spring.parser.ParserCsv;
-import ru.otus.spring.spring.utils.CsvFile;
-import ru.otus.spring.spring.utils.Helpers;
+import ru.otus.spring.domain.Form;
+import ru.otus.spring.domain.Questionnaire;
+import ru.otus.spring.parser.ParserCsv;
+import ru.otus.spring.utils.CsvFile;
+import ru.otus.spring.utils.Helpers;
 
 import java.io.File;
 import java.util.List;

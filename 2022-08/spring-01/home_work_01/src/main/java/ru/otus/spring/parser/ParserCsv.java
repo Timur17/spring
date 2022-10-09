@@ -1,8 +1,8 @@
-package ru.otus.spring.spring.parser;
+package ru.otus.spring.parser;
 
-import ru.otus.spring.spring.domain.Form;
-import ru.otus.spring.spring.domain.Questionnaire;
-import ru.otus.spring.spring.utils.Helpers;
+import ru.otus.spring.domain.Form;
+import ru.otus.spring.domain.Questionnaire;
+import ru.otus.spring.utils.Helpers;
 
 import java.io.BufferedReader;
 import java.io.IOException;

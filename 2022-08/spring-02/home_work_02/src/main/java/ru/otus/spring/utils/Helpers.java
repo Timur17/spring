@@ -1,4 +1,4 @@
-package ru.otus.spring.spring.utils;
+package ru.otus.spring.utils;
 
 import java.util.regex.Pattern;
 

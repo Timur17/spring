@@ -1,12 +1,12 @@
-package ru.otus.spring.spring.parser;
+package ru.otus.spring.parser;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.otus.spring.spring.Main;
-import ru.otus.spring.spring.form.Form;
-import ru.otus.spring.spring.questionnaire.Questionnaire;
-import ru.otus.spring.spring.utils.CsvFile;
+import ru.otus.spring.Main;
+import ru.otus.spring.form.Form;
+import ru.otus.spring.questionnaire.Questionnaire;
+import ru.otus.spring.utils.CsvFile;
 
 import java.io.File;
 
@@ -17,13 +17,13 @@ class ParserCsvTest {
 
     @BeforeAll
     public static void setUp() {
-//        String path = "src/test/resources/";
-//        File file = new File(path);
-//        if (!file.exists()) {
-//            new CsvFile().createCsvFile(path);
-//        }
-//        assertTrue(file.exists(), "File is not exist: " + path);
-//        context = new AnnotationConfigApplicationContext(Main.class);
+        String path = "src/test/resources/";
+        File file = new File(path);
+        if (!file.exists()) {
+            new CsvFile().createCsvFile(path);
+        }
+        assertTrue(file.exists(), "File is not exist: " + path);
+        context = new AnnotationConfigApplicationContext(Main.class);
     }
 
     @Test

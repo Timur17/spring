@@ -1,4 +1,4 @@
-package ru.otus.spring.spring.questionnaire;
+package ru.otus.spring.questionnaire;
 
 import java.util.List;
 

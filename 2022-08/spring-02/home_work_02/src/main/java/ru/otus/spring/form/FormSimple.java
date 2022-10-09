@@ -1,7 +1,7 @@
-package ru.otus.spring.spring.form;
+package ru.otus.spring.form;
 
 import org.springframework.stereotype.Component;
-import ru.otus.spring.spring.questionnaire.Questionnaire;
+import ru.otus.spring.questionnaire.Questionnaire;
 
 import java.util.List;
 

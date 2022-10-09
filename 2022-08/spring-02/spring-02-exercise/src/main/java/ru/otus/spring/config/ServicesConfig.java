@@ -1,8 +1,8 @@
-package ru.otus.spring.spring.config;
+package ru.otus.spring.config;
 
-import ru.otus.spring.spring.dao.PersonDao;
-import ru.otus.spring.spring.service.PersonService;
-import ru.otus.spring.spring.service.PersonServiceImpl;
+import ru.otus.spring.dao.PersonDao;
+import ru.otus.spring.service.PersonService;
+import ru.otus.spring.service.PersonServiceImpl;
 
 public class ServicesConfig {
 

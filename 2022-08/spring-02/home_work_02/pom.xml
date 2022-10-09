@@ -49,7 +49,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.otus.spring.spring.Main</mainClass>
+                            <mainClass>ru.otus.spring.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

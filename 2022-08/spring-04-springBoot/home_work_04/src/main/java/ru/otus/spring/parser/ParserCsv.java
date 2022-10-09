@@ -36,7 +36,6 @@ public class ParserCsv implements Parser {
     public Form parseFile() {
         List<Questionnaire> questionnaireList = new ArrayList<>();
         int countLines = 0;
-        System.out.println("Test::: " + appProps);
         try (InputStream inputStream = Parser.class.getClassLoader().getResourceAsStream(appProps.getFile());
              BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String line;
@@ -74,11 +73,6 @@ public class ParserCsv implements Parser {
         }
         return Integer.parseInt(values.get(0));
     }
-
-//    public String getFileWithData() {
-//        return fileWithData;
-//    }
-
 
     public Form getForm() {
         return form;

@@ -34,5 +34,6 @@ public class LocalQuestionnaireFile {
         props.getMessages().setMsgYourLastName(messageLocalized8);
         var messageLocalized9 = messageSource.getMessage("msg.student", null, props.getLocale());
         props.getMessages().setMsgStudent(messageLocalized9);
+        System.out.println("Prop after init:  " + props);
     }
 }

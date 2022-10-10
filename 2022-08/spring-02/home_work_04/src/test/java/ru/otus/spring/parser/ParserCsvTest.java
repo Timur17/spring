@@ -22,6 +22,7 @@ import ru.otus.spring.form.FormSimple;
 import ru.otus.spring.questionnaire.Questionnaire;
 import ru.otus.spring.services.Converter;
 import ru.otus.spring.services.LocalQuestionnaireFile;
+import ru.otus.spring.utils.Checker;
 import ru.otus.spring.utils.CsvFile;
 
 import java.io.File;
@@ -29,9 +30,12 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@RunWith(SpringRunner.class)
 @EnableConfigurationProperties(AppProps.class)
-@SpringBootTest(classes = {FormSimple.class, Messages.class ,  LocalQuestionnaireFile.class, Converter.class, MessageSource.class})
+//@TestPropertySource(locations = "classpath:i18n/appmessages.properties")
+@SpringBootTest(classes = {FormSimple.class, Messages.class ,
+        LocalQuestionnaireFile.class, Converter.class,
+        MessageSource.class, Checker.class})
+//@SpringBootTest
 class ParserCsvTest {
 
     @Autowired
@@ -44,12 +48,15 @@ class ParserCsvTest {
     private Messages messages;
     @Autowired
     private LocalQuestionnaireFile localQuestionnaireFile;
+    @Autowired
+    private Checker checker;
 
     @Test
     public void parseFileTest() {
         localQuestionnaireFile.init();
-        ParserCsv parser = new ParserCsv(form, converter, appProps);
-        Form form = parser.parseFile();
+        ParserCsv parser = new ParserCsv(checker, converter, appProps);
+        Form form = new FormSimple();
+        parser.parseFile(form);
 
         assertNotNull(form.getColumnNames());
         assertEquals(form.getColumnNames().size(), 6);

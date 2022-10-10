@@ -10,7 +10,6 @@ import ru.otus.spring.services.ConsoleIOService;
 import java.util.List;
 
 public class StudentService implements PersonService {
-    private final String OWN_RESPONSE = "Own response";
     private final Person person;
     private final Form form;
     private final ConsoleIOService consoleIOService;
@@ -57,7 +56,7 @@ public class StudentService implements PersonService {
             try {
                 numberResp = consoleIOService.readInt();
             } catch (NumberFormatException e) {
-                consoleIOService.outputString("Enter correct number.");
+                consoleIOService.outputString(props.getMessages().getMsgEnterCorrectNumber());
             }
         }
         return numberResp;

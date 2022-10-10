@@ -12,6 +12,8 @@ public class Messages {
     private String msgYourFirstName;
     private String msgYourLastName;
     private String msgStudent;
+    private String msgEnterCorrectNumber;
+    private String msgIdIsNotInt;
 
     public String getOwnResponse() {
         return ownResponse;
@@ -77,6 +79,22 @@ public class Messages {
         this.msgStudent = msgStudent;
     }
 
+    public String getMsgEnterCorrectNumber() {
+        return msgEnterCorrectNumber;
+    }
+
+    public void setMsgEnterCorrectNumber(String msgEnterCorrectNumber) {
+        this.msgEnterCorrectNumber = msgEnterCorrectNumber;
+    }
+
+    public String getMsgIdIsNotInt() {
+        return msgIdIsNotInt;
+    }
+
+    public void setMsgIdIsNotInt(String msgIdIsNotInt) {
+        this.msgIdIsNotInt = msgIdIsNotInt;
+    }
+
     @Override
     public String toString() {
         return "Messages{" +
@@ -88,6 +106,8 @@ public class Messages {
                 ", msgYourFirstName='" + msgYourFirstName + '\'' +
                 ", msgYourLastName='" + msgYourLastName + '\'' +
                 ", msgStudent='" + msgStudent + '\'' +
+                ", msgEnterCorrectNumber='" + msgEnterCorrectNumber + '\'' +
+                ", msgIdIsNotInt='" + msgIdIsNotInt + '\'' +
                 '}';
     }
 }

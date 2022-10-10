@@ -3,13 +3,13 @@ package ru.otus.spring.questionnaire;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentQuestionnaire implements Questionnaire{
+public class QuestionnaireService implements Questionnaire{
     private final int id;
     private String question;
     private final List<String> responses = new ArrayList<>();
     private String selectedAnswer;
 
-    public StudentQuestionnaire(int id) {
+    public QuestionnaireService(int id) {
         this.id = id;
     }
 

@@ -1,12 +1,9 @@
 package ru.otus.spring.form;
 
-import org.springframework.stereotype.Component;
 import ru.otus.spring.questionnaire.Questionnaire;
-
 
 import java.util.List;
 
-@Component
 public class FormSimple implements Form {
     private List<Questionnaire> questionnaires;
     private List<String> columnNames;

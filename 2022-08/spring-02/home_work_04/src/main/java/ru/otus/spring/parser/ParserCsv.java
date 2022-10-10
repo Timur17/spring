@@ -1,15 +1,13 @@
 package ru.otus.spring.parser;
 
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.otus.spring.configs.AppProps;
 import ru.otus.spring.form.Form;
 import ru.otus.spring.questionnaire.Questionnaire;
-import ru.otus.spring.questionnaire.StudentQuestionnaire;
+import ru.otus.spring.questionnaire.QuestionnaireService;
 import ru.otus.spring.services.Converter;
-import ru.otus.spring.utils.Helpers;
-
+import ru.otus.spring.utils.Checker;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,19 +19,18 @@ import java.util.List;
 
 @Component
 public class ParserCsv implements Parser {
-//    private String fileWithData;
-    private final Form form;
     private final Converter converter;
     private final AppProps appProps;
+    private final Checker checker;
 
-    public ParserCsv(Form form, Converter converter, AppProps appProps) {
-        this.form = form;
+    public ParserCsv(Checker checker, Converter converter, AppProps appProps) {
         this.converter = converter;
         this.appProps = appProps;
+        this.checker = checker;
     }
 
     @Override
-    public Form parseFile() {
+    public void parseFile(Form form) {
         List<Questionnaire> questionnaireList = new ArrayList<>();
         int countLines = 0;
         try (InputStream inputStream = Parser.class.getClassLoader().getResourceAsStream(appProps.getFile());
@@ -52,29 +49,24 @@ public class ParserCsv implements Parser {
             e.printStackTrace();
         }
         form.setQuestionnaires(questionnaireList);
-        return form;
     }
 
 
-    private StudentQuestionnaire parseLine(List<String> values) {
+    private QuestionnaireService parseLine(List<String> values) {
         int id = parseId(values);
-        StudentQuestionnaire studentQuestionnaire = new StudentQuestionnaire(id);
-        studentQuestionnaire.setQuestion(values.get(1));
+        QuestionnaireService questionnaireService = new QuestionnaireService(id);
+        questionnaireService.setQuestion(values.get(1));
         for (int i = 2; i < values.size(); i++) {
-            studentQuestionnaire.addResponse(values.get(i));
+            questionnaireService.addResponse(values.get(i));
         }
-        return studentQuestionnaire;
+        return questionnaireService;
     }
 
     private int parseId(List<String> values) {
-        if (!Helpers.isStringDigits(values.get(0))) {
-            System.out.println(String.format("ERROR: id is not int so id will be set as -1. Line: ", values));
+        if (!checker.isStringPositiveDigits(values.get(0))) {
+            System.out.println(String.format(appProps.getMessages().getMsgIdIsNotInt(), values));
             return -1;
         }
         return Integer.parseInt(values.get(0));
-    }
-
-    public Form getForm() {
-        return form;
     }
 }

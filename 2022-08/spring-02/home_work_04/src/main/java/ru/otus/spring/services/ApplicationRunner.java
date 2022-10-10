@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.otus.spring.configs.AppProps;
 import ru.otus.spring.domain.Person;
 import ru.otus.spring.form.Form;
+import ru.otus.spring.form.FormSimple;
 import ru.otus.spring.parser.Parser;
 import ru.otus.spring.services.person.PersonService;
 import ru.otus.spring.services.person.StudentService;
@@ -26,10 +27,10 @@ public class ApplicationRunner implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         localQuestionnaireFile.init();
-        parser.parseFile();
-        Form form = parser.getForm();
+        FormSimple form = new FormSimple();
+        parser.parseFile(form);
 
         PersonService student = new StudentService(form, consoleIOService, new Person(), props);
         student.askName();

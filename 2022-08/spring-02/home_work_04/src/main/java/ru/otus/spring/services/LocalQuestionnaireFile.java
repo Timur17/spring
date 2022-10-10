@@ -34,6 +34,10 @@ public class LocalQuestionnaireFile {
         props.getMessages().setMsgYourLastName(messageLocalized8);
         var messageLocalized9 = messageSource.getMessage("msg.student", null, props.getLocale());
         props.getMessages().setMsgStudent(messageLocalized9);
+        var messageLocalized10 = messageSource.getMessage("msg.enter.correct.number", null, props.getLocale());
+        props.getMessages().setMsgEnterCorrectNumber(messageLocalized10);
+        var messageLocalized11 = messageSource.getMessage("msg.id.is.not.int", null, props.getLocale());
+        props.getMessages().setMsgIdIsNotInt(messageLocalized11);
         System.out.println("Prop after init:  " + props);
     }
 }

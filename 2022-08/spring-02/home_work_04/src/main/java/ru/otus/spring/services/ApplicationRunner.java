@@ -15,26 +15,28 @@ import ru.otus.spring.services.person.StudentService;
 public class ApplicationRunner implements CommandLineRunner {
     private final Parser parser;
     private final ConsoleIOService consoleIOService;
-    private final AppProps props;
     private final LocalQuestionnaireFile localQuestionnaireFile;
+    private final StudentService studentService;
 
     public ApplicationRunner(Parser parser, ConsoleIOService consoleIOService,
-                             AppProps props, LocalQuestionnaireFile localQuestionnaireFile) {
+                             LocalQuestionnaireFile localQuestionnaireFile,
+                             StudentService studentService) {
         this.parser = parser;
         this.consoleIOService = consoleIOService;
-        this.props = props;
         this.localQuestionnaireFile = localQuestionnaireFile;
+        this.studentService = studentService;
     }
 
     @Override
     public void run(String... args) {
         localQuestionnaireFile.init();
+
         FormSimple form = new FormSimple();
         parser.parseFile(form);
 
-        PersonService student = new StudentService(form, consoleIOService, new Person(), props);
-        student.askName();
-        student.askQuestion();
-        student.printResult();
+        Person person = new Person();
+        studentService.askName(person);
+        studentService.askQuestion(form);
+        studentService.printResult(form, person);
     }
 }

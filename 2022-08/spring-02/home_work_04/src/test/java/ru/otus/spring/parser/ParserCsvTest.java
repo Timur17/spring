@@ -20,8 +20,10 @@ import ru.otus.spring.configs.Messages;
 import ru.otus.spring.form.Form;
 import ru.otus.spring.form.FormSimple;
 import ru.otus.spring.questionnaire.Questionnaire;
+import ru.otus.spring.services.ConsoleIOService;
 import ru.otus.spring.services.Converter;
 import ru.otus.spring.services.LocalQuestionnaireFile;
+import ru.otus.spring.services.person.StudentService;
 import ru.otus.spring.utils.Checker;
 import ru.otus.spring.utils.CsvFile;
 
@@ -31,31 +33,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @EnableConfigurationProperties(AppProps.class)
-//@TestPropertySource(locations = "classpath:i18n/appmessages.properties")
-@SpringBootTest(classes = {FormSimple.class, Messages.class ,
-        LocalQuestionnaireFile.class, Converter.class,
-        MessageSource.class, Checker.class})
+@SpringBootTest(classes = {Messages.class, LocalQuestionnaireFile.class,
+        MessageSource.class, ParserCsv.class, ConsoleIOService.class,
+         Checker.class, Converter.class})
 //@SpringBootTest
 class ParserCsvTest {
-
     @Autowired
-    private Form form;
+    private ParserCsv parser;
     @Autowired
-    private Converter converter;
-    @Autowired
-    private AppProps appProps;
-    @Autowired
-    private Messages messages;
+    private ConsoleIOService consoleIOService;
     @Autowired
     private LocalQuestionnaireFile localQuestionnaireFile;
-    @Autowired
-    private Checker checker;
 
     @Test
     public void parseFileTest() {
         localQuestionnaireFile.init();
-        ParserCsv parser = new ParserCsv(checker, converter, appProps);
-        Form form = new FormSimple();
+        FormSimple form = new FormSimple();
         parser.parseFile(form);
 
         assertNotNull(form.getColumnNames());

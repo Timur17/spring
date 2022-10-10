@@ -1,6 +1,7 @@
 package ru.otus.spring.services.person;
 
 
+import org.springframework.stereotype.Component;
 import ru.otus.spring.configs.AppProps;
 import ru.otus.spring.domain.Person;
 import ru.otus.spring.form.Form;
@@ -9,26 +10,23 @@ import ru.otus.spring.services.ConsoleIOService;
 
 import java.util.List;
 
+@Component
 public class StudentService implements PersonService {
-    private final Person person;
-    private final Form form;
     private final ConsoleIOService consoleIOService;
     private final AppProps props;
 
 
-    public StudentService(Form form, ConsoleIOService consoleIOService, Person person, AppProps props) {
-        this.form = form;
+    public StudentService(ConsoleIOService consoleIOService, AppProps props) {
         this.consoleIOService = consoleIOService;
-        this.person = person;
         this.props = props;
     }
 
-    public void askName() {
+    public void askName(Person person) {
         person.setFirstName(consoleIOService.readStringWithPrompt(props.getMessages().getMsgYourFirstName()));
         person.setLastName(consoleIOService.readStringWithPrompt(props.getMessages().getMsgYourLastName()));
     }
 
-    public void askQuestion() {
+    public void askQuestion(Form form) {
         for (int i = 0; i < form.getQuestionnaires().size(); i++) {
             Questionnaire questionnaire = form.getQuestionnaires().get(i);
             consoleIOService.outputString(props.getMessages().getMsgQuestion() + " " + questionnaire.getId() + ": " + questionnaire.getQuestion());
@@ -77,11 +75,11 @@ public class StudentService implements PersonService {
         return numberResp;
     }
 
-    public void printResult() {
+    public void printResult(Form form, Person person) {
         consoleIOService.outputString(props.getMessages().getMsgStudent() + ": " + person.getFirstName() + " " + person.getLastName() + "\n");
         for (int i = 0; i < form.getQuestionnaires().size(); i++) {
             consoleIOService.outputString(props.getMessages().getMsgQuestion() + " " + form.getQuestionnaires().get(i).getId() + ": " + form.getQuestionnaires().get(i).getQuestion());
-            consoleIOService.outputString(props.getMessages().getMsgAnswer() +  " : " +
+            consoleIOService.outputString(props.getMessages().getMsgAnswer() + " : " +
                     form.getQuestionnaires().get(i).getSelectedAnswer() + "\n");
         }
     }

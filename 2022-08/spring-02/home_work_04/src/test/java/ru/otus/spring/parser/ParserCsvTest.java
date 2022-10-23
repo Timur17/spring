@@ -1,53 +1,69 @@
 package ru.otus.spring.parser;
 
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.spring.Main;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.spring.configs.AppProps;
 import ru.otus.spring.configs.Messages;
-import ru.otus.spring.form.Form;
 import ru.otus.spring.form.FormSimple;
 import ru.otus.spring.questionnaire.Questionnaire;
-import ru.otus.spring.services.ConsoleIOService;
-import ru.otus.spring.services.Converter;
-import ru.otus.spring.services.LocalQuestionnaireFile;
-import ru.otus.spring.services.person.StudentService;
-import ru.otus.spring.utils.Checker;
-import ru.otus.spring.utils.CsvFile;
-
-import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
 
-@EnableConfigurationProperties(AppProps.class)
-@SpringBootTest(classes = {Messages.class, LocalQuestionnaireFile.class,
-        MessageSource.class, ParserCsv.class, ConsoleIOService.class,
-         Checker.class, Converter.class})
-//@SpringBootTest
+@SpringBootTest
 class ParserCsvTest {
+
     @Autowired
     private ParserCsv parser;
-    @Autowired
-    private ConsoleIOService consoleIOService;
-    @Autowired
-    private LocalQuestionnaireFile localQuestionnaireFile;
+
+    @MockBean
+    private AppProps appProps;
+
+    @MockBean
+    private Messages messages;
 
     @Test
     public void parseFileTest() {
-        localQuestionnaireFile.init();
+        given(appProps.getFile()).willReturn("questionEnTest.csv");
+
+        FormSimple form = new FormSimple();
+        parser.parseFile(form);
+
+        assertNotNull(form.getColumnNames());
+        assertEquals(form.getColumnNames().size(), 6);
+        assertNotNull(form.getQuestionnaires());
+        assertEquals(form.getQuestionnaires().size(), 5);
+        for (int i = 0; i < form.getQuestionnaires().size(); i++) {
+            Questionnaire studentQuestionnaire = form.getQuestionnaires().get(i);
+            assertEquals(studentQuestionnaire.getId(), i + 1, "Invalid questionnaire: " + studentQuestionnaire);
+            assertNotNull(studentQuestionnaire.getQuestion(), "Invalid questionnaire: " + studentQuestionnaire);
+            assertTrue(studentQuestionnaire.getQuestion().length() > 0);
+            assertTrue(studentQuestionnaire.getResponses().size() > 0);
+        }
+    }
+
+    @Test
+    public void parseFileIncorrectIdTest() {
+        given(messages.getMsgIdIsNotInt()).willReturn("ERROR: id is not int so id will be set as -1. Line:");
+        given(appProps.getFile()).willReturn("questionIncorrectId.csv");
+        given(appProps.getMessages()).willReturn(messages);
+
+
+        System.out.println(appProps.getFile());
+        FormSimple form = new FormSimple();
+        parser.parseFile(form);
+
+        Questionnaire studentQuestionnaire = form.getQuestionnaires().get(0);
+        assertEquals(studentQuestionnaire.getId(), -1, "Invalid questionnaire: " + studentQuestionnaire);
+    }
+
+    @Test
+    public void parseFileRuTest() {
+        given(appProps.getFile()).willReturn("questionRuTest.csv");
         FormSimple form = new FormSimple();
         parser.parseFile(form);
 

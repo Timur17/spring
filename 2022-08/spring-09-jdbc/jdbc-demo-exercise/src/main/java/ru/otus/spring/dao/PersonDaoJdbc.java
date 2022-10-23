@@ -1,10 +1,15 @@
 package ru.otus.spring.dao;
 
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.domain.Person;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Repository
 public class PersonDaoJdbc implements PersonDao {
@@ -17,26 +22,38 @@ public class PersonDaoJdbc implements PersonDao {
 
     @Override
     public int count() {
-        return 0;
+        Integer count = jdbc.queryForObject("select count(*) from persons", Integer.class);
+        return isNull(count) ? 0: count;
     }
 
     @Override
     public void insert(Person person) {
-
+        jdbc.update("INSERT INTO persons (id, name) values (?, ?)", person.getId(), person.getName());
     }
 
     @Override
     public Person getById(long id) {
-        return null;
+        return jdbc.queryForObject("select id, name from persons where id = ?",
+                 new PersonMapper(), id);
     }
 
     @Override
     public List<Person> getAll() {
-        return null;
+        return jdbc.query("select id, name from persons",  new PersonMapper());
     }
 
     @Override
     public void deleteById(long id) {
+        jdbc.update("delete from persons where id = ?", id);
+    }
 
+    private static class PersonMapper implements RowMapper<Person> {
+
+        @Override
+        public Person mapRow(ResultSet resultSet, int i) throws SQLException {
+            long id = resultSet.getLong("id");
+            String name = resultSet.getString("name");
+            return new Person(id, name);
+        }
     }
 }

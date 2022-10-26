@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
+import ru.otus.spring.domain.BookAuthor;
+import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.BookGenre;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("Dao для работы с пёрсонами должно")
+@DisplayName("Dao для работы с книками должно")
 @JdbcTest
 @Import(BookDaoJdbc.class)
 class BookDaoJdbcTest {
@@ -29,8 +32,8 @@ class BookDaoJdbcTest {
     @DisplayName("возвращать ожидаемое количество книг из БД")
     @Test
     void shouldReturnExpectedBookCount() {
-        int actualИщщлыCount = bookDaoJdbc.count();
-        assertThat(actualИщщлыCount).isEqualTo(EXPECTED_BOOKS_COUNT);
+        int actualBookCount = bookDaoJdbc.count();
+        assertThat(actualBookCount).isEqualTo(EXPECTED_BOOKS_COUNT);
     }
 
     @DisplayName("добавлять книгу в БД")
@@ -40,9 +43,7 @@ class BookDaoJdbcTest {
         assertThat(countBeforeInsert).isEqualTo(EXPECTED_BOOKS_COUNT);
 
         String title = "testTitle";
-        String author = "testAuthor";
-        String genre = "testGenre";
-        Book expectedBook = new Book(title, author, genre);
+        Book expectedBook = new Book(title, "testAuthor", "testGenre");
         int newId = bookDaoJdbc.insert(expectedBook);
 
         Book actualBook = bookDaoJdbc.getById(newId);
@@ -78,6 +79,20 @@ class BookDaoJdbcTest {
     void shouldReturnExpectedBookById() {
         Book actualBook = bookDaoJdbc.getById(EXISTING_BOOK_ID);
         assertThat(actualBook.getId()).usingRecursiveComparison().isEqualTo(EXISTING_BOOK_ID);
+    }
+
+    @DisplayName("возвращать ожидаемую книгу по Атору")
+    @Test
+    void shouldReturnExpectedBookByAuthor() {
+        List<Book> actualBook = bookDaoJdbc.getByAuthor(EXISTING_BOOK_AUTHOR);
+        assertThat(actualBook.size()).isEqualTo(EXPECTED_BOOKS_COUNT);
+    }
+
+    @DisplayName("возвращать ожидаемую книгу по Жанру")
+    @Test
+    void shouldReturnExpectedBookByGenre() {
+        List<Book> actualBook = bookDaoJdbc.getByGenre(EXISTING_BOOK_GENRE);
+        assertThat(actualBook.size()).isEqualTo(EXPECTED_BOOKS_COUNT);
     }
 
     @DisplayName("удалять заданного книгу по ее id")

@@ -7,6 +7,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.otus.spring.domain.BookAuthor;
+import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.BookGenre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,7 +45,6 @@ public class BookDaoJdbc implements BookDao {
         int id = isNull(keyHolder.getKey()) ? 0 : keyHolder.getKey().intValue();
         book.setId(id);
         return id;
-
     }
 
     @Override
@@ -61,6 +63,18 @@ public class BookDaoJdbc implements BookDao {
     public Book getById(long id) {
         return jdbc.queryForObject("select id, title, author, genre from books where id = :id",
                 Map.of("id", id), new BookMapper());
+    }
+
+    @Override
+    public List<Book> getByAuthor(String author) {
+        return jdbc.query("select id, title, author, genre from books where author = :author",
+                Map.of("author", author), new BookMapper());
+    }
+
+    @Override
+    public  List<Book> getByGenre(String genre) {
+        return jdbc.query("select id, title, author, genre from books where genre = :genre",
+                Map.of("genre", genre), new BookMapper());
     }
 
     @Override

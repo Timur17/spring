@@ -3,7 +3,7 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
-import ru.otus.spring.dao.Book;
+import ru.otus.spring.domain.Book;
 import ru.otus.spring.dao.BookDaoJdbc;
 
 import java.util.List;
@@ -12,13 +12,13 @@ import java.util.List;
 @Controller
 public class ShellBookService implements BookService {
 
-    private final String COMMAND_HELP = "help";
-    private final String COMMAND_COUNT = "count";
-    private final String COMMAND_INSERT = "insert";
-    private final String COMMAND_UPDATE = "update";
-    private final String COMMAND_DELETE = "delete";
-    private final String COMMAND_GET_ALL = "getAll";
-    private final String COMMAND_GET = "get";
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_COUNT = "count";
+    private static final String COMMAND_INSERT = "insert";
+    private static final String COMMAND_UPDATE = "update";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_GET_ALL = "getAll";
+    private static final String COMMAND_GET = "get";
     private final BookDaoJdbc bookDaoJdbc;
 
     public ShellBookService(BookDaoJdbc bookDaoJdbc) {
@@ -44,9 +44,9 @@ public class ShellBookService implements BookService {
 
     @Override
     @ShellMethod(value = "Insert book", key = {"insert"})
-    public int insert(String title, String author, String genre) {
+    public void insert(String title, String author, String genre) {
         Book book = new Book(title, author, genre);
-        return bookDaoJdbc.insert(book);
+        bookDaoJdbc.insert(book);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ShellBookService implements BookService {
     @Override
     @ShellMethod(value = "Get all books", key = {"getAll"})
     public void getAll() {
-        System.out.println("All books: " + bookDaoJdbc.getAll());
+      bookDaoJdbc.getAll().forEach(System.out::println);
     }
 
     @Override
@@ -73,4 +73,5 @@ public class ShellBookService implements BookService {
     public void getById(int id) {
         System.out.println("All books: " + bookDaoJdbc.getById(id));
     }
+
 }

@@ -7,7 +7,7 @@ public interface BookService {
 
     int count();
 
-    int insert(String title, String author, String genre);
+    void insert(String title, String author, String genre);
 
     void update(String title, String author, String genre, int id);
 

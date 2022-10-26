@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
-import ru.otus.spring.domain.BookAuthor;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.domain.BookGenre;
 
 import java.util.List;
 
@@ -61,14 +59,15 @@ class BookDaoJdbcTest {
         String title = "testTitle";
         String author = "testAuthor";
         String genre = "testGenre";
-        Book  expectedBook = new Book(title, author, genre);
+        Book expectedBook = new Book(title, author, genre);
 
         bookDaoJdbc.updateById(expectedBook, EXISTING_BOOK_ID);
         expectedBook.setId(EXISTING_BOOK_ID);
 
-        Book actualBook = bookDaoJdbc.getById(EXISTING_BOOK_ID);
+        int countAfterInsert = bookDaoJdbc.count();
+        assertThat(countAfterInsert).isEqualTo(EXPECTED_BOOKS_COUNT);
 
-        System.out.println("Test::: " + expectedBook);
+        Book actualBook = bookDaoJdbc.getById(EXISTING_BOOK_ID);
 
         assertThat(bookDaoJdbc.count()).isEqualTo(EXPECTED_BOOKS_COUNT);
         assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);

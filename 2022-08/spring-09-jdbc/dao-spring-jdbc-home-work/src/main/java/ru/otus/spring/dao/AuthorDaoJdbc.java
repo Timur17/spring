@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.BookAuthor;
 
 import java.sql.ResultSet;
@@ -44,9 +43,6 @@ public class AuthorDaoJdbc implements AuthorDao {
                 params, keyHolder);
         int id = isNull(keyHolder.getKey()) ? 0 : keyHolder.getKey().intValue();
         bookAuthor.setId(id);
-//        for (Book book :bookAuthor.getBooks()) {
-//            bookDaoJdbc.insert(book);
-//        }
         return id;
     }
 
@@ -54,9 +50,6 @@ public class AuthorDaoJdbc implements AuthorDao {
     public void updateById(BookAuthor bookAuthor, int id) {
         jdbc.update("update AUTHORS set author = :author where id = :id",
                 Map.of("id", id, "author", bookAuthor.getAuthor()));
-//        for (Book book :bookAuthor.getBooks()) {
-//            bookDaoJdbc.updateById(book, book.getId());
-//        }
     }
 
     @Override
@@ -66,9 +59,8 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public BookAuthor getById(long id) {
-        BookAuthor bookAuthor =  jdbc.queryForObject("select id, author from AUTHORS where id = :id",
+        BookAuthor bookAuthor = jdbc.queryForObject("select id, author from AUTHORS where id = :id",
                 Map.of("id", id), new AuthorMapper());
-//        bookAuthor.setBooks(bookDaoJdbc.getByAuthor(bookAuthor.getAuthor()));
         return bookAuthor;
     }
 

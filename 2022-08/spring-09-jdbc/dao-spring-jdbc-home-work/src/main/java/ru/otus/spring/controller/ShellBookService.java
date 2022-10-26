@@ -3,75 +3,66 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
-import ru.otus.spring.domain.Book;
-import ru.otus.spring.dao.BookDaoJdbc;
-
-import java.util.List;
+import ru.otus.spring.service.BookService;
 
 @ShellComponent
 @Controller
-public class ShellBookService implements BookService {
+public class ShellBookService {
 
-    private static final String COMMAND_HELP = "help";
-    private static final String COMMAND_COUNT = "count";
-    private static final String COMMAND_INSERT = "insert";
-    private static final String COMMAND_UPDATE = "update";
-    private static final String COMMAND_DELETE = "delete";
-    private static final String COMMAND_GET_ALL = "getAll";
-    private static final String COMMAND_GET = "get";
-    private final BookDaoJdbc bookDaoJdbc;
+    private final BookService bookService;
 
-    public ShellBookService(BookDaoJdbc bookDaoJdbc) {
-        this.bookDaoJdbc = bookDaoJdbc;
+    public ShellBookService(BookService bookService) {
+        this.bookService = bookService;
     }
 
 
-    @ShellMethod(value = "Help", key = {"help"})
-    public void help() {
-        List<String> commands = List.of(COMMAND_HELP, COMMAND_COUNT, COMMAND_INSERT,
-                COMMAND_UPDATE, COMMAND_DELETE, COMMAND_GET_ALL, COMMAND_GET);
-        System.out.println("Available commands: ");
-        commands.stream().forEach(command -> System.out.println(command));;
-    }
-
-    @Override
-    @ShellMethod(value = "Count books", key = {"count"})
+    @ShellMethod(value = "Count books", key = {"count", "c"})
     public int count() {
-        int count = bookDaoJdbc.count();
+        int count = bookService.count();
         System.out.println("Amount books: " + count);
         return count;
     }
 
-    @Override
-    @ShellMethod(value = "Insert book", key = {"insert"})
+
+    @ShellMethod(value = "Insert book", key = {"insertBook", "ib"})
     public void insert(String title, String author, String genre) {
-        Book book = new Book(title, author, genre);
-        bookDaoJdbc.insert(book);
+        bookService.insert(title, author, genre);
     }
 
-    @Override
-    @ShellMethod(value = "Update book by id", key = {"update"})
+
+    @ShellMethod(value = "Update book by id", key = {"updateBook", "ub"})
     public void update(String title, String author, String genre, int id) {
-        Book book = new Book(title, author, genre);
-        bookDaoJdbc.updateById(book, id);
+        bookService.updateById(title, author, genre, id);
     }
 
-    @Override
-    @ShellMethod(value = "Delete book", key = {"delete"})
+
+    @ShellMethod(value = "Delete book", key = {"deleteBook", "db"})
     public void deleteById(int id) {
-        bookDaoJdbc.deleteById(id);
+        bookService.deleteById(id);
     }
 
-    @Override
-    @ShellMethod(value = "Get all books", key = {"getAll"})
+    @ShellMethod(value = "Get all books", key = {"getAllBook", "gab"})
     public void getAll() {
-      bookDaoJdbc.getAll().forEach(System.out::println);
+        System.out.println("All books in library:");
+        bookService.getAll().forEach(System.out::println);
     }
 
-    @Override
-    @ShellMethod(value = "Get book by id", key = {"get"})
+
+    @ShellMethod(value = "Get book by id", key = {"getBook", "gb"})
     public void getById(int id) {
-        System.out.println("All books: " + bookDaoJdbc.getById(id));
+        System.out.println("books with id : " + id + " is " + bookService.getById(id));
+    }
+
+    @ShellMethod(value = "Get books by author", key = {"getByAuthor", "gba"})
+    public void getByAuthor(String author) {
+        System.out.println("Books for author " + author);
+        bookService.getByAuthor(author).forEach(System.out::println);
+    }
+
+    @ShellMethod(value = "Get books by genre", key = {"getByGenre", "gbg"})
+    public void getByGenre(String genre) {
+        System.out.println("Books for genre " + genre);
+        bookService.getByGenre(genre).forEach(System.out::println);
     }
 
 }

@@ -7,9 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import ru.otus.spring.domain.BookAuthor;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.domain.BookGenre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,7 +70,7 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public  List<Book> getByGenre(String genre) {
+    public List<Book> getByGenre(String genre) {
         return jdbc.query("select id, title, author, genre from books where genre = :genre",
                 Map.of("genre", genre), new BookMapper());
     }

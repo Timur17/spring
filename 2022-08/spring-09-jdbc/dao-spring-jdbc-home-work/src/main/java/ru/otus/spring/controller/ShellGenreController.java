@@ -46,7 +46,7 @@ public class ShellGenreController {
     @ShellMethod(value = "Get all genres", key = {"getAllGenres", "gag"})
     public void getAll() {
         System.out.println("All Genres in library:");
-        genreService.getAll().forEach(System.out::println);
+        genreService.getAll().forEach(genre -> System.out.println(genre.getGenre()));
     }
 
 

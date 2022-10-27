@@ -46,7 +46,7 @@ public class ShellAuthorController {
     @ShellMethod(value = "Get all authors", key = {"getAllAuthors", "gaa"})
     public void getAll() {
         System.out.println("All Authors in library:");
-        authorService.getAll().forEach(System.out::println);
+        authorService.getAll().forEach(author -> System.out.println(author.getAuthor()));
     }
 
 

@@ -3,15 +3,16 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
+import ru.otus.spring.domain.Book;
 import ru.otus.spring.service.BookService;
 
 @ShellComponent
 @Controller
-public class ShellBookService {
+public class ShellBookController {
 
     private final BookService bookService;
 
-    public ShellBookService(BookService bookService) {
+    public ShellBookController(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -26,7 +27,8 @@ public class ShellBookService {
 
     @ShellMethod(value = "Insert book", key = {"insertBook", "ib"})
     public void insert(String title, String author, String genre) {
-        bookService.insert(title, author, genre);
+        int id = bookService.insert(title, author, genre);
+        System.out.println("Book was added with id: " + id);
     }
 
 

@@ -1,18 +1,26 @@
 package ru.otus.spring.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.spring.dao.BookDaoJdbc;
+import ru.otus.spring.dao.AuthorDao;
+import ru.otus.spring.dao.BookDao;
+import ru.otus.spring.dao.GenreDao;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.BookAuthor;
+import ru.otus.spring.domain.BookGenre;
 
 import java.util.List;
 
 @Service
 public class BookServeceImpl implements BookService {
 
-    private final BookDaoJdbc bookDaoJdbc;
+    private final BookDao bookDaoJdbc;
+    private final AuthorDao authorDao;
+    private final GenreDao genreDao;
 
-    public BookServeceImpl(BookDaoJdbc bookDaoJdbc) {
-        this.bookDaoJdbc = bookDaoJdbc;
+    public BookServeceImpl(BookDao bookDao, AuthorDao authorDao, GenreDao genreDao) {
+        this.authorDao = authorDao;
+        this.bookDaoJdbc = bookDao;
+        this.genreDao = genreDao;
     }
 
     @Override
@@ -23,6 +31,8 @@ public class BookServeceImpl implements BookService {
     @Override
     public int insert(String title, String author, String genre) {
         Book book = new Book(title, author, genre);
+        authorDao.insert(new BookAuthor(author));
+        genreDao.insert(new BookGenre(genre));
         return bookDaoJdbc.insert(book);
     }
 

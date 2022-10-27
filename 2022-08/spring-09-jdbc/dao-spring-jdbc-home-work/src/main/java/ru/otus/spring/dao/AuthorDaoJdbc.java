@@ -20,11 +20,9 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     private final NamedParameterJdbcOperations jdbc;
 
-    private final BookDaoJdbc bookDaoJdbc;
 
-    public AuthorDaoJdbc(NamedParameterJdbcOperations jdbcOperations, BookDaoJdbc bookDaoJdbc) {
+    public AuthorDaoJdbc(NamedParameterJdbcOperations jdbcOperations) {
         this.jdbc = jdbcOperations;
-        this.bookDaoJdbc = bookDaoJdbc;
     }
 
     @Override

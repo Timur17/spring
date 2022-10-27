@@ -18,4 +18,6 @@ public interface AuthorService {
     List<BookAuthor> getAll();
 
     BookAuthor getById(int id);
+
+    BookAuthor getByIdAllHisBook(int id);
 }

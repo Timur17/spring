@@ -1,6 +1,7 @@
 package ru.otus.spring.service;
 
 import org.springframework.stereotype.Service;
+import ru.otus.spring.dao.BookDao;
 import ru.otus.spring.dao.GenreDao;
 import ru.otus.spring.domain.BookGenre;
 
@@ -10,8 +11,10 @@ import java.util.List;
 public class GenreServiceImpl implements GenreService {
 
     private final GenreDao genreDao;
+    private final BookDao bookDaoJdbc;
 
-    public GenreServiceImpl(GenreDao genreDao) {
+    public GenreServiceImpl(GenreDao genreDao, BookDao bookDaoJdbc) {
+        this.bookDaoJdbc = bookDaoJdbc;
         this.genreDao = genreDao;
     }
 
@@ -43,5 +46,12 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public BookGenre getById(int id) {
         return genreDao.getById(id);
+    }
+
+    @Override
+    public BookGenre getByIdAllBooks(int id) {
+        BookGenre bookGenre = genreDao.getById(id);
+        bookGenre.setBooks(bookDaoJdbc.getByGenre(bookGenre.getGenre()));
+        return bookGenre;
     }
 }

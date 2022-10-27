@@ -9,7 +9,7 @@ import ru.otus.spring.domain.BookAuthor;
 import java.util.List;
 
 @Service
-public class AuthorServiceImpl implements AuthorService{
+public class AuthorServiceImpl implements AuthorService {
     private final BookDao bookDaoJdbc;
     private final AuthorDao authorDao;
     private final GenreDao genreDao;
@@ -48,5 +48,12 @@ public class AuthorServiceImpl implements AuthorService{
     @Override
     public BookAuthor getById(int id) {
         return authorDao.getById(id);
+    }
+
+    @Override
+    public BookAuthor getByIdAllHisBook(int id) {
+        BookAuthor bookAuthor = authorDao.getById(id);
+        bookAuthor.setBooks(bookDaoJdbc.getByAuthor(bookAuthor.getAuthor()));
+        return bookAuthor;
     }
 }

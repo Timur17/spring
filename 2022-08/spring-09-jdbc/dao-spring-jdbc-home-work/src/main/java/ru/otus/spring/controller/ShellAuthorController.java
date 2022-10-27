@@ -3,6 +3,7 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
+import ru.otus.spring.domain.BookAuthor;
 import ru.otus.spring.service.AuthorService;
 
 @ShellComponent
@@ -52,6 +53,13 @@ public class ShellAuthorController {
     @ShellMethod(value = "Get author by id", key = {"getAuthor", "ga"})
     public void getById(int id) {
         System.out.println("author with id : " + id + " is " + authorService.getById(id));
+    }
+
+    @ShellMethod(value = "Get author by id and his books", key = {"getAuthorAndBooks", "gabb"})
+    public void getByIdAuthorAndHisBooks(int id) {
+        BookAuthor bookAuthor = authorService.getByIdAllHisBook(id);
+        System.out.println("author with id : " + id + " is " + bookAuthor.getAuthor());
+        bookAuthor.getBooks().forEach(System.out::println);
     }
 
 

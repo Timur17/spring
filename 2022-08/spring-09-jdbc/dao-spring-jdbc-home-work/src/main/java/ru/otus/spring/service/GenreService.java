@@ -18,4 +18,6 @@ public interface GenreService {
     List<BookGenre> getAll();
 
     BookGenre getById(int id);
+
+    public BookGenre getByIdAllBooks(int id);
 }

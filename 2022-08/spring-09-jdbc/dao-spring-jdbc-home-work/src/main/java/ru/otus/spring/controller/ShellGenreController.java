@@ -3,6 +3,7 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
+import ru.otus.spring.domain.BookGenre;
 import ru.otus.spring.service.GenreService;
 
 @ShellComponent
@@ -55,4 +56,10 @@ public class ShellGenreController {
     }
 
 
+    @ShellMethod(value = "Get books by id genre ", key = {"getAuthorAndBooks", "gbbg"})
+    public void getBooksByIdGenre(int id) {
+        BookGenre bookGenre = genreService.getByIdAllBooks(id);
+        System.out.println("genre with id : " + id + " is " + bookGenre.getGenre());
+        bookGenre.getBooks().forEach(System.out::println);
+    }
 }

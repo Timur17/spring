@@ -19,5 +19,4 @@ public interface GenreService {
 
     BookGenre getById(int id);
 
-    public BookGenre getByIdAllBooks(int id);
 }

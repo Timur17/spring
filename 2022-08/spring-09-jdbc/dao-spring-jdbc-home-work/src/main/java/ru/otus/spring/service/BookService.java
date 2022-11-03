@@ -15,10 +15,6 @@ public interface BookService {
 
     void deleteById(int id);
 
-    List<Book> getByGenre(String genre);
-
-    List<Book> getByAuthor(String author);
-
     List<Book> getAll();
 
     Book getById(int id);

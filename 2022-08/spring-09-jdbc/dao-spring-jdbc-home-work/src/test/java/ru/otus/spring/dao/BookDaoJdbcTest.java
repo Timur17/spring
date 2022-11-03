@@ -5,17 +5,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.EmptyResultDataAccessException;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.service.AuthorServiceImpl;
+import ru.otus.spring.service.GenreServiceImpl;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Dao для работы с книками должно")
 @JdbcTest
-@Import(BookDaoJdbc.class)
+@Import({BookDaoJdbc.class, AuthorDaoJdbc.class, GenreDaoJdbc.class,
+        GenreServiceImpl.class, AuthorServiceImpl.class})
 class BookDaoJdbcTest {
 
     private static final int EXPECTED_BOOKS_COUNT = 1;
@@ -27,21 +29,22 @@ class BookDaoJdbcTest {
     @Autowired
     private BookDaoJdbc bookDaoJdbc;
 
+
     @DisplayName("возвращать ожидаемое количество книг из БД")
     @Test
-    void shouldReturnExpectedBookCount() {
+    void countTest() {
         int actualBookCount = bookDaoJdbc.count();
         assertThat(actualBookCount).isEqualTo(EXPECTED_BOOKS_COUNT);
     }
 
     @DisplayName("добавлять книгу в БД")
     @Test
-    void shouldInsertBook() {
+    void insertTest() {
         int countBeforeInsert = bookDaoJdbc.count();
         assertThat(countBeforeInsert).isEqualTo(EXPECTED_BOOKS_COUNT);
 
         String title = "testTitle";
-        Book expectedBook = new Book(title, "testAuthor", "testGenre");
+        Book expectedBook = new Book(title, EXISTING_BOOK_AUTHOR, EXISTING_BOOK_GENRE);
         int newId = bookDaoJdbc.insert(expectedBook);
 
         Book actualBook = bookDaoJdbc.getById(newId);
@@ -52,15 +55,11 @@ class BookDaoJdbcTest {
 
     @DisplayName("Обновить книгу в БД")
     @Test
-    void shouldUpdateBook() {
+    void updateTest() {
         int countBeforeInsert = bookDaoJdbc.count();
         assertThat(countBeforeInsert).isEqualTo(EXPECTED_BOOKS_COUNT);
 
-        String title = "testTitle";
-        String author = "testAuthor";
-        String genre = "testGenre";
-        Book expectedBook = new Book(title, author, genre);
-
+        Book expectedBook = new Book("testTitle", EXISTING_BOOK_AUTHOR, EXISTING_BOOK_GENRE);
         bookDaoJdbc.updateById(expectedBook, EXISTING_BOOK_ID);
         expectedBook.setId(EXISTING_BOOK_ID);
 
@@ -75,28 +74,21 @@ class BookDaoJdbcTest {
 
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
-    void shouldReturnExpectedBookById() {
-        Book actualBook = bookDaoJdbc.getById(EXISTING_BOOK_ID);
+    void getByIdTest() {
+        Book book = bookDaoJdbc.getById(EXISTING_BOOK_ID);
+        assertThat(book.getId()).usingRecursiveComparison().isEqualTo(EXISTING_BOOK_ID);
+    }
+
+    @DisplayName("возвращать ожидаемую книгу по title")
+    @Test
+    void getByTitleTest() {
+        Book actualBook = bookDaoJdbc.getByTitle(EXISTING_BOOK_TITLE);
         assertThat(actualBook.getId()).usingRecursiveComparison().isEqualTo(EXISTING_BOOK_ID);
-    }
-
-    @DisplayName("возвращать ожидаемую книгу по Атору")
-    @Test
-    void shouldReturnExpectedBookByAuthor() {
-        List<Book> actualBook = bookDaoJdbc.getByAuthor(EXISTING_BOOK_AUTHOR);
-        assertThat(actualBook.size()).isEqualTo(EXPECTED_BOOKS_COUNT);
-    }
-
-    @DisplayName("возвращать ожидаемую книгу по Жанру")
-    @Test
-    void shouldReturnExpectedBookByGenre() {
-        List<Book> actualBook = bookDaoJdbc.getByGenre(EXISTING_BOOK_GENRE);
-        assertThat(actualBook.size()).isEqualTo(EXPECTED_BOOKS_COUNT);
     }
 
     @DisplayName("удалять заданного книгу по ее id")
     @Test
-    void shouldCorrectDeleteBookById() {
+    void deleteById() {
         int countBeforeDelete = bookDaoJdbc.count();
         assertThat(countBeforeDelete).isEqualTo(EXPECTED_BOOKS_COUNT);
 
@@ -105,13 +97,12 @@ class BookDaoJdbcTest {
         int countAfterDelete = bookDaoJdbc.count();
         assertThat(countAfterDelete).isEqualTo(countBeforeDelete - 1);
 
-        assertThatThrownBy(() -> bookDaoJdbc.getById(EXISTING_BOOK_ID))
-                .isInstanceOf(EmptyResultDataAccessException.class);
+        assertNull(bookDaoJdbc.getById(EXISTING_BOOK_ID));
     }
 
     @DisplayName("возвращать ожидаемый список книг")
     @Test
-    void shouldReturnExpectedBooksList() {
+    void getAllTest() {
         Book expectedBook = new Book(EXISTING_BOOK_TITLE, EXISTING_BOOK_AUTHOR, EXISTING_BOOK_GENRE);
         expectedBook.setId(EXISTING_BOOK_ID);
         List<Book> actualBookList = bookDaoJdbc.getAll();

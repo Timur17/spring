@@ -15,5 +15,9 @@ public interface AuthorDao {
 
     BookAuthor getById(long id);
 
+    BookAuthor getByAuthor(String author);
+
     List<BookAuthor> getAll();
+
+//    public BookAuthor getByIdJoin(long id);
 }

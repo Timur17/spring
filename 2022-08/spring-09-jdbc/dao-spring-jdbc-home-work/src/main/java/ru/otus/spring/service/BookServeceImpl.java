@@ -5,8 +5,6 @@ import ru.otus.spring.dao.AuthorDao;
 import ru.otus.spring.dao.BookDao;
 import ru.otus.spring.dao.GenreDao;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.domain.BookAuthor;
-import ru.otus.spring.domain.BookGenre;
 
 import java.util.List;
 
@@ -14,30 +12,37 @@ import java.util.List;
 public class BookServeceImpl implements BookService {
 
     private final BookDao bookDaoJdbc;
-    private final AuthorDao authorDao;
-    private final GenreDao genreDao;
 
-    public BookServeceImpl(BookDao bookDao, AuthorDao authorDao, GenreDao genreDao) {
-        this.authorDao = authorDao;
+    public BookServeceImpl(BookDao bookDao) {
         this.bookDaoJdbc = bookDao;
-        this.genreDao = genreDao;
     }
 
     @Override
     public int count() {
-        return bookDaoJdbc.count();
+        int count = bookDaoJdbc.count();
+        System.out.println("Amount books: " + count);
+        return count;
     }
 
     @Override
     public int insert(String title, String author, String genre) {
         Book book = new Book(title, author, genre);
-        authorDao.insert(new BookAuthor(author));
-        genreDao.insert(new BookGenre(genre));
-        return bookDaoJdbc.insert(book);
+        Book bookInStore = bookDaoJdbc.getByTitle(title);
+        if (bookInStore != null) {
+            System.out.println("Store already has book with title: " + title + ", with id: " + bookInStore.getId());
+            return bookInStore.getId();
+        }
+        int newId = bookDaoJdbc.insert(book);
+        System.out.println("Book was added with id: " + newId);
+        return newId;
     }
 
     @Override
     public void updateById(String title, String author, String genre, int id) {
+        if (bookDaoJdbc.getById(id) == null) {
+            System.out.println("Book with id: " + id + " not present in db so nothing was updated");
+            return;
+        }
         Book book = new Book(title, author, genre);
         bookDaoJdbc.updateById(book, id);
     }
@@ -48,22 +53,17 @@ public class BookServeceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getByGenre(String genre) {
-        return bookDaoJdbc.getByGenre(genre);
-    }
-
-    @Override
-    public List<Book> getByAuthor(String author) {
-        return bookDaoJdbc.getByAuthor(author);
-    }
-
-    @Override
     public List<Book> getAll() {
-        return bookDaoJdbc.getAll();
+        List<Book> books = bookDaoJdbc.getAll();
+        System.out.println("All books in library: ");
+        books.forEach(System.out::println);
+        return books;
     }
 
     @Override
     public Book getById(int id) {
-        return bookDaoJdbc.getById(id);
+        Book book = bookDaoJdbc.getById(id);
+        System.out.println("books with id : " + id + " is " + book.getTitle());
+        return book;
     }
 }

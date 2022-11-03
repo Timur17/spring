@@ -2,32 +2,40 @@ package ru.otus.spring.service;
 
 import org.springframework.stereotype.Service;
 import ru.otus.spring.dao.AuthorDao;
-import ru.otus.spring.dao.BookDao;
-import ru.otus.spring.dao.GenreDao;
 import ru.otus.spring.domain.BookAuthor;
 
 import java.util.List;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
-    private final BookDao bookDaoJdbc;
     private final AuthorDao authorDao;
-    private final GenreDao genreDao;
 
-    public AuthorServiceImpl(BookDao bookDao, AuthorDao authorDao, GenreDao genreDao) {
+    public AuthorServiceImpl(AuthorDao authorDao) {
         this.authorDao = authorDao;
-        this.bookDaoJdbc = bookDao;
-        this.genreDao = genreDao;
     }
 
     @Override
     public int count() {
-        return authorDao.count();
+        int count = authorDao.count();
+        System.out.println("Amount authors: " + count);
+        return count;
     }
 
     @Override
     public int insert(String author) {
-        return authorDao.insert(new BookAuthor(author));
+        BookAuthor bookAuthor = authorDao.getByAuthor(author);
+        if (bookAuthor == null) {
+            bookAuthor = new BookAuthor(author);
+            int id = authorDao.insert(bookAuthor);
+            bookAuthor.setId(id);
+            System.out.println("Author - " + author + " was added with id: " + id);
+            return id;
+        } else {
+            int id = bookAuthor.getId();
+            System.out.println("Store already has author - " + author + ", with id: " + id);
+            return id;
+        }
+
     }
 
     @Override
@@ -42,18 +50,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<BookAuthor> getAll() {
-        return authorDao.getAll();
+        System.out.println("All Authors in library:");
+        List<BookAuthor> authors = authorDao.getAll();
+        authors.forEach(author -> System.out.println("Author: " + author.getAuthor() + ", books: " + author.getBooks()));
+        return authors;
     }
 
     @Override
     public BookAuthor getById(int id) {
-        return authorDao.getById(id);
-    }
-
-    @Override
-    public BookAuthor getByIdAllHisBook(int id) {
-        BookAuthor bookAuthor = authorDao.getById(id);
-        bookAuthor.setBooks(bookDaoJdbc.getByAuthor(bookAuthor.getAuthor()));
-        return bookAuthor;
+        BookAuthor author = authorDao.getById(id);
+        System.out.println("author with id : " + id + " is " + author);
+        return author;
     }
 }

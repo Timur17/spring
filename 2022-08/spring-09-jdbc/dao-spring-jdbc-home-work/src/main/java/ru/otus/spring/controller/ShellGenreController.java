@@ -3,7 +3,6 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
-import ru.otus.spring.domain.BookGenre;
 import ru.otus.spring.service.GenreService;
 
 @ShellComponent
@@ -18,17 +17,14 @@ public class ShellGenreController {
 
 
     @ShellMethod(value = "Count genres", key = {"countGenres", "cg"})
-    public int count() {
-        int count = genreService.count();
-        System.out.println("Amount genres: " + count);
-        return count;
+    public void count() {
+        genreService.count();
     }
 
 
     @ShellMethod(value = "Insert genre", key = {"insertGenres", "ig"})
     public void insert(String genre) {
-        int id = genreService.insert(genre);
-        System.out.println("Genre was added with id: " + id);
+        genreService.insert(genre);
     }
 
 
@@ -45,21 +41,12 @@ public class ShellGenreController {
 
     @ShellMethod(value = "Get all genres", key = {"getAllGenres", "gag"})
     public void getAll() {
-        System.out.println("All Genres in library:");
-        genreService.getAll().forEach(genre -> System.out.println(genre.getGenre()));
+        genreService.getAll();
     }
 
 
     @ShellMethod(value = "Get genre by id", key = {"getGenre", "gg"})
     public void getById(int id) {
-        System.out.println("genre with id : " + id + " is " + genreService.getById(id));
-    }
-
-
-    @ShellMethod(value = "Get books by id genre ", key = {"getAuthorAndBooks", "gbbg"})
-    public void getBooksByIdGenre(int id) {
-        BookGenre bookGenre = genreService.getByIdAllBooks(id);
-        System.out.println("genre with id : " + id + " is " + bookGenre.getGenre());
-        bookGenre.getBooks().forEach(System.out::println);
+        genreService.getById(id);
     }
 }

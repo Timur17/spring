@@ -1,17 +1,18 @@
 package ru.otus.spring.dao;
 
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.BookAuthor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 
@@ -56,27 +57,65 @@ public class AuthorDaoJdbc implements AuthorDao {
     }
 
     @Override
-    public BookAuthor getById(long id) {
-        BookAuthor bookAuthor = jdbc.queryForObject("select id, author from AUTHORS where id = :id",
-                Map.of("id", id), new AuthorMapper());
-        return bookAuthor;
+    public BookAuthor getByAuthor(String author) {
+        Map<Long, BookAuthor> authors = jdbc.query("select a.id as a_id, a.author, b.id as book_id, b.title, g.genre " +
+                        "from AUTHORS a  left join BOOKS b on " +
+                        "a.id = b.author_id left join GENRES g on g.id = b.genre_id where a.author = :a.author",
+                Map.of("a.author", author), new AuthorResultSetExtractor());
+        if (authors.size() == 0)
+            return null;
+        return new ArrayList<>(Objects.requireNonNull(authors).values()).get(0);
     }
 
     @Override
     public List<BookAuthor> getAll() {
-        return jdbc.query("select id, author from AUTHORS", new AuthorMapper());
+        Map<Long, BookAuthor> authors = jdbc.query("select a.id as a_id, a.author, b.id as book_id, b.title, g.genre " +
+                "from  AUTHORS a left join BOOKS b on " +
+                "a.id = b.author_id  left join GENRES g on g.id = b.genre_id", new AuthorResultSetExtractor());
+        if (authors.size() == 0)
+            return null;
+        return new ArrayList<>(Objects.requireNonNull(authors).values());
     }
 
-    public static class AuthorMapper implements RowMapper<BookAuthor> {
+    @Override
+    public BookAuthor getById(long id) {
+        Map<Long, BookAuthor> authors = jdbc.query("select a.id as a_id, a.author, b.id as book_id, b.title, g.genre " +
+                        "from  AUTHORS a left join BOOKS b on " +
+                        "a.id = b.author_id left join GENRES g on g.id = b.genre_id where a.id = :a.id",
+                Map.of("a.id", id), new AuthorResultSetExtractor());
+        if (authors.size() == 0)
+            return null;
+        return new ArrayList<>(Objects.requireNonNull(authors).values()).get(0);
+    }
 
+    public class AuthorResultSetExtractor implements
+            ResultSetExtractor<Map<Long, BookAuthor>> {
         @Override
-        public BookAuthor mapRow(ResultSet rs, int rowNum) throws SQLException {
-            int id = rs.getInt("id");
-            String author = rs.getString("author");
-            BookAuthor bookAuthor = new BookAuthor(author);
-            bookAuthor.setId(id);
-            return bookAuthor;
+        public Map<Long, BookAuthor> extractData(ResultSet rs) throws SQLException,
+                DataAccessException {
+
+            Map<Long, BookAuthor> authorMap = new HashMap<>();
+            while (rs.next()) {
+                Long id = rs.getLong("a_id");
+                String author = rs.getString("author");
+                String title = rs.getString("title");
+                String genre = rs.getString("genre");
+                int bookId = rs.getInt("book_id");
+
+                BookAuthor bookAuthor = authorMap.get(id);
+                if (bookAuthor == null) {
+                    bookAuthor = new BookAuthor(author);
+                    bookAuthor.setId(id.intValue());
+                    bookAuthor.setBooks(new ArrayList<>());
+                    authorMap.put(id, bookAuthor);
+                }
+                Book book = new Book(title, author, genre);
+                book.setId(bookId);
+                bookAuthor.getBooks().add(book);
+            }
+            return authorMap;
         }
     }
+
 
 }

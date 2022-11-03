@@ -15,9 +15,13 @@ public interface BookDao {
 
     Book getById(long id);
 
-    List<Book> getByAuthor(String author);
-
-    List<Book> getByGenre(String genre);
+    Book getByTitle(String title);
 
     List<Book> getAll();
+
+//    public List<Book> getAllByAuthor(String author);
+//
+//    public List<Book> getAllByAuthorID(int author_id);
+
+//    List<Book> getAllByGenreId(int genre_id);
 }

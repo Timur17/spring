@@ -3,7 +3,6 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
-import ru.otus.spring.domain.Book;
 import ru.otus.spring.service.BookService;
 
 @ShellComponent
@@ -17,18 +16,15 @@ public class ShellBookController {
     }
 
 
-    @ShellMethod(value = "Count books", key = {"count", "c"})
-    public int count() {
-        int count = bookService.count();
-        System.out.println("Amount books: " + count);
-        return count;
+    @ShellMethod(value = "Count books", key = {"count", "cb"})
+    public void count() {
+        bookService.count();
     }
 
 
     @ShellMethod(value = "Insert book", key = {"insertBook", "ib"})
     public void insert(String title, String author, String genre) {
-        int id = bookService.insert(title, author, genre);
-        System.out.println("Book was added with id: " + id);
+        bookService.insert(title, author, genre);
     }
 
 
@@ -45,26 +41,12 @@ public class ShellBookController {
 
     @ShellMethod(value = "Get all books", key = {"getAllBook", "gab"})
     public void getAll() {
-        System.out.println("All books in library:");
-        bookService.getAll().forEach(System.out::println);
+        bookService.getAll();
     }
 
 
     @ShellMethod(value = "Get book by id", key = {"getBook", "gb"})
     public void getById(int id) {
-        System.out.println("books with id : " + id + " is " + bookService.getById(id));
+        bookService.getById(id);
     }
-
-    @ShellMethod(value = "Get books by author", key = {"getByAuthor", "gba"})
-    public void getByAuthor(String author) {
-        System.out.println("Books for author " + author);
-        bookService.getByAuthor(author).forEach(System.out::println);
-    }
-
-    @ShellMethod(value = "Get books by genre", key = {"getByGenre", "gbg"})
-    public void getByGenre(String genre) {
-        System.out.println("Books for genre " + genre);
-        bookService.getByGenre(genre).forEach(System.out::println);
-    }
-
 }

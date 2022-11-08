@@ -11,7 +11,7 @@ public class OrmDemoApplication {
 
 	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(OrmDemoApplication.class, args);
-		Console.main(args);
+//		Console.main(args);
 	}
 
 }

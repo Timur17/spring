@@ -20,7 +20,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     }
 
-    @Transactional(readOnly = true)
     @Override
     public long count() {
         long count = repositoryJpa.count();
@@ -59,7 +58,6 @@ public class AuthorServiceImpl implements AuthorService {
         repositoryJpa.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public  void showAll() {
         List<Author> authors = repositoryJpa.getAll();
@@ -69,7 +67,6 @@ public class AuthorServiceImpl implements AuthorService {
                 + ", books: " + author.getBooks()));
     }
 
-    @Transactional(readOnly = true)
     @Override
     public void showById(int id) {
         Optional<Author> author = repositoryJpa.getById(id);

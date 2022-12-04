@@ -53,7 +53,6 @@ public class BookServiceImpl implements BookService {
         bookRepositoryJpa.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public void showAll() {
         List<Book> books = bookRepositoryJpa.getAll();
@@ -68,7 +67,6 @@ public class BookServiceImpl implements BookService {
         return bookRepositoryJpa.getById(id).get();
     }
 
-    @Transactional(readOnly = true)
     public void showById(long id) {
         Optional<Book> optional = bookRepositoryJpa.getById(id);
         optional.ifPresent(book -> consoleIOService.outputString("book id: " + id + ", title: " + book.getTitle()));

@@ -21,7 +21,6 @@ public class GenreServiceImpl implements GenreService {
         this.consoleIOService = consoleIOService;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public void count() {
         long count = genreRepository.count();
@@ -72,7 +71,6 @@ public class GenreServiceImpl implements GenreService {
                 ", books: " + genre.getBooks()));
     }
 
-    @Transactional(readOnly = true)
     @Override
     public void getById(int id) {
         Optional<Genre> bookGenre = genreRepository.getById(id);

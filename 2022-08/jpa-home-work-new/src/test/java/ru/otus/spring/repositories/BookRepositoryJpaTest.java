@@ -43,7 +43,7 @@ class BookRepositoryJpaTest {
 
         Optional<Book> actualBook = jpa.getById(EXISTING_BOOK_ID + 1);
 
-        assertEquals(expectedBook.getTitle(), actualBook.get().getTitle());
+        assertEquals(expectedBook.getTitle(), actualBook.orElseThrow().getTitle());
     }
 
     @DisplayName("Обновить книгу в БД")
@@ -52,18 +52,20 @@ class BookRepositoryJpaTest {
         assertEquals(EXPECTED_BOOKS_COUNT, jpa.count());
 
         Book expectedBook = new Book(0, "title");
-
         jpa.updateById(expectedBook, EXISTING_BOOK_ID);
         Optional<Book> actualBook = jpa.getById(EXPECTED_BOOKS_COUNT);
-        System.out.println(actualBook);
+
         assertEquals(EXPECTED_BOOKS_COUNT, jpa.count());
+        Book actual = actualBook.orElseThrow();
+        assertEquals(EXISTING_BOOK_ID, actual.getId());
+        assertEquals(expectedBook.getTitle(), actual.getTitle());
     }
 
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
     void getByIdTest() {
         Optional<Book> actualBook = jpa.getById(EXPECTED_BOOKS_COUNT);
-        assertEquals(EXISTING_BOOK_TITLE, actualBook.get().getTitle());
+        assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
     }
 
     @DisplayName("возвращать ожидаемую книгу по title")

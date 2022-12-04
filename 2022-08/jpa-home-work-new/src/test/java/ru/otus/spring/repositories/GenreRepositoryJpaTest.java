@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.domain.Comment;
 import ru.otus.spring.domain.Genre;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,12 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Import(GenreRepositoryJpa.class)
 class GenreRepositoryJpaTest {
     private static final int EXPECTED_GENRES_COUNT = 1;
-    private static final int EXISTING_BOOK_ID = 1;
     private static final int EXISTING_GENRE_ID = 1;
-    private static final long EXISTING_COMMENT_ID = 1;
-    private static final String EXISTING_BOOK_TITLE = "war and peace";
     private static final String EXISTING_BOOK_GENRE = "Historical novel";
-    private static final String EXISTING_BOOK_COMMENT = "The best book";
 
     @Autowired
     private GenreRepositoryJpa jpa;
@@ -49,47 +43,44 @@ class GenreRepositoryJpaTest {
         assertEquals(EXPECTED_GENRES_COUNT + 1, count);
 
         expected.setId(EXPECTED_GENRES_COUNT + 1);
-
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID + 1);
-
-        assertThat(actualGenre.get()).usingRecursiveComparison().isEqualTo(expected);
+        actualGenre.ifPresent(genre -> assertThat(genre).usingRecursiveComparison().isEqualTo(expected));
     }
 
     @DisplayName("Обновить жанр")
     @Test
     void updateTest() {
-        Genre expected = new Genre(EXISTING_GENRE_ID, "newGenre",
-                new ArrayList<>(List.of(new Book(EXISTING_BOOK_ID, EXISTING_BOOK_TITLE,
-                        Set.of(new Comment(EXISTING_COMMENT_ID, EXISTING_BOOK_COMMENT, EXISTING_BOOK_ID))))));
-
-        jpa.updateById(expected, EXISTING_BOOK_ID);
-
+        Genre expected = new Genre(EXISTING_GENRE_ID, "newGenre");
+        jpa.insert(expected);
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID);
-        assertThat(actualGenre.get()).usingRecursiveComparison().isEqualTo(expected);
+        actualGenre.ifPresent(genre -> {
+            assertEquals(EXISTING_GENRE_ID, genre.getId());
+            assertEquals(expected.getGenre(), genre.getGenre());
+        });
     }
 
 
     @DisplayName("возвращать ожидаемый жанр по id")
     @Test
     void getByIdTest() {
-        Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE,
-                new ArrayList<>(List.of(new Book(EXISTING_BOOK_ID, EXISTING_BOOK_TITLE,
-                        Set.of(new Comment(EXISTING_COMMENT_ID, EXISTING_BOOK_COMMENT, EXISTING_BOOK_ID))))));
+        Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE);
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID);
-        assertEquals(EXISTING_BOOK_GENRE, actualGenre.get().getGenre());
-        assertThat(actualGenre.get()).usingRecursiveComparison().isEqualTo(expected);
+        actualGenre.ifPresent(genre -> {
+            assertEquals(EXISTING_GENRE_ID, genre.getId());
+            assertEquals(expected.getGenre(), genre.getGenre());
+        });
     }
 
 
     @DisplayName("возвращать  ожидаемый жанр по title")
     @Test
-    void getByAuthorTest() {
-        Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE,
-                new ArrayList<>(List.of(new Book(EXISTING_BOOK_ID, EXISTING_BOOK_TITLE,
-                        Set.of(new Comment(EXISTING_COMMENT_ID, EXISTING_BOOK_COMMENT, EXISTING_BOOK_ID))))));
+    void getByGenreTest() {
+        Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE);
         Optional<Genre> actualGenre = jpa.getByGenre(EXISTING_BOOK_GENRE);
-        assertEquals(EXISTING_BOOK_GENRE, actualGenre.get().getGenre());
-        assertThat(actualGenre.get()).usingRecursiveComparison().isEqualTo(expected);
+        actualGenre.ifPresent(genre -> {
+            assertEquals(genre.getId(), EXISTING_GENRE_ID);
+            assertEquals(genre.getGenre(), expected.getGenre());
+        });
     }
 
     @DisplayName("возвращать ожидаемый список жанров")
@@ -107,7 +98,6 @@ class GenreRepositoryJpaTest {
         assertTrue(beforeGenre.isPresent());
 
         jpa.deleteById(EXISTING_GENRE_ID);
-
         Optional<Genre> afterGenre = jpa.getById(EXISTING_GENRE_ID);
         assertFalse(afterGenre.isPresent());
     }

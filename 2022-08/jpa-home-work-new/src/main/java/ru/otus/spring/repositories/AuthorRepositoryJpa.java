@@ -1,7 +1,6 @@
-package ru.otus.spring.repositories;//package ru.otus.spring.repositories;
+package ru.otus.spring.repositories;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
 
 import javax.persistence.*;
@@ -39,15 +38,6 @@ public class AuthorRepositoryJpa implements AuthorRepository {
     }
 
     @Override
-    public void updateById(Author author, long id) {
-        Query query = em.createQuery(" update Author a set a.author = :author" +
-                " where a.id = :id");
-        query.setParameter("author", author.getAuthor());
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    @Override
     public void deleteById(long id) {
         getById(id).ifPresent(em::remove);
     }
@@ -65,7 +55,7 @@ public class AuthorRepositoryJpa implements AuthorRepository {
         query.setParameter("author", author);
         try {
             return Optional.ofNullable(query.getSingleResult());
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             return Optional.empty();
         }
 

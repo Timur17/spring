@@ -1,15 +1,14 @@
 package ru.otus.spring.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "Comments")
 public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +19,45 @@ public class Comment {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "book_id")
-    private long bookId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     public Comment(String comment) {
         this.comment = comment;
     }
 
-    public Comment(String comment, long bookId) {
+    public Comment(long id, String comment) {
+        this.id = id;
         this.comment = comment;
-        this.bookId = bookId;
+    }
+
+    public Comment(String comment, Book book) {
+        this.comment = comment;
+        this.book = book;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

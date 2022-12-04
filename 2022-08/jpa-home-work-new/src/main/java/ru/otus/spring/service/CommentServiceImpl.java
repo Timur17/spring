@@ -2,6 +2,7 @@ package ru.otus.spring.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.repositories.CommentRepositoryJpa;
 import ru.otus.spring.service.ioservice.ConsoleIOService;
@@ -12,10 +13,13 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
     private final CommentRepositoryJpa commentRepositoryJpa;
     private final ConsoleIOService consoleIOService;
+    private final BookServiceImpl bookService;
 
-    public CommentServiceImpl(CommentRepositoryJpa commentRepositoryJpa, ConsoleIOService consoleIOService) {
+    public CommentServiceImpl(CommentRepositoryJpa commentRepositoryJpa,
+                              ConsoleIOService consoleIOService, BookServiceImpl bookService) {
         this.commentRepositoryJpa = commentRepositoryJpa;
         this.consoleIOService = consoleIOService;
+        this.bookService = bookService;
     }
 
 
@@ -29,13 +33,14 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void insert(String comment, long bookId) {
-        commentRepositoryJpa.insert(new Comment(comment, bookId));
-    }
+        Book book = bookService.getById(bookId);
+        if (book != null){
+            commentRepositoryJpa.insert(new Comment(comment, book));
+        }
+        else {
+            consoleIOService.outputString("Book with id - " + bookId + " not exist");
+        }
 
-    @Transactional
-    @Override
-    public void updateById(String comment, long id) {
-        commentRepositoryJpa.updateById(new Comment(comment), id);
     }
 
     @Transactional
@@ -47,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     @Override
     public void showAllByBookId(long bookId) {
-        List<Comment> comments = commentRepositoryJpa.getAllByBookId(bookId);
-        consoleIOService.outputString("Comments with book id : " + bookId + " is " + comments);
+        Book book = bookService.getById(bookId);
+        consoleIOService.outputString("Book: " + book.getTitle() + ", comments: " + book.getComments());
     }
 }

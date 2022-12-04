@@ -44,7 +44,15 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public void updateById(String genre, int id) {
-        genreRepository.updateById(new Genre(genre), id);
+        Optional<Genre> optionalGenre = genreRepository.getById(id);
+        Genre entity = optionalGenre.orElse(null);
+        if (entity != null) {
+            genreRepository.insert(new Genre(id, genre, entity.getBooks()));
+        }
+        else {
+            consoleIOService.outputString("Genre was not found with id: " + id);
+        }
+
     }
 
     @Transactional
@@ -59,7 +67,9 @@ public class GenreServiceImpl implements GenreService {
         System.out.println("All Genres in library:");
         List<Genre> genres = genreRepository.getAll();
         consoleIOService.outputString("Amount genres: " + genres.size());
-        genres.forEach(genre -> consoleIOService.outputString("Genre: " + genre.getGenre() + ", books: " + genre.getBooks()));
+        genres.forEach(genre -> consoleIOService.outputString("Genre: " + genre.getGenre() +
+                ", genreId: " + genre.getId() +
+                ", books: " + genre.getBooks()));
     }
 
     @Transactional(readOnly = true)

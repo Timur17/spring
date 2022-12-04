@@ -11,14 +11,12 @@ public interface CommentRepository {
 
     Comment insert(Comment comment);
 
-    void updateById(Comment comment, long id);
-
     void deleteById(long id);
 
     Optional<Comment> getById(long id);
 
     public List<Comment> getAllByBookId(long bookId);
 
-    public void insert(Comment comment, long bookId);
+    public List<Comment> getAll();
 
 }

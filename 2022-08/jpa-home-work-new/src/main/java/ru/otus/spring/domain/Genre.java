@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "genres")
 @NamedEntityGraph(name = "genres-books-entity-graph", attributeNodes = {@NamedAttributeNode("books")})
 public class Genre {
@@ -21,11 +22,16 @@ public class Genre {
     @Column(name = "genre")
     private String genre;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "genre_id")
     private List<Book> books;
 
     public Genre(String genre) {
+        this.genre = genre;
+    }
+
+    public Genre(long id, String genre) {
+        this.id = id;
         this.genre = genre;
     }
 }

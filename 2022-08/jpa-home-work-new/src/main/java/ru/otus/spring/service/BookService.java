@@ -11,11 +11,13 @@ public interface BookService {
 
     void insert(String title, String author, String genre);
 
-    void updateById(String title, int id);
+    void updateById(String title, long id);
 
-    void deleteById(int id);
+    void deleteById(long id);
 
     void showAll();
 
-    void showById(int id);
+    Book getById(long id);
+
+    void showById(long id);
 }

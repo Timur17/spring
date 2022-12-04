@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "authors")
 @NamedEntityGraph(name = "authors-books-entity-graph", attributeNodes = {@NamedAttributeNode("books")})
 public class Author {
@@ -22,11 +23,16 @@ public class Author {
     @Column(name = "author")
     private String author;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "author_id")
     private List<Book> books;
 
     public Author(String author) {
+        this.author = author;
+    }
+
+    public Author(long id, String author) {
+        this.id = id;
         this.author = author;
     }
 }

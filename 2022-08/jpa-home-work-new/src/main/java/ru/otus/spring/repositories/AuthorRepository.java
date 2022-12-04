@@ -10,8 +10,6 @@ public interface AuthorRepository {
 
     Author insert(Author author);
 
-    void updateById(Author author, long id);
-
     void deleteById(long id);
 
     Optional<Author> getById(long id);

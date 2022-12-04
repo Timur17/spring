@@ -47,7 +47,7 @@ public class ShellBookController {
 
 
     @ShellMethod(value = "Get book by id", key = {"getBook", "gb"})
-    public void getById(int id) {
+    public void getById(long id) {
         bookService.showById(id);
     }
 }

@@ -3,11 +3,14 @@ package ru.otus.spring.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
+import ru.otus.spring.domain.Book;
 import ru.otus.spring.repositories.AuthorRepositoryJpa;
 import ru.otus.spring.service.ioservice.ConsoleIOService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -43,8 +46,14 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public void updateById(String author, int id) {
-        repositoryJpa.updateById(new Author(author), id);
+    public void updateById(String newAuthorName, int id) {
+        Optional<Author> optionalAuthor = repositoryJpa.getById(id);
+        Author entity = optionalAuthor.orElse(null);
+        if (entity != null) {
+            repositoryJpa.insert(new Author(id, newAuthorName, entity.getBooks()));
+        } else {
+            consoleIOService.outputString("Author was not found with id: " + id);
+        }
     }
 
     @Transactional
@@ -58,13 +67,15 @@ public class AuthorServiceImpl implements AuthorService {
     public  void showAll() {
         List<Author> authors = repositoryJpa.getAll();
         consoleIOService.outputString("Amount authors: " + authors.size());
-        authors.forEach(author -> consoleIOService.outputString("Author: " + author.getAuthor() + ", books: " + author.getBooks()));
+        authors.forEach(author -> consoleIOService.outputString("Author: " + author.getAuthor()
+                + ", authorId: " + author.getId()
+                + ", books: " + author.getBooks()));
     }
 
     @Transactional(readOnly = true)
     @Override
     public void showById(int id) {
         Optional<Author> author = repositoryJpa.getById(id);
-        author.ifPresent(author1 -> consoleIOService.outputString("author with id : " + id + " is " + author1));
+        author.ifPresent(author1 -> consoleIOService.outputString("author with id: " + id + " is " + author1));
     }
 }

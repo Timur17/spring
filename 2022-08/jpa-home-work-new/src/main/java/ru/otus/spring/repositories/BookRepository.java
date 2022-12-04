@@ -19,14 +19,4 @@ public interface BookRepository {
     Book getByTitle(String title);
 
     List<Book> getAll();
-
-
-//    Book save(Book book);
-//    Optional<Book> findById(long id);
-//
-//    List<Book> findAll();
-//    List<Book> findByName(String title);
-//
-//    void updateNameById(long id, String title);
-//    void deleteById(long id);
 }

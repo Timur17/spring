@@ -37,15 +37,6 @@ public class GenreRepositoryJpa implements GenreRepository {
     }
 
     @Override
-    public void updateById(Genre genre, long id) {
-        Query query = em.createQuery(" update Genre g set g.genre = :genre" +
-                " where g.id = :id");
-        query.setParameter("genre", genre.getGenre());
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    @Override
     public void deleteById(long id) {
         getById(id).ifPresent(em::remove);
     }

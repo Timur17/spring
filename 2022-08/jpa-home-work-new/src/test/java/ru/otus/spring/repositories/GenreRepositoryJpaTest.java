@@ -55,7 +55,7 @@ class GenreRepositoryJpaTest {
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID);
         actualGenre.ifPresent(genre -> {
             assertEquals(EXISTING_GENRE_ID, genre.getId());
-            assertEquals(expected.getGenre(), genre.getGenre());
+            assertEquals(expected.getGenreBook(), genre.getGenreBook());
         });
     }
 
@@ -67,7 +67,7 @@ class GenreRepositoryJpaTest {
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID);
         actualGenre.ifPresent(genre -> {
             assertEquals(EXISTING_GENRE_ID, genre.getId());
-            assertEquals(expected.getGenre(), genre.getGenre());
+            assertEquals(expected.getGenreBook(), genre.getGenreBook());
         });
     }
 
@@ -79,7 +79,7 @@ class GenreRepositoryJpaTest {
         Optional<Genre> actualGenre = jpa.getByGenre(EXISTING_BOOK_GENRE);
         actualGenre.ifPresent(genre -> {
             assertEquals(genre.getId(), EXISTING_GENRE_ID);
-            assertEquals(genre.getGenre(), expected.getGenre());
+            assertEquals(genre.getGenreBook(), expected.getGenreBook());
         });
     }
 

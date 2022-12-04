@@ -51,7 +51,7 @@ public class AuthorRepositoryJpa implements AuthorRepository {
     public Optional<Author> getByAuthor(String author) {
         TypedQuery<Author> query = em.createQuery("select a " +
                 "from Author a " +
-                "where a.author = :author", Author.class);
+                "where a.authorBook = :author", Author.class);
         query.setParameter("author", author);
         try {
             return Optional.ofNullable(query.getSingleResult());

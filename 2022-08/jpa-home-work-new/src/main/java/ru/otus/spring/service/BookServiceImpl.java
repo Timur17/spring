@@ -59,8 +59,8 @@ public class BookServiceImpl implements BookService {
         List<Book> books = bookRepositoryJpa.getAll();
         consoleIOService.outputString("Amount books: " + books.size());
         books.forEach(book -> consoleIOService.outputString(book.toString() +
-                "id: " + book.getId() + " " + book.getAuthor().getAuthor() +
-                ", " + book.getGenre().getGenre() + " " + book.getComments()));
+                "id: " + book.getId() + " " + book.getAuthor().getAuthorBook() +
+                ", " + book.getGenre().getGenreBook() + " " + book.getComments()));
     }
 
     @Override

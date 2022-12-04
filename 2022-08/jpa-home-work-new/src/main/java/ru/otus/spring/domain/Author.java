@@ -20,19 +20,19 @@ public class Author {
     @Id
     private long id;
 
-    @Column(name = "author")
-    private String author;
+    @Column(name = "author_book")
+    private String authorBook;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "author_id")
     private List<Book> books;
 
-    public Author(String author) {
-        this.author = author;
+    public Author(String authorBook) {
+        this.authorBook = authorBook;
     }
 
-    public Author(long id, String author) {
+    public Author(long id, String authorBook) {
         this.id = id;
-        this.author = author;
+        this.authorBook = authorBook;
     }
 }

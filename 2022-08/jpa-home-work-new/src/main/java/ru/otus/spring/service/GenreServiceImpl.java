@@ -35,7 +35,7 @@ public class GenreServiceImpl implements GenreService {
         Genre entity = optionalGenre.orElse(null);
         if (entity == null) {
             Genre insertedGenre = genreRepository.insert(new Genre(genre));
-            consoleIOService.outputString("Genre " + insertedGenre.getGenre() + " was added with id: " + insertedGenre.getId());
+            consoleIOService.outputString("Genre " + insertedGenre.getGenreBook() + " was added with id: " + insertedGenre.getId());
         } else {
             consoleIOService.outputString("Store already has genre - " + genre + ", with id: " + entity.getId());
         }
@@ -67,7 +67,7 @@ public class GenreServiceImpl implements GenreService {
         System.out.println("All Genres in library:");
         List<Genre> genres = genreRepository.getAll();
         consoleIOService.outputString("Amount genres: " + genres.size());
-        genres.forEach(genre -> consoleIOService.outputString("Genre: " + genre.getGenre() +
+        genres.forEach(genre -> consoleIOService.outputString("Genre: " + genre.getGenreBook() +
                 ", genreId: " + genre.getId() +
                 ", books: " + genre.getBooks()));
     }

@@ -16,24 +16,24 @@ public class Comment {
     @Id
     private long id;
 
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "comment_book")
+    private String commentBook;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "book_id")
     private Book book;
 
-    public Comment(String comment) {
-        this.comment = comment;
+    public Comment(String commentBook) {
+        this.commentBook = commentBook;
     }
 
-    public Comment(long id, String comment) {
+    public Comment(long id, String commentBook) {
         this.id = id;
-        this.comment = comment;
+        this.commentBook = commentBook;
     }
 
-    public Comment(String comment, Book book) {
-        this.comment = comment;
+    public Comment(String commentBook, Book book) {
+        this.commentBook = commentBook;
         this.book = book;
     }
 
@@ -41,7 +41,7 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", comment='" + comment + '\'' +
+                ", comment='" + commentBook + '\'' +
                 '}';
     }
 
@@ -49,15 +49,15 @@ public class Comment {
         return id;
     }
 
-    public String getComment() {
-        return comment;
+    public String getCommentBook() {
+        return commentBook;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentBook(String commentBook) {
+        this.commentBook = commentBook;
     }
 }

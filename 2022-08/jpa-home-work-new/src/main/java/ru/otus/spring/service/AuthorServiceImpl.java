@@ -3,14 +3,11 @@ package ru.otus.spring.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
-import ru.otus.spring.domain.Book;
 import ru.otus.spring.repositories.AuthorRepositoryJpa;
 import ru.otus.spring.service.ioservice.ConsoleIOService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -67,7 +64,7 @@ public class AuthorServiceImpl implements AuthorService {
     public  void showAll() {
         List<Author> authors = repositoryJpa.getAll();
         consoleIOService.outputString("Amount authors: " + authors.size());
-        authors.forEach(author -> consoleIOService.outputString("Author: " + author.getAuthor()
+        authors.forEach(author -> consoleIOService.outputString("Author: " + author.getAuthorBook()
                 + ", authorId: " + author.getId()
                 + ", books: " + author.getBooks()));
     }

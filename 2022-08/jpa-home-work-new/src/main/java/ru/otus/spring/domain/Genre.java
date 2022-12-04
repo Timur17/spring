@@ -19,19 +19,19 @@ public class Genre {
     @Id
     private long id;
 
-    @Column(name = "genre")
-    private String genre;
+    @Column(name = "genre_book")
+    private String genreBook;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "genre_id")
     private List<Book> books;
 
-    public Genre(String genre) {
-        this.genre = genre;
+    public Genre(String genreBook) {
+        this.genreBook = genreBook;
     }
 
-    public Genre(long id, String genre) {
+    public Genre(long id, String genreBook) {
         this.id = id;
-        this.genre = genre;
+        this.genreBook = genreBook;
     }
 }

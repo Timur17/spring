@@ -53,14 +53,14 @@ class CommentRepositoryJpaTest {
         jpa.insert(expected);
         Optional<Comment> actual = jpa.getById(EXISTING_COMMENT_ID);
         assertEquals(expected.getId(), actual.orElseThrow().getId());
-        assertEquals(expected.getComment(), actual.orElseThrow().getComment());
+        assertEquals(expected.getCommentBook(), actual.orElseThrow().getCommentBook());
     }
 
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
     void getByIdTest() {
         Optional<Comment> actual = jpa.getById(EXISTING_COMMENT_ID);
-        assertEquals(EXISTING_BOOK_COMMENT, actual.get().getComment());
+        assertEquals(EXISTING_BOOK_COMMENT, actual.get().getCommentBook());
     }
 
     @DisplayName("удалять заданного книгу по ее id")

@@ -1,13 +1,15 @@
 package ru.otus.spring.repositories;//package ru.otus.spring.repositories;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Book;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+import static org.springframework.data.jpa.repository.EntityGraph.EntityGraphType.FETCH;
+
+@Component
 public class BookRepositoryJpa implements BookRepository {
 
     @PersistenceContext
@@ -40,7 +42,9 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public List<Book> getAll() {
+        EntityGraph<?> graph = em.getEntityGraph("books-comments-entity-graph");
         TypedQuery<Book> query = em.createQuery("select b from Book b", Book.class);
+        query.setHint(FETCH.getKey(), graph);
         return query.getResultList();
     }
 

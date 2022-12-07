@@ -31,7 +31,6 @@ class BookRepositoryJpaTest {
         assertEquals(EXPECTED_BOOKS_COUNT, count);
     }
 
-
     @Test
     public void save() {
         assertEquals(EXPECTED_BOOKS_COUNT, jpa.count());

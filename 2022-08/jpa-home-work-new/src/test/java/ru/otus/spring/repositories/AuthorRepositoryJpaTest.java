@@ -56,10 +56,9 @@ class AuthorRepositoryJpaTest {
     void updateTest() {
         String newAuthor = "newAuthor";
         Author expected = new Author(EXISTING_AUTHOR_ID, "newAuthor");
-
         jpa.insert(expected);
-
         Optional<Author> actualAuthor = jpa.getById(EXISTING_AUTHOR_ID);
+        assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());
             assertEquals(newAuthor, author.getAuthorBook());
@@ -70,6 +69,7 @@ class AuthorRepositoryJpaTest {
     @Test
     void getByIdTest() {
         Optional<Author> actualAuthor = jpa.getById(EXISTING_AUTHOR_ID);
+        assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());
             assertEquals(EXISTING_BOOK_AUTHOR, author.getAuthorBook());
@@ -80,6 +80,7 @@ class AuthorRepositoryJpaTest {
     @Test
     void getByAuthorTest() {
         Optional<Author> actualAuthor = jpa.getByAuthor(EXISTING_BOOK_AUTHOR);
+        assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());
             assertEquals(EXISTING_BOOK_AUTHOR, author.getAuthorBook());

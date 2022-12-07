@@ -6,7 +6,6 @@ import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
 import ru.otus.spring.repositories.BookRepositoryJpa;
-import ru.otus.spring.service.ioservice.ConsoleIOService;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,36 +14,39 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepositoryJpa bookRepositoryJpa;
-    private final ConsoleIOService consoleIOService;
 
-    public BookServiceImpl(BookRepositoryJpa bookRepositoryJpa, ConsoleIOService consoleIOService) {
+    public BookServiceImpl(BookRepositoryJpa bookRepositoryJpa) {
         this.bookRepositoryJpa = bookRepositoryJpa;
-        this.consoleIOService = consoleIOService;
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public void count() {
-        long count = bookRepositoryJpa.count();
-        consoleIOService.outputString("Amount books: " + count);
+    public long count() {
+        return bookRepositoryJpa.count();
     }
 
     @Transactional
     @Override
-    public void insert(String title, String author, String genre) {
+    public Book insert(String title, String author, String genre) {
         Book bookInStore = bookRepositoryJpa.getByTitle(title);
         if (bookInStore == null){
-            Book book = bookRepositoryJpa.insert(new Book(0, title, new Author(author), new Genre(genre)));
-            consoleIOService.outputString("Book was added with id: " + book.getId());
+            return bookRepositoryJpa.insert(new Book(0, title, new Author(author), new Genre(genre)));
         }else {
-            consoleIOService.outputString("Store already has book with title: " + title + ", with id: " + bookInStore.getId());
+            return null;
         }
     }
 
     @Transactional
     @Override
-    public void updateById(String title, long id) {
-        bookRepositoryJpa.updateById(new Book(title), id);
+    public Book updateById(String title, long id) {
+        Optional<Book> optionalBook = bookRepositoryJpa.getById(id);
+        Book book = optionalBook.orElse(null);
+        if (book !=null){
+            book.setTitle(title);
+            return bookRepositoryJpa.insert(book);
+        }
+        else {
+            return null;
+        }
     }
 
     @Transactional
@@ -53,22 +55,26 @@ public class BookServiceImpl implements BookService {
         bookRepositoryJpa.deleteById(id);
     }
 
+    @Transactional
     @Override
-    public void showAll() {
+    public List<Book> getAll() {
         List<Book> books = bookRepositoryJpa.getAll();
-        consoleIOService.outputString("Amount books: " + books.size());
-        books.forEach(book -> consoleIOService.outputString(book.toString() +
-                "id: " + book.getId() + " " + book.getAuthor().getAuthorBook() +
-                ", " + book.getGenre().getGenreBook() + " " + book.getComments()));
+        books.forEach(book -> {
+            book.getAuthor().getId();
+            book.getAuthor().getAuthorBook();
+            book.getGenre().getId();
+            book.getGenre().getGenreBook();
+        });
+        return books;
     }
 
+    @Transactional
     @Override
-    public Book getById(long id) {
-        return bookRepositoryJpa.getById(id).get();
-    }
-
-    public void showById(long id) {
-        Optional<Book> optional = bookRepositoryJpa.getById(id);
-        optional.ifPresent(book -> consoleIOService.outputString("book id: " + id + ", title: " + book.getTitle()));
+    public Optional<Book> getById(long id) {
+        Optional<Book> optionalBook = bookRepositoryJpa.getById(id);
+        optionalBook.ifPresent(book -> {
+            book.getComments().forEach(comment -> comment.getCommentBook());
+        });
+        return optionalBook;
     }
 }

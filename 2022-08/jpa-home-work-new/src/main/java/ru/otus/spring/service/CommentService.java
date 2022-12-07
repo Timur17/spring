@@ -1,11 +1,15 @@
 package ru.otus.spring.service;
 
-public interface CommentService {
-    void count();
+import ru.otus.spring.domain.Comment;
 
-    void insert(String comment, long bookId);
+import java.util.List;
+
+public interface CommentService {
+    long count();
+
+    Comment insert(String comment, long bookId);
 
     void deleteById(long id);
 
-    void showAllByBookId(long id);
+    List<Comment> getAllByBookId(long id);
 }

@@ -6,7 +6,6 @@ import ru.otus.spring.domain.Genre;
 import ru.otus.spring.repositories.GenreRepository;
 import ru.otus.spring.service.ioservice.ConsoleIOService;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -22,36 +21,34 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void count() {
-        long count = genreRepository.count();
-        consoleIOService.outputString("Amount genres: " + count);
+    public long count() {
+        return genreRepository.count();
+//        consoleIOService.outputString("Amount genres: " + count);
     }
 
     @Transactional
     @Override
-    public void insert(String genre) {
+    public Genre insert(String genre) {
         Optional<Genre> optionalGenre = genreRepository.getByGenre(genre);
         Genre entity = optionalGenre.orElse(null);
         if (entity == null) {
-            Genre insertedGenre = genreRepository.insert(new Genre(genre));
-            consoleIOService.outputString("Genre " + insertedGenre.getGenreBook() + " was added with id: " + insertedGenre.getId());
+            return genreRepository.insert(new Genre(genre));
         } else {
-            consoleIOService.outputString("Store already has genre - " + genre + ", with id: " + entity.getId());
+            return null;
         }
     }
 
     @Transactional
     @Override
-    public void updateById(String genre, int id) {
+    public Genre updateById(String genre, int id) {
         Optional<Genre> optionalGenre = genreRepository.getById(id);
         Genre entity = optionalGenre.orElse(null);
         if (entity != null) {
-            genreRepository.insert(new Genre(id, genre, entity.getBooks()));
+            entity.getBooks().forEach(book -> book.getId());
+            return genreRepository.insert(new Genre(id, genre, entity.getBooks()));
+        } else {
+            return null;
         }
-        else {
-            consoleIOService.outputString("Genre was not found with id: " + id);
-        }
-
     }
 
     @Transactional
@@ -60,22 +57,21 @@ public class GenreServiceImpl implements GenreService {
         genreRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
+
     @Override
-    public void getAll() {
-        System.out.println("All Genres in library:");
-        List<Genre> genres = genreRepository.getAll();
-        consoleIOService.outputString("Amount genres: " + genres.size());
-        genres.forEach(genre -> consoleIOService.outputString("Genre: " + genre.getGenreBook() +
-                ", genreId: " + genre.getId() +
-                ", books: " + genre.getBooks()));
+    public List<Genre> getAll() {
+        return genreRepository.getAll();
+
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public void getById(int id) {
+    public Optional<Genre> getById(int id) {
         Optional<Genre> bookGenre = genreRepository.getById(id);
-        bookGenre.ifPresent(genre -> consoleIOService.outputString("genre with id : " + id + " is " + genre));
+        bookGenre.ifPresent(genre -> genre.getBooks().forEach(book -> {
 
+        }));
+        return bookGenre;
     }
 
 }

@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "books")
+@NamedEntityGraph(name = "books-comments-entity-graph", attributeNodes = {@NamedAttributeNode("comments")})
 public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,7 +23,7 @@ public class Book {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "book_id")
     private Set<Comment> comments;
 

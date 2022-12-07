@@ -53,6 +53,7 @@ class GenreRepositoryJpaTest {
         Genre expected = new Genre(EXISTING_GENRE_ID, "newGenre");
         jpa.insert(expected);
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID);
+        assertFalse(actualGenre.isEmpty());
         actualGenre.ifPresent(genre -> {
             assertEquals(EXISTING_GENRE_ID, genre.getId());
             assertEquals(expected.getGenreBook(), genre.getGenreBook());
@@ -65,6 +66,7 @@ class GenreRepositoryJpaTest {
     void getByIdTest() {
         Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE);
         Optional<Genre> actualGenre = jpa.getById(EXISTING_GENRE_ID);
+        assertFalse(actualGenre.isEmpty());
         actualGenre.ifPresent(genre -> {
             assertEquals(EXISTING_GENRE_ID, genre.getId());
             assertEquals(expected.getGenreBook(), genre.getGenreBook());
@@ -77,6 +79,7 @@ class GenreRepositoryJpaTest {
     void getByGenreTest() {
         Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE);
         Optional<Genre> actualGenre = jpa.getByGenre(EXISTING_BOOK_GENRE);
+        assertFalse(actualGenre.isEmpty());
         actualGenre.ifPresent(genre -> {
             assertEquals(genre.getId(), EXISTING_GENRE_ID);
             assertEquals(genre.getGenreBook(), expected.getGenreBook());

@@ -1,6 +1,6 @@
 package ru.otus.spring.repositories;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Comment;
 
 import javax.persistence.EntityManager;
@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class CommentRepositoryJpa implements CommentRepository {
 
     @PersistenceContext
@@ -40,7 +40,7 @@ public class CommentRepositoryJpa implements CommentRepository {
     public List<Comment> getAllByBookId(long bookId) {
         TypedQuery<Comment> query = em.createQuery("select c " +
                 "from Comment c " +
-                "where c.bookId = :book_id ", Comment.class);
+                "where c.book.id = :book_id ", Comment.class);
         query.setParameter("book_id", bookId);
         return query.getResultList();
     }

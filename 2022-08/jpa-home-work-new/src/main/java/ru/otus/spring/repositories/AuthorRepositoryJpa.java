@@ -1,6 +1,6 @@
 package ru.otus.spring.repositories;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Author;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import static org.springframework.data.jpa.repository.EntityGraph.EntityGraphType.FETCH;
 
 
-@Repository
+@Component
 public class AuthorRepositoryJpa implements AuthorRepository {
 
     @PersistenceContext

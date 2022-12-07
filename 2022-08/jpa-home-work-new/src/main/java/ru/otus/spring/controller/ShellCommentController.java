@@ -3,8 +3,12 @@ package ru.otus.spring.controller;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Controller;
+import ru.otus.spring.domain.Comment;
 import ru.otus.spring.service.BookService;
 import ru.otus.spring.service.CommentService;
+import ru.otus.spring.service.ioservice.ConsoleIOService;
+
+import java.util.List;
 
 @ShellComponent
 @Controller
@@ -12,20 +16,29 @@ public class ShellCommentController {
 
     private final CommentService commentService;
     private final BookService bookService;
+    private final ConsoleIOService consoleIOService;
 
-    public ShellCommentController(CommentService commentService, BookService bookService) {
+    public ShellCommentController(CommentService commentService, BookService bookService,
+                                  ConsoleIOService consoleIOService) {
         this.commentService = commentService;
         this.bookService = bookService;
+        this.consoleIOService = consoleIOService;
     }
 
     @ShellMethod(value = "Count comments", key = {"countComments", "cc"})
     public void count() {
-        commentService.count();
+        consoleIOService.outputString("Amount comments: " + commentService.count());
     }
 
     @ShellMethod(value = "Insert comment", key = {"insertComment", "ic"})
     public void insert(String comment, long bookId) {
-        commentService.insert(comment, bookId);
+        Comment commentEntity = commentService.insert(comment, bookId);
+        if (commentEntity != null) {
+            consoleIOService.outputString("Comment was added: " + commentEntity);
+        } else {
+            consoleIOService.outputString("Book with id - " + bookId + " not exist");
+        }
+
     }
 
     @ShellMethod(value = "Delete comment  by id", key = {"deleteComment", "dc"})
@@ -35,7 +48,10 @@ public class ShellCommentController {
 
     @ShellMethod(value = "Show all comments", key = {"getAllComments", "gac"})
     public void ShowAllCommentsByBookIdAll(long id) {
-        commentService.showAllByBookId(id);
+        List<Comment> comments = commentService.getAllByBookId(id);
+        comments.forEach(comment -> {
+            System.out.println("Comment: " + comment + ", book: " + comment.getCommentBook());
+        });
     }
 
 }

@@ -1,7 +1,6 @@
 package ru.otus.spring.repositories;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Genre;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import java.util.Optional;
 
 import static org.springframework.data.jpa.repository.EntityGraph.EntityGraphType.FETCH;
 
-@Repository
+@Component
 public class GenreRepositoryJpa implements GenreRepository {
 
     @PersistenceContext
@@ -52,7 +51,7 @@ public class GenreRepositoryJpa implements GenreRepository {
         query.setParameter("genre", genre);
         try {
             return Optional.ofNullable(query.getSingleResult());
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             return Optional.empty();
         }
     }

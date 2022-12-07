@@ -15,8 +15,4 @@ public interface CommentRepository {
 
     Optional<Comment> getById(long id);
 
-    public List<Comment> getAllByBookId(long bookId);
-
-    public List<Comment> getAll();
-
 }

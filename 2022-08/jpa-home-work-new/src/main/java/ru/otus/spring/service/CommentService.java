@@ -3,6 +3,7 @@ package ru.otus.spring.service;
 import ru.otus.spring.domain.Comment;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CommentService {
     long count();
@@ -11,5 +12,5 @@ public interface CommentService {
 
     void deleteById(long id);
 
-    List<Comment> getAllByBookId(long id);
+    Set<Comment> getAllByBookId(long id);
 }

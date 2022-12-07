@@ -9,6 +9,7 @@ import ru.otus.spring.service.CommentService;
 import ru.otus.spring.service.ioservice.ConsoleIOService;
 
 import java.util.List;
+import java.util.Set;
 
 @ShellComponent
 @Controller
@@ -34,7 +35,7 @@ public class ShellCommentController {
     public void insert(String comment, long bookId) {
         Comment commentEntity = commentService.insert(comment, bookId);
         if (commentEntity != null) {
-            consoleIOService.outputString("Comment was added: " + commentEntity);
+            consoleIOService.outputString("Comment was added to book: " + commentEntity.getBook().getTitle());
         } else {
             consoleIOService.outputString("Book with id - " + bookId + " not exist");
         }
@@ -48,9 +49,9 @@ public class ShellCommentController {
 
     @ShellMethod(value = "Show all comments", key = {"getAllComments", "gac"})
     public void ShowAllCommentsByBookIdAll(long id) {
-        List<Comment> comments = commentService.getAllByBookId(id);
+        Set<Comment> comments = commentService.getAllByBookId(id);
         comments.forEach(comment -> {
-            System.out.println("Comment: " + comment + ", book: " + comment.getCommentBook());
+            System.out.println("Comment: " + comment);
         });
     }
 

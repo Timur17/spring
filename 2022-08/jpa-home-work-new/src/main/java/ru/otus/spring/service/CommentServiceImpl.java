@@ -8,6 +8,7 @@ import ru.otus.spring.repositories.CommentRepositoryJpa;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -44,7 +45,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllByBookId(long bookId) {
-        return commentRepositoryJpa.getAllByBookId(bookId);
+    public Set<Comment> getAllByBookId(long bookId) {
+        Optional<Book> optionalBook = bookService.getById(bookId);
+        Book book = optionalBook.orElse(null);
+        if (book == null)
+            return null;
+        return book.getComments();
     }
 }

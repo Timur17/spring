@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -59,5 +58,13 @@ public class Comment {
 
     public void setCommentBook(String commentBook) {
         this.commentBook = commentBook;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

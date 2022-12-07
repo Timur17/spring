@@ -60,15 +60,6 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    public void updateById(Book book, long id) {
-        Query query = em.createQuery(" update Book b set b.title = :title " +
-                " where b.id = :id");
-        query.setParameter("title", book.getTitle());
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    @Override
     public void deleteById(long id) {
         getById(id).ifPresent(em::remove);
     }

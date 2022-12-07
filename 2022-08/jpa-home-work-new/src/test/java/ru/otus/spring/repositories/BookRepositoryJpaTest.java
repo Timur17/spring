@@ -10,8 +10,7 @@ import ru.otus.spring.domain.Book;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с книгами ")
 @DataJpaTest
@@ -49,10 +48,13 @@ class BookRepositoryJpaTest {
     @Test
     void updateTest() {
         assertEquals(EXPECTED_BOOKS_COUNT, jpa.count());
+        Optional<Book> optionalBook = jpa.getById(EXISTING_BOOK_ID);
+        Book expectedBook = optionalBook.orElse(null);
+        assertNotNull(expectedBook);
+        expectedBook.setTitle("title");
 
-        Book expectedBook = new Book(0, "title");
-        jpa.updateById(expectedBook, EXISTING_BOOK_ID);
-        Optional<Book> actualBook = jpa.getById(EXPECTED_BOOKS_COUNT);
+        jpa.insert(expectedBook);
+        Optional<Book> actualBook = jpa.getById(EXISTING_BOOK_ID);
 
         assertEquals(EXPECTED_BOOKS_COUNT, jpa.count());
         Book actual = actualBook.orElseThrow();

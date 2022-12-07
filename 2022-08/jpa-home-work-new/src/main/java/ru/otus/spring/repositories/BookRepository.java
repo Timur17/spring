@@ -10,8 +10,6 @@ public interface BookRepository {
 
     Book insert(Book book);
 
-    void updateById(Book book, long id);
-
     void deleteById(long id);
 
     Optional<Book> getById(long id);

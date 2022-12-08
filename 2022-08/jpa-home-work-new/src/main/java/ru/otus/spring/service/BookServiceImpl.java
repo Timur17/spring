@@ -55,7 +55,7 @@ public class BookServiceImpl implements BookService {
         bookRepositoryJpa.deleteById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<Book> getAll() {
         List<Book> books = bookRepositoryJpa.getAll();
@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
         return books;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Optional<Book> getById(long id) {
         Optional<Book> optionalBook = bookRepositoryJpa.getById(id);

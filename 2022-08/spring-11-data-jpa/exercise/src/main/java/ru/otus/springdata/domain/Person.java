@@ -3,11 +3,9 @@ package ru.otus.springdata.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.CrudRepository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +18,14 @@ public class Person {
 
     private String name;
 
-    public Person(String name) {
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "email_id")
+    private Email email;
+
+    public Person(String name, Email email) {
         this.name = name;
+        this.email = email;
     }
+
+
 }

@@ -61,9 +61,10 @@ public class ShellBookController {
     public void getAll() {
         List<Book> books = bookService.getAll();
         consoleIOService.outputString("Amount books: " + books.size());
-        books.forEach(book -> consoleIOService.outputString(book.toString() +
-                "id: " + book.getId() + " " + book.getAuthor().getAuthorBook() +
-                ", " + book.getGenre().getGenreBook() + " " + book.getComments()));
+        books.forEach(book -> consoleIOService.outputString("id: " + book.getId() +
+                ", title: " + book.getTitle() +
+                ", author:  " + book.getAuthor().getAuthorBook() +
+                ", genre: " + book.getGenre().getGenreBook()));
     }
 
 
@@ -72,8 +73,10 @@ public class ShellBookController {
         Optional<Book> optionalBook = bookService.getById(id);
         Book book = optionalBook.orElse(null);
         if (book != null) {
-            consoleIOService.outputString(book.toString() + ", Author: " + book.getAuthor().getAuthorBook() + ", Genre: " +
-                    book.getGenre().getGenreBook() + ", " + book.getComments());
+            consoleIOService.outputString(book.toString() +
+                    ", Author: " + book.getAuthor().getAuthorBook() +
+                    ", Genre: " + book.getGenre().getGenreBook() +
+                    ", " + book.getComments());
         } else {
             consoleIOService.outputString("Book not present with id: " + id);
         }

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 
@@ -17,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с авторами ")
 @DataJpaTest
-@Import(AuthorRepositoryJpa.class)
 class AuthorRepositoryJpaTest {
 
     private static final long EXPECTED_AUTHORS_COUNT = 1;
@@ -25,7 +23,7 @@ class AuthorRepositoryJpaTest {
     private static final String EXISTING_BOOK_AUTHOR = "Tolstoy";
 
     @Autowired
-    private AuthorRepositoryJpa jpa;
+    private AuthorRepository jpa;
 
 
     @Test
@@ -39,13 +37,13 @@ class AuthorRepositoryJpaTest {
     public void save() {
         Author expected = new Author(0, "newAuthor",
                 new ArrayList<>(List.of(new Book(0, "ewBook"))));
-        jpa.insert(expected);
+        jpa.save(expected);
         long count = jpa.count();
         assertEquals(EXPECTED_AUTHORS_COUNT + 1, count);
 
         expected.setId(EXPECTED_AUTHORS_COUNT + 1);
 
-        Optional<Author> actualAuthor = jpa.getById(EXISTING_AUTHOR_ID + 1);
+        Optional<Author> actualAuthor = jpa.findById(EXISTING_AUTHOR_ID + 1);
 
         actualAuthor.ifPresent(author -> assertThat(author).usingRecursiveComparison().isEqualTo(expected));
 
@@ -56,8 +54,8 @@ class AuthorRepositoryJpaTest {
     void updateTest() {
         String newAuthor = "newAuthor";
         Author expected = new Author(EXISTING_AUTHOR_ID, "newAuthor");
-        jpa.insert(expected);
-        Optional<Author> actualAuthor = jpa.getById(EXISTING_AUTHOR_ID);
+        jpa.save(expected);
+        Optional<Author> actualAuthor = jpa.findById(EXISTING_AUTHOR_ID);
         assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());
@@ -68,7 +66,7 @@ class AuthorRepositoryJpaTest {
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
     void getByIdTest() {
-        Optional<Author> actualAuthor = jpa.getById(EXISTING_AUTHOR_ID);
+        Optional<Author> actualAuthor = jpa.findById(EXISTING_AUTHOR_ID);
         assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());
@@ -79,7 +77,7 @@ class AuthorRepositoryJpaTest {
     @DisplayName("возвращать ожидаемую книгу по title")
     @Test
     void getByAuthorTest() {
-        Optional<Author> actualAuthor = jpa.getByAuthor(EXISTING_BOOK_AUTHOR);
+        Optional<Author> actualAuthor = jpa.findByAuthor(EXISTING_BOOK_AUTHOR);
         assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());
@@ -90,7 +88,7 @@ class AuthorRepositoryJpaTest {
     @DisplayName("возвращать ожидаемый список книг")
     @Test
     void getAllTest() {
-        List<Author> authors = jpa.getAll();
+        List<Author> authors = jpa.findAll();
         assertEquals(EXPECTED_AUTHORS_COUNT, authors.size());
     }
 
@@ -98,9 +96,9 @@ class AuthorRepositoryJpaTest {
     @DisplayName("удалять заданного книгу по ее id")
     @Test
     void deleteById() {
-        assertTrue(jpa.getById(EXISTING_AUTHOR_ID).isPresent());
+        assertTrue(jpa.findById(EXISTING_AUTHOR_ID).isPresent());
         jpa.deleteById(EXISTING_AUTHOR_ID);
-        assertFalse(jpa.getById(EXISTING_AUTHOR_ID).isPresent());
+        assertFalse(jpa.findById(EXISTING_AUTHOR_ID).isPresent());
     }
 
 }

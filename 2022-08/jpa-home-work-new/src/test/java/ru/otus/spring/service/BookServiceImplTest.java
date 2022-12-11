@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.repositories.BookRepositoryJpa;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,14 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Сервис для работы с книгами")
 @DataJpaTest
-@Import({BookServiceImpl.class, BookRepositoryJpa.class})
+@Import({BookServiceImpl.class})
 class BookServiceImplTest {
-    private static final String EXISTING_BOOK_AUTHOR = "Tolstoy";
     private static final int EXPECTED_BOOK_COUNT = 1;
     private static final long EXPECTED_BOOK_ID = 1;
-    private static final String EXISTING_BOOK_GENRE = "Historical novel";
-    private static final String EXISTING_BOOK_TITLE = "war and peace";
-
 
     @Autowired
     BookServiceImpl service;

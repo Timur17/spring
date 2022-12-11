@@ -1,20 +1,14 @@
 package ru.otus.spring.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.otus.spring.domain.Author;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface AuthorRepository {
-    long count();
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-    Author insert(Author author);
-
-    void deleteById(long id);
-
-    Optional<Author> getById(long id);
-
-    Optional<Author> getByAuthor(String author);
-
-    List<Author> getAll();
+    @Query("select a from Author a where a.authorBook = :authorBook")
+    Optional<Author> findByAuthor(@Param("authorBook") String authorBook);
 }

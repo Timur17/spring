@@ -4,26 +4,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
-import ru.otus.spring.repositories.CommentRepositoryJpa;
+import ru.otus.spring.repositories.CommentRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    private final CommentRepositoryJpa commentRepositoryJpa;
+    private final CommentRepository commentRepository;
     private final BookServiceImpl bookService;
 
-    public CommentServiceImpl(CommentRepositoryJpa commentRepositoryJpa, BookServiceImpl bookService) {
-        this.commentRepositoryJpa = commentRepositoryJpa;
+    public CommentServiceImpl(CommentRepository commentRepository, BookServiceImpl bookService) {
+        this.commentRepository = commentRepository;
         this.bookService = bookService;
     }
 
 
     @Override
     public long count() {
-        return commentRepositoryJpa.count();
+        return commentRepository.count();
     }
 
     @Transactional
@@ -32,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
         Optional<Book> optionalBook = bookService.getById(bookId);
         Book book = optionalBook.orElse(null);
         if (book != null) {
-            return commentRepositoryJpa.insert(new Comment(comment, book));
+            return commentRepository.save(new Comment(comment, book));
         } else {
             return null;
         }
@@ -41,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void deleteById(long id) {
-        commentRepositoryJpa.deleteById(id);
+        commentRepository.deleteById(id);
     }
 
     @Override

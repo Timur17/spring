@@ -6,17 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Author;
-import ru.otus.spring.repositories.AuthorRepositoryJpa;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Сервис для работы с авторами ")
 @DataJpaTest
-@Import({AuthorServiceImpl.class, AuthorRepositoryJpa.class})
+@Import({AuthorServiceImpl.class})
 class AuthorServiceImplTest {
 
     private static final long EXPECTED_AUTHORS_COUNT = 1;

@@ -13,8 +13,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "books")
-@NamedEntityGraph(name = "books-comments-entity-graph", attributeNodes = {@NamedAttributeNode("comments")})
 public class Book {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @Id

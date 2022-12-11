@@ -1,20 +1,14 @@
 package ru.otus.spring.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.otus.spring.domain.Book;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface BookRepository {
-    long count();
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-    Book insert(Book book);
-
-    void deleteById(long id);
-
-    Optional<Book> getById(long id);
-
-    Book getByTitle(String title);
-
-    List<Book> getAll();
+    @Query("select b from Book b where b.title = :title")
+    Optional<Book> findByTitle(@Param("title") String title);
 }

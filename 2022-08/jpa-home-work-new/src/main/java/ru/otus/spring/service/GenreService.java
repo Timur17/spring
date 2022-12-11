@@ -12,12 +12,12 @@ public interface GenreService {
 
     Genre insert(String genre);
 
-    Genre updateById(String genre, int id);
+    Genre updateById(String genre, long id);
 
-    void deleteById(int id);
+    void deleteById(long id);
 
     List<Genre> getAll();
 
-    Optional<Genre> getById(int id);
+    Optional<Genre> getById(long id);
 
 }

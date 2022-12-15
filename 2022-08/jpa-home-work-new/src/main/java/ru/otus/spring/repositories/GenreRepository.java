@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
-    @Query("select g from Genre g where g.genreBook = :genre")
-    Optional<Genre> findByGenre(@Param("genre") String genre);
+    Optional<Genre> findByGenreBook(String genreBook);
 
 }

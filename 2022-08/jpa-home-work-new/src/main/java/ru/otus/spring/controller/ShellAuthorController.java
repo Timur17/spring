@@ -45,11 +45,9 @@ public class ShellAuthorController {
         Author authorEntity = authorService.updateById(author, id);
         if (authorEntity == null) {
             consoleIOService.outputString("Author was not found with id: " + id);
-            ;
         } else {
             consoleIOService.outputString("Updated author: " + authorEntity.getAuthorBook() + ", id: " + authorEntity.getId());
         }
-
     }
 
 

@@ -21,10 +21,9 @@ public class AuthorServiceImpl implements AuthorService {
         return repository.count();
     }
 
-    @Transactional
     @Override
     public Author insert(String author) {
-        Optional<Author> optionalAuthor = repository.findByAuthor(author);
+        Optional<Author> optionalAuthor = repository.findByAuthorBook(author);
         Author entity = optionalAuthor.orElse(null);
         if (entity == null) {
             return repository.save(new Author(author));
@@ -32,7 +31,6 @@ public class AuthorServiceImpl implements AuthorService {
         return null;
     }
 
-    @Transactional
     @Override
     public Author updateById(String newAuthorName, long id) {
         Optional<Author> optionalAuthor = repository.findById(id);
@@ -44,18 +42,17 @@ public class AuthorServiceImpl implements AuthorService {
         }
     }
 
-    @Transactional
     @Override
     public void deleteById(long id) {
         repository.deleteById(id);
     }
 
-
     @Transactional(readOnly = true)
     @Override
     public List<Author> getAll() {
         List<Author> authors = repository.findAll();
-        authors.forEach(author -> author.getBooks().forEach(book -> {}));
+        authors.forEach(author -> author.getBooks().forEach(book -> {
+        }));
         return repository.findAll();
     }
 

@@ -76,7 +76,7 @@ class GenreRepositoryJpaTest {
     @Test
     void getByGenreTest() {
         Genre expected = new Genre(EXISTING_GENRE_ID, EXISTING_BOOK_GENRE);
-        Optional<Genre> actualGenre = jpa.findByGenre(EXISTING_BOOK_GENRE);
+        Optional<Genre> actualGenre = jpa.findByGenreBook(EXISTING_BOOK_GENRE);
         assertFalse(actualGenre.isEmpty());
         actualGenre.ifPresent(genre -> {
             assertEquals(genre.getId(), EXISTING_GENRE_ID);

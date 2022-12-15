@@ -77,7 +77,7 @@ class AuthorRepositoryJpaTest {
     @DisplayName("возвращать ожидаемую книгу по title")
     @Test
     void getByAuthorTest() {
-        Optional<Author> actualAuthor = jpa.findByAuthor(EXISTING_BOOK_AUTHOR);
+        Optional<Author> actualAuthor = jpa.findByAuthorBook(EXISTING_BOOK_AUTHOR);
         assertFalse(actualAuthor.isEmpty());
         actualAuthor.ifPresent(author -> {
             assertEquals(EXISTING_AUTHOR_ID, author.getId());

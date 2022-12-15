@@ -36,7 +36,7 @@ public class ShellGenreController {
         if (genreEntity != null) {
             consoleIOService.outputString("Genre " + genreEntity.getGenreBook() + " was added with id: " + genreEntity.getId());
         } else {
-            consoleIOService.outputString("Store already has genre - " + genre + ", with id: " + genreEntity.getId());
+            consoleIOService.outputString("Store already has genre - " + genre);
         }
     }
 

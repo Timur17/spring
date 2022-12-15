@@ -24,7 +24,6 @@ public class BookServiceImpl implements BookService {
         return bookRepository.count();
     }
 
-    @Transactional
     @Override
     public Book insert(String title, String author, String genre) {
         Optional<Book> optionalBook = bookRepository.findByTitle(title);
@@ -35,7 +34,6 @@ public class BookServiceImpl implements BookService {
         }
     }
 
-    @Transactional
     @Override
     public Book updateById(String title, long id) {
         Optional<Book> optionalBook = bookRepository.findById(id);
@@ -48,7 +46,6 @@ public class BookServiceImpl implements BookService {
         }
     }
 
-    @Transactional
     @Override
     public void deleteById(long id) {
         bookRepository.deleteById(id);

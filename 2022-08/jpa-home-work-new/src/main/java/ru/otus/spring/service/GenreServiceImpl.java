@@ -26,10 +26,9 @@ public class GenreServiceImpl implements GenreService {
         return genreRepository.count();
     }
 
-    @Transactional
     @Override
     public Genre insert(String genre) {
-        Optional<Genre> optionalGenre = genreRepository.findByGenre(genre);
+        Optional<Genre> optionalGenre = genreRepository.findByGenreBook(genre);
         Genre entity = optionalGenre.orElse(null);
         if (entity == null) {
             return genreRepository.save(new Genre(genre));
@@ -38,20 +37,17 @@ public class GenreServiceImpl implements GenreService {
         }
     }
 
-    @Transactional
     @Override
     public Genre updateById(String genre, long id) {
         Optional<Genre> optionalGenre = genreRepository.findById(id);
         Genre entity = optionalGenre.orElse(null);
         if (entity != null) {
-            entity.getBooks().forEach(book -> book.getId());
             return genreRepository.save(new Genre(id, genre, entity.getBooks()));
         } else {
             return null;
         }
     }
 
-    @Transactional
     @Override
     public void deleteById(long id) {
         genreRepository.deleteById(id);

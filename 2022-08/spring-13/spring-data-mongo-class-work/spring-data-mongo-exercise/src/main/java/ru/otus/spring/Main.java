@@ -1,12 +1,16 @@
 package ru.otus.spring;
 
+import com.github.cloudyrock.spring.v5.EnableMongock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import ru.otus.spring.domain.Person;
 import ru.otus.spring.repostory.PersonRepository;
 
+@EnableMongock
+@EnableMongoRepositories
 @SpringBootApplication
 public class Main {
 

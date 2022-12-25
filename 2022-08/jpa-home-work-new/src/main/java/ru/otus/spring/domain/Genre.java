@@ -12,10 +12,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document("genres")
 public class Genre {
     @Id
-    private long id;
+    private String id;
 
     private String genreBook;
 
@@ -25,7 +25,7 @@ public class Genre {
         this.genreBook = genreBook;
     }
 
-    public Genre(long id, String genreBook) {
+    public Genre(String id, String genreBook) {
         this.id = id;
         this.genreBook = genreBook;
     }

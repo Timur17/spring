@@ -1,24 +1,10 @@
 package ru.otus.spring.repositories;
 
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-
-
-//
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.service.BookServiceImpl;
-//
-//import java.util.List;
-//import java.util.Optional;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +33,7 @@ class BookRepositoryTest {
 
         assertEquals(EXPECTED_BOOKS_COUNT, bookRepository.count());
 
-        Book expectedBook = new Book( "title");
+        Book expectedBook = new Book("title");
         bookRepository.save(expectedBook);
 
         assertEquals(EXPECTED_BOOKS_COUNT + 1, bookRepository.count());
@@ -102,7 +88,7 @@ class BookRepositoryTest {
     @Test
     void deleteById() {
         assertTrue(bookRepository.findById(EXISTING_BOOK_ID).isPresent());
-        bookRepository.deleteById(EXPECTED_BOOKS_COUNT);
+        bookRepository.deleteById(EXISTING_BOOK_ID);
         assertTrue(bookRepository.findById(EXISTING_BOOK_ID).isEmpty());
     }
 

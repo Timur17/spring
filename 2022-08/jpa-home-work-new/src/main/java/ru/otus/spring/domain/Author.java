@@ -16,7 +16,7 @@ import java.util.List;
 public class Author {
 
     @Id
-    private long id;
+    private String id;
 
     private String authorBook;
 
@@ -26,7 +26,7 @@ public class Author {
         this.authorBook = authorBook;
     }
 
-    public Author(long id, String authorBook) {
+    public Author(String id, String authorBook) {
         this.id = id;
         this.authorBook = authorBook;
     }

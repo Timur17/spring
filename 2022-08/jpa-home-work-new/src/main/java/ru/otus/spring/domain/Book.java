@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document("books")
 public class Book {
 
     @Id

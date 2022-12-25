@@ -8,11 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document("comments")
 public class Comment {
 
     @Id
-    private long id;
+    private String id;
 
     private String commentBook;
 
@@ -22,7 +22,7 @@ public class Comment {
         this.commentBook = commentBook;
     }
 
-    public Comment(long id, String commentBook) {
+    public Comment(String id, String commentBook) {
         this.id = id;
         this.commentBook = commentBook;
     }
@@ -40,7 +40,7 @@ public class Comment {
                 '}';
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -48,7 +48,7 @@ public class Comment {
         return commentBook;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

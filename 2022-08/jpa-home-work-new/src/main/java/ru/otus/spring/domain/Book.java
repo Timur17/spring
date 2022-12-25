@@ -16,7 +16,7 @@ import java.util.Set;
 public class Book {
 
     @Id
-    private long id;
+    private String id;
 
     private String title;
 
@@ -27,12 +27,19 @@ public class Book {
     private Genre genre;
 
 
-    public Book(long id, String title) {
+    public Book(String id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public Book(long id, String title, Author author, Genre genre) {
+    public Book(String id, String title, Author author, Genre genre) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+    }
+
+    public Book(String title, Author author, Genre genre) {
         this.id = id;
         this.title = title;
         this.author = author;

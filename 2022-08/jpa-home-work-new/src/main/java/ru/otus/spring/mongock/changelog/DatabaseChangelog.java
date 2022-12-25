@@ -13,11 +13,11 @@ import ru.otus.spring.repositories.BookRepository;
 
 @ChangeLog
 public class DatabaseChangelog {
-//
-//    @ChangeSet(order = "001", id = "dropDb", author = "stvort", runAlways = true)
-//    public void dropDb(MongoDatabase db) {
-//        db.drop();
-//    }
+
+    @ChangeSet(order = "001", id = "dropDb", author = "stvort", runAlways = true)
+    public void dropDb(MongoDatabase db) {
+        db.drop();
+    }
 //
 //    @ChangeSet(order = "002", id = "insertLermontov", author = "ydvorzhetskiy")
 //    public void insertLermontov(MongoDatabase db) {
@@ -26,8 +26,8 @@ public class DatabaseChangelog {
 //        myCollection.insertOne(doc);
 //    }
 //
-    @ChangeSet(order = "001", id = "insertBook", author = "tukhtarov")
-    public void insertPushkin(BookRepository repository) {
-        repository.save(new Book(1, "war and peace", new Author("Tolstoy"), new Genre("Historical novel")));
-    }
+//    @ChangeSet(order = "001", id = "insertBook", author = "tukhtarov")
+//    public void insertPushkin(BookRepository repository) {
+//        repository.save(new Book(1, "war and peace", new Author("Tolstoy"), new Genre("Historical novel")));
+//    }
 }

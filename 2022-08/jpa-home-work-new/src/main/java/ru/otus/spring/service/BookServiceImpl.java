@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
     public Book insert(String title, String author, String genre) {
         Optional<Book> optionalBook = bookRepository.findByTitle(title);
         if (optionalBook.isEmpty()) {
-            return bookRepository.save(new Book(0, title, new Author(author), new Genre(genre)));
+            return bookRepository.save(new Book(title, new Author(author), new Genre(genre)));
         } else {
             return null;
         }

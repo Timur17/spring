@@ -26,6 +26,6 @@ public class DatabaseChangelog {
 //
     @ChangeSet(order = "002", id = "insertBook", author = "tukhtarov")
     public void insertPushkin(BookRepository repository) {
-        repository.save(new Book(1, "war and peace", new Author("Tolstoy"), new Genre("Historical novel")));
+        repository.save(new Book("1", "war and peace", new Author("Tolstoy"), new Genre("Historical novel")));
     }
 }

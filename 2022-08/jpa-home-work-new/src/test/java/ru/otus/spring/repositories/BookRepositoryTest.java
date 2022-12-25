@@ -20,15 +20,16 @@ import ru.otus.spring.service.BookServiceImpl;
 //import java.util.List;
 //import java.util.Optional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с книгами ")
 @SpringBootTest
-class BookRepositoryJpaTest {
+class BookRepositoryTest {
     private static final long EXPECTED_BOOKS_COUNT = 1;
-    private static final long EXISTING_BOOK_ID = 1;
+    private static final String EXISTING_BOOK_ID = "1";
     private static final String EXISTING_BOOK_TITLE = "war and peace";
 
 
@@ -39,10 +40,6 @@ class BookRepositoryJpaTest {
     public void countTest() {
         long count = bookRepository.count();
         assertEquals(EXPECTED_BOOKS_COUNT, count);
-        ObjectId id1 = new ObjectId();
-        ObjectId id2 = new ObjectId();
-        System.out.println(id1.toString());
-        System.out.println(id2.toHexString());
     }
 
     @Test
@@ -50,12 +47,13 @@ class BookRepositoryJpaTest {
 
         assertEquals(EXPECTED_BOOKS_COUNT, bookRepository.count());
 
-        Book expectedBook = new Book(0, "title");
+        Book expectedBook = new Book( "title");
         bookRepository.save(expectedBook);
 
         assertEquals(EXPECTED_BOOKS_COUNT + 1, bookRepository.count());
 
         Optional<Book> actualBook = bookRepository.findByTitle("title");
+
 
         assertEquals(expectedBook.getTitle(), actualBook.orElseThrow().getTitle());
     }
@@ -67,7 +65,7 @@ class BookRepositoryJpaTest {
         Optional<Book> optionalBook = bookRepository.findById(EXISTING_BOOK_ID);
         Book expectedBook = optionalBook.orElse(null);
         assertNotNull(expectedBook);
-        expectedBook.setTitle("title");
+        expectedBook.setTitle("updated");
 
         bookRepository.save(expectedBook);
         Optional<Book> actualBook = bookRepository.findById(EXISTING_BOOK_ID);
@@ -77,38 +75,35 @@ class BookRepositoryJpaTest {
         assertEquals(EXISTING_BOOK_ID, actual.getId());
         assertEquals(expectedBook.getTitle(), actual.getTitle());
     }
-//
-//    @DisplayName("возвращать ожидаемую книгу по id")
-//    @Test
-//    void getByIdTest() {
-//        Optional<Book> actualBook = jpa.findById(EXPECTED_BOOKS_COUNT);
-//        assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
-//    }
-//
-//    @DisplayName("возвращать ожидаемую книгу по title")
-//    @Test
-//    void getByTitleTest() {
-//        Optional<Book> actualBook = jpa.findByTitle(EXISTING_BOOK_TITLE);
-//        assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
-//    }
-//
-//    @DisplayName("возвращать ожидаемый список книг")
-//    @Test
-//    void getAllTest() {
-//        List<Book> actualBookList = jpa.findAll();
-//        assertEquals(EXPECTED_BOOKS_COUNT, actualBookList.size());
-//    }
-//
-//
-//    @DisplayName("удалять заданного книгу по ее id")
-//    @Test
-//    void deleteById() {
-//
-//        assertTrue(jpa.findById(EXISTING_BOOK_ID).isPresent());
-//
-//        jpa.deleteById(EXPECTED_BOOKS_COUNT);
-//
-//        assertTrue(jpa.findById(EXISTING_BOOK_ID).isEmpty());
-//    }
-//
+
+    @DisplayName("возвращать ожидаемую книгу по id")
+    @Test
+    void getByIdTest() {
+        Optional<Book> actualBook = bookRepository.findById(EXISTING_BOOK_ID);
+        assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
+    }
+
+    @DisplayName("возвращать ожидаемую книгу по title")
+    @Test
+    void getByTitleTest() {
+        Optional<Book> actualBook = bookRepository.findByTitle(EXISTING_BOOK_TITLE);
+        assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
+    }
+
+    @DisplayName("возвращать ожидаемый список книг")
+    @Test
+    void getAllTest() {
+        List<Book> actualBookList = bookRepository.findAll();
+        assertEquals(EXPECTED_BOOKS_COUNT, actualBookList.size());
+    }
+
+
+    @DisplayName("удалять заданного книгу по ее id")
+    @Test
+    void deleteById() {
+        assertTrue(bookRepository.findById(EXISTING_BOOK_ID).isPresent());
+        bookRepository.deleteById(EXPECTED_BOOKS_COUNT);
+        assertTrue(bookRepository.findById(EXISTING_BOOK_ID).isEmpty());
+    }
+
 }

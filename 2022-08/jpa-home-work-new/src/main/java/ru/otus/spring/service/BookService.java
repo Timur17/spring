@@ -12,12 +12,13 @@ public interface BookService {
 
     Book insert(String title, String author, String genre);
 
-    Book updateById(String title, long id);
+    Book updateById(String title, String id);
 
-    void deleteById(long id);
+    void deleteById(String id);
 
     List<Book> getAll();
 
-    Optional<Book> getById(long id);
+
+    Optional<Book> getById(String id);
 
 }

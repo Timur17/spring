@@ -6,8 +6,8 @@ import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.repositories.CommentRepository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -27,27 +27,23 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Comment insert(String comment, long bookId) {
+    public Comment insert(String comment, String bookId) {
         Optional<Book> optionalBook = bookService.getById(bookId);
         Book book = optionalBook.orElse(null);
         if (book != null) {
-            return commentRepository.save(new Comment(comment, book));
+            return commentRepository.save(new Comment(comment, book.getId()));
         } else {
             return null;
         }
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(String id) {
         commentRepository.deleteById(id);
     }
 
     @Override
-    public Set<Comment> getAllByBookId(long bookId) {
-        Optional<Book> optionalBook = bookService.getById(bookId);
-        Book book = optionalBook.orElse(null);
-        if (book == null)
-            return null;
-        return book.getComments();
+    public List<Comment> getAllByBookId(String bookId) {
+        return commentRepository.findAllByBookId(bookId);
     }
 }

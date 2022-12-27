@@ -1,17 +1,12 @@
 package ru.otus.spring.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Set;
-
-
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Document("books")
 public class Book {
 
@@ -19,8 +14,6 @@ public class Book {
     private String id;
 
     private String title;
-
-    private Set<Comment> comments;
 
     private Author author;
 
@@ -50,11 +43,14 @@ public class Book {
         this.title = title;
     }
 
+
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", title='" + title + '\'' +
+                ", author=" + author.getAuthorBook() +
+                ", genre=" + genre.getGenreBook() +
                 '}';
     }
 }

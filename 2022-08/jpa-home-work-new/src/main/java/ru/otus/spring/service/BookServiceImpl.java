@@ -4,8 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.Comment;
 import ru.otus.spring.domain.Genre;
 import ru.otus.spring.repositories.BookRepository;
+import ru.otus.spring.repositories.CommentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +16,15 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final AuthorService authorService;
+    private final GenreService genreService;
+    private final CommentRepository commentRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, GenreService genreService, CommentRepository commentRepository) {
         this.bookRepository = bookRepository;
+        this.authorService = authorService;
+        this.genreService = genreService;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -24,10 +32,13 @@ public class BookServiceImpl implements BookService {
         return bookRepository.count();
     }
 
+    @Transactional
     @Override
     public Book insert(String title, String author, String genre) {
         Optional<Book> optionalBook = bookRepository.findByTitle(title);
         if (optionalBook.isEmpty()) {
+            authorService.insert(author);
+            genreService.insert(genre);
             return bookRepository.save(new Book(title, new Author(author), new Genre(genre)));
         } else {
             return null;
@@ -35,7 +46,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateById(String title, long id) {
+    public Book updateById(String title, String id) {
         Optional<Book> optionalBook = bookRepository.findById(id);
         Book book = optionalBook.orElse(null);
         if (book != null) {
@@ -46,9 +57,18 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Transactional
     @Override
-    public void deleteById(long id) {
+    public void deleteById(String id) {
+        deleteAllCommentsByBookId(id);
         bookRepository.deleteById(id);
+    }
+
+    public void deleteAllCommentsByBookId(String id) {
+        List<Comment> comments = commentRepository.findAllByBookId(id);
+        comments.stream().forEach(comment -> {
+            commentRepository.deleteById(comment.getId());
+        });
     }
 
     @Override
@@ -58,11 +78,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Book> getById(long id) {
-        Optional<Book> optionalBook = bookRepository.findById(id);
-        optionalBook.ifPresent(book -> {
-            book.getComments().forEach(comment -> comment.getCommentBook());
-        });
-        return optionalBook;
+    public Optional<Book> getById(String id) {
+        return bookRepository.findById(id);
     }
 }

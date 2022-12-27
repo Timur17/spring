@@ -24,7 +24,6 @@ class GenreRepositoryJpaTest {
     @Autowired
     private GenreRepository repository;
 
-
     @Test
     public void countTest() {
         long count = repository.count();
@@ -35,7 +34,7 @@ class GenreRepositoryJpaTest {
     @Test
     public void save() {
         Genre expected = new Genre("2", "newGenre",
-                new ArrayList<>(List.of(new Book( "newBook"))));
+                new ArrayList<>(List.of(new Book("newBook"))));
         repository.save(expected);
         long count = repository.count();
         assertEquals(EXPECTED_GENRES_COUNT + 1, count);

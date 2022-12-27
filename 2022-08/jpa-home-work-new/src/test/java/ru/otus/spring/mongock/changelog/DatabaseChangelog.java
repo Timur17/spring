@@ -20,14 +20,7 @@ public class DatabaseChangelog {
     public void dropDb(MongoDatabase db) {
         db.drop();
     }
-//
-//    @ChangeSet(order = "002", id = "insertLermontov", author = "ydvorzhetskiy")
-//    public void insertLermontov(MongoDatabase db) {
-//        MongoCollection<Document> myCollection = db.getCollection("persons");
-//        var doc = new Document().append("name", "Lermontov");
-//        myCollection.insertOne(doc);
-//    }
-//
+
     @ChangeSet(order = "002", id = "insertBook", author = "tukhtarov")
     public void insertPushkin(BookRepository repository) {
         repository.save(new Book("1", "war and peace", new Author("Tolstoy"), new Genre("Historical novel")));
@@ -45,6 +38,6 @@ public class DatabaseChangelog {
 
     @ChangeSet(order = "005", id = "insertComment", author = "tukhtarov")
     public void insertComment(CommentRepository repository) {
-        repository.save(new Comment("1", "The best book"));
+        repository.save(new Comment("1", "The best book", "1"));
     }
 }

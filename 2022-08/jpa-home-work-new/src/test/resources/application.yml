@@ -3,6 +3,10 @@ spring:
     mongodb:
       database: library
 
+  shell:
+    interactive:
+      enabled: false
+
 mongock:
 #    runner-type: "ApplicationRunner" # default
   runner-type: "InitializingBean"

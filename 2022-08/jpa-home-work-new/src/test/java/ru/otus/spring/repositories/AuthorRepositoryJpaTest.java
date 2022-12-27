@@ -25,7 +25,6 @@ class AuthorRepositoryJpaTest {
     @Autowired
     private AuthorRepository authorRepository;
 
-
     @Test
     public void countTest() {
         long count = authorRepository.count();
@@ -40,7 +39,6 @@ class AuthorRepositoryJpaTest {
         authorRepository.save(expected);
         long count = authorRepository.count();
         assertEquals(EXPECTED_AUTHORS_COUNT + 1, count);
-
 
         Optional<Author> actualAuthor = authorRepository.findById("2");
 

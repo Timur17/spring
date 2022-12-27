@@ -12,11 +12,11 @@ public interface AuthorService {
 
     Author insert(String author);
 
-    Author updateById(String Author, long id);
+    Author updateById(String Author, String id);
 
-    void deleteById(long id);
+    void deleteById(String id);
 
     List<Author> getAll();
 
-    Optional<Author> getById(long id);
+    Optional<Author> getById(String id);
 }

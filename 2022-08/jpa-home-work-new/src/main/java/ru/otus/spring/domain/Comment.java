@@ -1,13 +1,11 @@
 package ru.otus.spring.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Document("comments")
 public class Comment {
 
@@ -16,28 +14,17 @@ public class Comment {
 
     private String commentBook;
 
-    private Book book;
+    private String bookId;
 
-    public Comment(String commentBook) {
+    public Comment(String commentBook, String bookId) {
         this.commentBook = commentBook;
+        this.bookId = bookId;
     }
 
-    public Comment(String id, String commentBook) {
+    public Comment(String id, String commentBook, String bookId) {
         this.id = id;
         this.commentBook = commentBook;
-    }
-
-    public Comment(String commentBook, Book book) {
-        this.commentBook = commentBook;
-        this.book = book;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", comment='" + commentBook + '\'' +
-                '}';
+        this.bookId = bookId;
     }
 
     public String getId() {
@@ -56,11 +43,20 @@ public class Comment {
         this.commentBook = commentBook;
     }
 
-    public Book getBook() {
-        return book;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id='" + id + '\'' +
+                ", commentBook='" + commentBook + '\'' +
+                ", bookId='" + bookId + '\'' +
+                '}';
     }
 }

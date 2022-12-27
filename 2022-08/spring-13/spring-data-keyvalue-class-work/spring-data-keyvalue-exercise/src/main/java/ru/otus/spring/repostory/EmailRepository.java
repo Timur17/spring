@@ -1,12 +1,13 @@
 package ru.otus.spring.repostory;
 
 import org.springframework.data.keyvalue.repository.KeyValueRepository;
-import org.springframework.data.repository.CrudRepository;
+import ru.otus.spring.domain.Email;
 import ru.otus.spring.domain.Person;
 
 import java.util.List;
 
-public interface PersonRepository extends KeyValueRepository<Person, Integer> {
+public interface EmailRepository {
 
-    List<Person> findAll();
+    List<Email> findAll();
+    Email save(Email email);
 }

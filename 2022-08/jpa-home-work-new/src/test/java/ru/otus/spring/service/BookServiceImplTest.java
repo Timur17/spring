@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.repositories.CommentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Сервис для работы с книгами")
 @DataMongoTest
-@Import({BookServiceImpl.class})
+@Import({BookServiceImpl.class, AuthorServiceImpl.class, GenreServiceImpl.class, CommentServiceImpl.class})
 class BookServiceImplTest {
     private static final int EXPECTED_BOOK_COUNT = 1;
     private static final String EXPECTED_BOOK_ID = "1";
@@ -22,11 +24,13 @@ class BookServiceImplTest {
     @Autowired
     BookServiceImpl service;
 
+    @DirtiesContext
     @Test
     void count() {
         assertEquals(EXPECTED_BOOK_COUNT, service.count());
     }
 
+    @DirtiesContext
     @Test
     void insert() {
         String newBook = "newBook";
@@ -42,6 +46,7 @@ class BookServiceImplTest {
         assertNull(bookAddRepeat);
     }
 
+    @DirtiesContext
     @Test
     void updateById() {
         String newBook = "updBook";
@@ -53,6 +58,7 @@ class BookServiceImplTest {
 
     }
 
+    @DirtiesContext
     @Test
     void deleteById() {
         Optional<Book> optionalBook = service.getById(EXPECTED_BOOK_ID);
@@ -66,6 +72,7 @@ class BookServiceImplTest {
         assertNull(bookAfterDelete);
     }
 
+    @DirtiesContext
     @Test
     void getAll() {
         List<Book> books = service.getAll();
@@ -77,6 +84,7 @@ class BookServiceImplTest {
         });
     }
 
+    @DirtiesContext
     @Test
     void getById() {
         Optional<Book> optionalBook = service.getById(EXPECTED_BOOK_ID);

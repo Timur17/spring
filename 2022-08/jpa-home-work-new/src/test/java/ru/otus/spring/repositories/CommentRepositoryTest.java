@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.spring.domain.Comment;
 
 import java.util.Optional;
@@ -24,13 +25,14 @@ class CommentRepositoryTest {
     @Autowired
     private CommentRepository repository;
 
-
+    @DirtiesContext
     @Test
     public void countTest() {
         long count = repository.count();
         assertEquals(EXPECTED_COMMENT_COUNT, count);
     }
 
+    @DirtiesContext
     @Test
     public void saveTest() {
 
@@ -44,6 +46,7 @@ class CommentRepositoryTest {
         assertThat(actual.get()).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    @DirtiesContext
     @DisplayName("Обновить комментарий в БД")
     @Test
     void updateTest() {
@@ -55,6 +58,7 @@ class CommentRepositoryTest {
         assertEquals(expected.getBookId(), actual.orElseThrow().getBookId());
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемый коммент по id")
     @Test
     void getByIdTest() {
@@ -62,6 +66,7 @@ class CommentRepositoryTest {
         assertEquals(EXISTING_BOOK_COMMENT, actual.get().getCommentBook());
     }
 
+    @DirtiesContext
     @DisplayName("удалять заданного книгу по ее id")
     @Test
     void deleteById() {
@@ -70,6 +75,7 @@ class CommentRepositoryTest {
         assertFalse(repository.findById(EXISTING_COMMENT_ID).isPresent());
     }
 
+    @DirtiesContext
     @DisplayName("найти все комменты по книге")
     @Test
     void findAllByBookTitle() {

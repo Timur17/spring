@@ -26,6 +26,7 @@ public class AuthorServiceImpl implements AuthorService {
         return repository.count();
     }
 
+    @Transactional
     @Override
     public Author insert(String author) {
         Optional<Author> optionalAuthor = repository.findByAuthorBook(author);
@@ -36,6 +37,7 @@ public class AuthorServiceImpl implements AuthorService {
         return null;
     }
 
+    @Transactional
     @Override
     public Author updateById(String newAuthorName, String id) {
         Optional<Author> optionalAuthor = repository.findById(id);
@@ -66,13 +68,11 @@ public class AuthorServiceImpl implements AuthorService {
         repository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Author> getAll() {
         return repository.findAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Author> getById(String id) {
         Optional<Author> optionalAuthor = repository.findById(id);

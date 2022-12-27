@@ -37,6 +37,7 @@ public class GenreServiceImpl implements GenreService {
         }
     }
 
+    @Transactional
     @Override
     public Genre updateById(String newGenre, String id) {
         Optional<Genre> optionalGenre = genreRepository.findById(id);
@@ -57,6 +58,7 @@ public class GenreServiceImpl implements GenreService {
         });
     }
 
+    @Transactional
     @Override
     public void deleteById(String id) {
         Optional<Genre> genre = getById(id);
@@ -66,13 +68,11 @@ public class GenreServiceImpl implements GenreService {
         genreRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Genre> getAll() {
         return genreRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Genre> getById(String id) {
         Optional<Genre> bookGenre = genreRepository.findById(id);

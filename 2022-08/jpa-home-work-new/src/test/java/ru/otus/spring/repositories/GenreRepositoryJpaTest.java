@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
 
@@ -24,12 +25,14 @@ class GenreRepositoryJpaTest {
     @Autowired
     private GenreRepository repository;
 
+    @DirtiesContext
     @Test
     public void countTest() {
         long count = repository.count();
         assertEquals(EXPECTED_GENRES_COUNT, count);
     }
 
+    @DirtiesContext
     @DisplayName("Сохранить жанр")
     @Test
     public void save() {
@@ -43,6 +46,7 @@ class GenreRepositoryJpaTest {
         actualGenre.ifPresent(genre -> assertThat(genre).usingRecursiveComparison().isEqualTo(expected));
     }
 
+    @DirtiesContext
     @DisplayName("Обновить жанр")
     @Test
     void updateTest() {
@@ -56,7 +60,7 @@ class GenreRepositoryJpaTest {
         });
     }
 
-
+    @DirtiesContext
     @DisplayName("возвращать ожидаемый жанр по id")
     @Test
     void getByIdTest() {
@@ -69,7 +73,7 @@ class GenreRepositoryJpaTest {
         });
     }
 
-
+    @DirtiesContext
     @DisplayName("возвращать  ожидаемый жанр по title")
     @Test
     void getByGenreTest() {
@@ -82,6 +86,7 @@ class GenreRepositoryJpaTest {
         });
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемый список жанров")
     @Test
     void getAllTest() {
@@ -89,7 +94,7 @@ class GenreRepositoryJpaTest {
         assertEquals(EXPECTED_GENRES_COUNT, genres.size());
     }
 
-
+    @DirtiesContext
     @DisplayName("удалять заданный жанр по id")
     @Test
     void deleteById() {

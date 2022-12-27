@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.spring.domain.Author;
 
 import java.util.List;
@@ -24,11 +25,13 @@ class AuthorServiceImplTest {
     @Autowired
     private AuthorServiceImpl service;
 
+    @DirtiesContext
     @Test
     void count() {
         assertEquals(EXPECTED_AUTHORS_COUNT, service.count());
     }
 
+    @DirtiesContext
     @Test
     void insert() {
         String newAuthor = "newAuthor";
@@ -38,6 +41,7 @@ class AuthorServiceImplTest {
         assertNull(authorAddRepeat);
     }
 
+    @DirtiesContext
     @Test
     void updateById() {
         String newAuthor = "updAuthor";
@@ -48,6 +52,7 @@ class AuthorServiceImplTest {
         assertNull(authorNotExist);
     }
 
+    @DirtiesContext
     @Test
     void deleteById() {
         Optional<Author> optionalAuthor = service.getById(EXISTING_AUTHOR_ID);
@@ -61,6 +66,7 @@ class AuthorServiceImplTest {
         assertNull(authorAfterDelete);
     }
 
+    @DirtiesContext
     @Test
     void getAll() {
         List<Author> authors = service.getAll();
@@ -71,6 +77,7 @@ class AuthorServiceImplTest {
         });
     }
 
+    @DirtiesContext
     @Test
     void getById() {
         Optional<Author> optionalAuthor = service.getById(EXISTING_AUTHOR_ID);

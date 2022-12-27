@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.spring.domain.Book;
 
 import java.util.List;
@@ -24,12 +25,14 @@ class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
 
+    @DirtiesContext
     @Test
     public void countTest() {
         long count = bookRepository.count();
         assertEquals(EXPECTED_BOOKS_COUNT, count);
     }
 
+    @DirtiesContext
     @Test
     public void save() {
 
@@ -46,6 +49,7 @@ class BookRepositoryTest {
         assertEquals(expectedBook.getTitle(), actualBook.orElseThrow().getTitle());
     }
 
+    @DirtiesContext
     @DisplayName("Обновить книгу в БД")
     @Test
     void updateTest() {
@@ -64,6 +68,7 @@ class BookRepositoryTest {
         assertEquals(expectedBook.getTitle(), actual.getTitle());
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
     void getByIdTest() {
@@ -71,6 +76,7 @@ class BookRepositoryTest {
         assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемую книгу по title")
     @Test
     void getByTitleTest() {
@@ -78,7 +84,7 @@ class BookRepositoryTest {
         assertEquals(EXISTING_BOOK_TITLE, actualBook.orElseThrow().getTitle());
     }
 
-
+    @DirtiesContext
     @DisplayName("возвращать ожидаемые книги по автору")
     @Test
     void getAllByAuthorTest() {
@@ -91,6 +97,7 @@ class BookRepositoryTest {
         assertEquals(EXISTING_BOOK_ID, actualBook.getId());
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемые книги по жанру")
     @Test
     void getAllByGenreTest() {
@@ -103,6 +110,7 @@ class BookRepositoryTest {
         assertEquals(EXISTING_BOOK_ID, actualBook.getId());
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемый список книг")
     @Test
     void getAllTest() {
@@ -110,6 +118,7 @@ class BookRepositoryTest {
         assertEquals(EXPECTED_BOOKS_COUNT, actualBookList.size());
     }
 
+    @DirtiesContext
     @DisplayName("удалять заданного книгу по ее id")
     @Test
     void deleteById() {
@@ -118,6 +127,7 @@ class BookRepositoryTest {
         assertTrue(bookRepository.findById(EXISTING_BOOK_ID).isEmpty());
     }
 
+    @DirtiesContext
     @DisplayName("удалять заданного книгу по ее id")
     @Test
     void deleteAllByAuthor() {

@@ -1,9 +1,14 @@
 package ru.otus.spring.repositories;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 
@@ -15,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с авторами ")
-@DataMongoTest
+@SpringBootTest
+@ContextConfiguration
 class AuthorRepositoryTest {
 
     private static final long EXPECTED_AUTHORS_COUNT = 1;
@@ -25,12 +31,16 @@ class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @DirtiesContext
+    @DisplayName("Посчитать книги")
     @Test
     public void countTest() {
         long count = authorRepository.count();
         assertEquals(EXPECTED_AUTHORS_COUNT, count);
     }
 
+    @DirtiesContext
+    @DisplayName("Сохранить книгу в БД")
     @Test
     public void save() {
         Author expected = new Author("2", "newAuthor",
@@ -45,6 +55,7 @@ class AuthorRepositoryTest {
 
     }
 
+    @DirtiesContext
     @DisplayName("Обновить книгу в БД")
     @Test
     void updateTest() {
@@ -59,6 +70,7 @@ class AuthorRepositoryTest {
         });
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
     void getByIdTest() {
@@ -70,6 +82,7 @@ class AuthorRepositoryTest {
         });
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемую книгу по title")
     @Test
     void getByAuthorTest() {
@@ -81,6 +94,7 @@ class AuthorRepositoryTest {
         });
     }
 
+    @DirtiesContext
     @DisplayName("возвращать ожидаемый список книг")
     @Test
     void getAllTest() {
@@ -88,7 +102,7 @@ class AuthorRepositoryTest {
         assertEquals(EXPECTED_AUTHORS_COUNT, authors.size());
     }
 
-
+    @DirtiesContext
     @DisplayName("удалять заданного книгу по ее id")
     @Test
     void deleteById() {

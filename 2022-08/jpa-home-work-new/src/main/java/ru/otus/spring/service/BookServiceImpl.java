@@ -18,13 +18,14 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final AuthorService authorService;
     private final GenreService genreService;
-    private final CommentRepository commentRepository;
+    private final CommentServiceImpl commentService;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, GenreService genreService, CommentRepository commentRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService,
+                           GenreService genreService, CommentServiceImpl commentService) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
         this.genreService = genreService;
-        this.commentRepository = commentRepository;
+        this.commentService = commentService;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Transactional
     @Override
     public Book updateById(String title, String id) {
         Optional<Book> optionalBook = bookRepository.findById(id);
@@ -65,10 +67,8 @@ public class BookServiceImpl implements BookService {
     }
 
     public void deleteAllCommentsByBookId(String id) {
-        List<Comment> comments = commentRepository.findAllByBookId(id);
-        comments.stream().forEach(comment -> {
-            commentRepository.deleteById(comment.getId());
-        });
+        List<Comment> comments = commentService.getAllByBookId(id);
+        comments.stream().forEach(comment -> commentService.deleteById(comment.getId()));
     }
 
     @Override
@@ -76,7 +76,6 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Book> getById(String id) {
         return bookRepository.findById(id);

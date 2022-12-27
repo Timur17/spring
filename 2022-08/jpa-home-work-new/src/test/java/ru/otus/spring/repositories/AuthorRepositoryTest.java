@@ -3,7 +3,7 @@ package ru.otus.spring.repositories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 
@@ -15,8 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с авторами ")
-@SpringBootTest
-class AuthorRepositoryJpaTest {
+@DataMongoTest
+class AuthorRepositoryTest {
 
     private static final long EXPECTED_AUTHORS_COUNT = 1;
     private static final String EXISTING_AUTHOR_ID = "1";
@@ -30,7 +30,6 @@ class AuthorRepositoryJpaTest {
         long count = authorRepository.count();
         assertEquals(EXPECTED_AUTHORS_COUNT, count);
     }
-
 
     @Test
     public void save() {

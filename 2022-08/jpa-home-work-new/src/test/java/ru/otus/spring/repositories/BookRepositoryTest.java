@@ -1,14 +1,10 @@
 package ru.otus.spring.repositories;
 
-import com.mongodb.client.MongoDatabase;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.service.AuthorServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с книгами ")
-@SpringBootTest
+@DataMongoTest
 class BookRepositoryTest {
     private static final long EXPECTED_BOOKS_COUNT = 1;
     private static final String EXISTING_BOOK_ID = "1";

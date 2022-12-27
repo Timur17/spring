@@ -3,7 +3,7 @@ package ru.otus.spring.repositories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
 
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Репозиторий на основе Jpa для работы с жанрами ")
-@SpringBootTest
+@DataMongoTest
 class GenreRepositoryJpaTest {
     private static final long EXPECTED_GENRES_COUNT = 1;
     private static final String EXISTING_GENRE_ID = "1";

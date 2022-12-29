@@ -44,7 +44,7 @@ public class GenreServiceImpl implements GenreService {
         Genre entity = optionalGenre.orElse(null);
         if (entity != null) {
             updateGenreBooks(entity.getGenreBook(), newGenre);
-            return genreRepository.save(new Genre(id, newGenre, entity.getBooks()));
+            return genreRepository.save(new Genre(id, newGenre));
         } else {
             return null;
         }
@@ -75,12 +75,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Optional<Genre> getById(String id) {
-        Optional<Genre> bookGenre = genreRepository.findById(id);
-        bookGenre.ifPresent(genre -> {
-            List<Book> books = bookRepository.findAllByGenreGenreBook(genre.getGenreBook());
-            genre.setBooks(books);
-        });
-        return bookGenre;
+        return genreRepository.findById(id);
     }
 
 }

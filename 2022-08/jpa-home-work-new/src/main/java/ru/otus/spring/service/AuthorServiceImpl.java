@@ -75,11 +75,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<Author> getById(String id) {
-        Optional<Author> optionalAuthor = repository.findById(id);
-        optionalAuthor.ifPresent(author -> {
-            List<Book> books = bookRepository.findAllByAuthorAuthorBook(author.getAuthorBook());
-            author.setBooks(books);
-        });
-        return optionalAuthor;
+        return repository.findById(id);
     }
 }

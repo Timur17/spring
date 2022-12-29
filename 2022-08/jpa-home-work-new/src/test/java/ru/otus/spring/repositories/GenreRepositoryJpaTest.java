@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.annotation.DirtiesContext;
-import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +34,7 @@ class GenreRepositoryJpaTest {
     @DisplayName("Сохранить жанр")
     @Test
     public void save() {
-        Genre expected = new Genre("2", "newGenre",
-                new ArrayList<>(List.of(new Book("newBook"))));
+        Genre expected = new Genre("2", "newGenre");
         repository.save(expected);
         long count = repository.count();
         assertEquals(EXPECTED_GENRES_COUNT + 1, count);

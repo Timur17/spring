@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Document("genres")
 public class Genre {
     @Id
@@ -19,7 +18,7 @@ public class Genre {
 
     private String genreBook;
 
-    private List<Book> books;
+//    private List<Book> books;
 
     public Genre(String genreBook) {
         this.genreBook = genreBook;

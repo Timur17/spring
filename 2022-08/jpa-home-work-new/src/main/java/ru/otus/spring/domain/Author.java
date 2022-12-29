@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Document("authors")
 public class Author {
 
@@ -19,8 +18,6 @@ public class Author {
     private String id;
 
     private String authorBook;
-
-    private List<Book> books;
 
     public Author(String authorBook) {
         this.authorBook = authorBook;

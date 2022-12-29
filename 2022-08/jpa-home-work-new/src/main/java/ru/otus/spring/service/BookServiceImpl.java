@@ -7,7 +7,6 @@ import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.domain.Genre;
 import ru.otus.spring.repositories.BookRepository;
-import ru.otus.spring.repositories.CommentRepository;
 
 import java.util.List;
 import java.util.Optional;

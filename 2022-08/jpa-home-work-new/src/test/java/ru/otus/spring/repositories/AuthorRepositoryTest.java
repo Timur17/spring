@@ -1,18 +1,13 @@
 package ru.otus.spring.repositories;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import ru.otus.spring.domain.Author;
-import ru.otus.spring.domain.Book;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +38,7 @@ class AuthorRepositoryTest {
     @DisplayName("Сохранить книгу в БД")
     @Test
     public void save() {
-        Author expected = new Author("2", "newAuthor",
-                new ArrayList<>(List.of(new Book("2", "ewBook"))));
+        Author expected = new Author("2", "newAuthor");
         authorRepository.save(expected);
         long count = authorRepository.count();
         assertEquals(EXPECTED_AUTHORS_COUNT + 1, count);

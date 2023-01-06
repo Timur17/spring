@@ -1,0 +1,580 @@
+[33mcommit d1b543db57fc178eafd07bab2ccdbff780485eb4[m[33m ([m[1;36mHEAD -> [m[1;32mmvc_home_work[m[33m, [m[1;31morigin/mvc_home_work[m[33m, [m[1;31morigin/mvc[m[33m, [m[1;32mmvc[m[33m)[m
+Merge: 9841c2d 511dfbc
+Author: TimurTS <for_work17@mail.ru>
+Date:   Fri Jan 6 14:26:42 2023 +0300
+
+    fix conflicts
+
+[33mcommit 511dfbc2f698ace97823ab036c93d69e9958e6e8[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Fri Jan 6 13:44:27 2023 +0300
+
+    home work mvc
+
+[33mcommit deb3b4394ab761e6c96d25e9f56fb52a46f31116[m[33m ([m[1;32mmaster[m[33m)[m
+Author: kataus <kataus@gmail.com>
+Date:   Sat Dec 24 11:53:38 2022 +0300
+
+    примеры к занятию
+
+[33mcommit 60c8edef201dcc30b5dc53788c3845077641239d[m
+Author: stvort <stvort@mail.ru>
+Date:   Fri Dec 23 10:39:31 2022 +0400
+
+    2022-11 jdbc example added
+
+[33mcommit 9bb314cc44c98bbb7246c7d357b47a02f23e6c6d[m
+Author: kataus <kataus@gmail.com>
+Date:   Wed Dec 21 20:08:44 2022 +0300
+
+    Примеры к занятию
+
+[33mcommit c9982f4145e18a2c09d4e8133878958a85d3b7f5[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Dec 20 19:54:51 2022 +0400
+
+    examples updated
+
+[33mcommit c4d771cdd592184563ace2cf7532bafaa46c16bd[m
+Author: stvort <stvort@mail.ru>
+Date:   Sat Dec 17 00:33:50 2022 +0400
+
+    2022-08 spring-28-spring-batch added
+
+[33mcommit cffba4b3832b48fd4f18ec6832bacc492d4c93be[m
+Author: stvort <stvort@mail.ru>
+Date:   Fri Dec 16 21:05:23 2022 +0400
+
+    2022-11 spring-07-avdanced-config added
+
+[33mcommit 9841c2d89fe39cd23e12da324da7a89ad4dcb666[m[33m ([m[1;31morigin/spring-data-latest[m[33m, [m[1;32mspring-data-latest[m[33m)[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Dec 15 23:17:11 2022 +0300
+
+    deleted custom query and unnecessary annotations - Transactional
+
+[33mcommit ea634e9cc77aa0f29dbde50dc1888b351f08a958[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Dec 13 01:59:24 2022 +0400
+
+    2022-11 spring-06-bean-scopes-and-lifecycle updated
+
+[33mcommit e966edf53468ffa3a0d16c48892118f19fc3d1ec[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Dec 13 01:55:10 2022 +0400
+
+    2022-11 spring-06-bean-scopes-and-lifecycle added
+
+[33mcommit 7d0be707fdf7c753d2b43c36e59efe58f8efb19f[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Dec 12 01:07:29 2022 +0300
+
+    home work soring data
+
+[33mcommit cefdab657d3674aab7f32e6541b7ae2d444257e2[m
+Author: sergey <petrelevich@yandex.ru>
+Date:   Fri Dec 9 22:01:15 2022 +0300
+
+    L05 SpringBoot
+
+[33mcommit 2fccd6c7886985f55d8591e981dbee5d4f0b146a[m
+Author: sergey <petrelevich@yandex.ru>
+Date:   Thu Dec 8 23:23:39 2022 +0300
+
+    L05 SpringBoot
+
+[33mcommit 0561025ce82138be031a220be1938414ea0034d2[m[33m ([m[1;31morigin/orm[m[33m)[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Dec 8 11:27:37 2022 +0300
+
+    add (readOnly = true) for gettAll BookServiceImpl.java
+
+[33mcommit 8666987e5a18fae5eb62dd8b9e7d1135dd9b2291[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Dec 8 00:00:20 2022 +0300
+
+    deleted methot getAllByBookId
+
+[33mcommit 0ebaf189f466ff84d472a67634e1d9ee999416b8[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Wed Dec 7 23:37:39 2022 +0300
+
+    deleted methot updateById
+
+[33mcommit 32ea4cafa71898715fc7d915cca3470ecd2ef933[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Wed Dec 7 23:23:32 2022 +0300
+
+    Service layer and presentation layer were been separated
+
+[33mcommit 506e585aa20283efb8a73a5f0526b31a5c142849[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Dec 6 18:34:01 2022 +0400
+
+    2022-11 spring-04-aop added
+
+[33mcommit 0475564851f4f2a36ae8af46f416b53bdce3a8cb[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 13:54:41 2022 +0300
+
+    removed unnecessary files
+
+[33mcommit 9bef420134b9600382cea3381aabe0053286966a[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 13:46:17 2022 +0300
+
+    unremoved .mvn from git
+
+[33mcommit 40156ce7ac2549dc2409191d47599589252a05af[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 13:44:48 2022 +0300
+
+    removed .mvn from git
+
+[33mcommit b33c59562bfb7ed430916b3f1b905d4514b91181[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 13:43:42 2022 +0300
+
+    removed target from git
+
+[33mcommit 3b8092bbe15d32d31aaff7e382ba2bfc0a3c66d4[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 13:36:34 2022 +0300
+
+    removed annotation - @Transactional(readOnly = true)
+
+[33mcommit d56d25911ea3906de10624d90f2684d65fc8ab40[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 11:57:29 2022 +0300
+
+    changed fields names
+
+[33mcommit 0af69c811d6a5e074fb372b5abf48ea45dca3a2c[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Dec 4 11:28:47 2022 +0300
+
+    edited according reviewers comments
+
+[33mcommit b82e183de44f70483c9c1f65b7cca08808fb4fc6[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sat Dec 3 12:21:53 2022 +0300
+
+    rm demo.iml
+
+[33mcommit 7222fdd459f818ff14a966e40965948530a67f94[m
+Author: stvort <stvort@mail.ru>
+Date:   Fri Dec 2 00:44:11 2022 +0400
+
+    2022-11 spring-03-arch added
+
+[33mcommit 87a1629498c64dc94cf82b0a409fac2ce8c042d0[m
+Author: kataus <kataus@gmail.com>
+Date:   Wed Nov 30 19:32:38 2022 +0300
+
+    примеры к занятиям по Spring Security
+
+[33mcommit 213f812342d2a061dc3471f98c210e70c3333348[m
+Author: stvort <stvort@mail.ru>
+Date:   Wed Nov 30 00:48:17 2022 +0400
+
+    2022-11 spring02 version fixed
+
+[33mcommit 214cd8004630284804fd2df1af6ccea7592c6564[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Nov 29 02:10:16 2022 +0400
+
+    2022-11 spring02 added
+
+[33mcommit 5df8c5a0a3007c4e68b1561bd8b126f86b4261f9[m
+Author: sergey <petrelevich@yandex.ru>
+Date:   Wed Nov 23 09:19:51 2022 +0300
+
+    L22 webflux
+
+[33mcommit 321d9a11b6849f7f08a2b7db1b3412236437a66b[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Nov 22 01:22:56 2022 +0400
+
+    2022-11 spring-01 example added
+
+[33mcommit 105ee5d9913e9317b74527fd4da6a6041de4b604[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Nov 21 09:24:20 2022 +0300
+
+    orm home work
+
+[33mcommit c9ecdf195723767eb6aeee9abd146516d2d29fba[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Nov 21 09:16:05 2022 +0300
+
+    preperation
+
+[33mcommit 9f4070a49e79a098bb53f6155b633a754994e41a[m
+Author: sergey <petrelevich@yandex.ru>
+Date:   Fri Nov 18 23:22:39 2022 +0300
+
+    L20 rxJava
+
+[33mcommit 7d8eab28368cec7437e1a7cd75a1a77017009ec3[m
+Author: sergey <petrelevich@yandex.ru>
+Date:   Wed Nov 16 09:23:19 2022 +0300
+
+    L20 rxJava
+
+[33mcommit a19253125c47e84678ba3d5caece04d92e91db2e[m
+Author: sergey <petrelevich@yandex.ru>
+Date:   Wed Nov 16 09:23:19 2022 +0300
+
+    L20 rxJava
+
+[33mcommit 62be87af70fb26dc241d485ed9b05b805fe27aee[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Tue Nov 15 22:29:22 2022 +0300
+
+    new attempt
+
+[33mcommit f3e8ef8b7aa717abcb48f65847af90f2a8cca1b9[m
+Author: stvort <stvort@mail.ru>
+Date:   Fri Nov 11 23:16:47 2022 +0400
+
+    2022-08 spring-19-ajax added
+
+[33mcommit 49b8630b6bc24429139986e7f9ee75dc2556b20b[m
+Author: stvort <stvort@mail.ru>
+Date:   Wed Nov 9 00:30:06 2022 +0400
+
+    2022-08 spring-18-view small fix
+
+[33mcommit 42dc93ff13f29c4534d090b4a6e39599a6736cd4[m
+Author: stvort <stvort@mail.ru>
+Date:   Wed Nov 9 00:01:32 2022 +0400
+
+    2022-08 spring-18-view added
+
+[33mcommit 0fcbf802e4988c05597ee2c6c4e4be420e24b347[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Tue Nov 8 21:33:22 2022 +0300
+
+    finally i have done it
+
+[33mcommit 3c77edf90ff7b36a9560c8a1fc6f73fd775efa16[m
+Author: stvort <stvort@mail.ru>
+Date:   Sat Nov 5 02:41:16 2022 +0400
+
+    2022-08 spring-17-mvc added
+
+[33mcommit 022994c0fc1c23fb11058f6414b137f8a55e1957[m
+Author: stvort <stvort@mail.ru>
+Date:   Sat Nov 5 02:40:32 2022 +0400
+
+    2022-08 spring-17-mvc added
+
+[33mcommit 6538d4d070ffbb48074e7dcce6601bb6fc0b5cb3[m[33m ([m[1;31morigin/DaoSpringJdbc[m[33m)[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Fri Nov 4 00:44:53 2022 +0300
+
+    finally i have done it
+
+[33mcommit 42f522cedcb71bb352aaa1cf8efbdde02fcd663e[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 27 18:04:51 2022 +0300
+
+    changed displa all authors and genre
+
+[33mcommit d97520f31ace080eaa878aae5372a08bf4a660d6[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 27 17:47:53 2022 +0300
+
+    added methods getBooksByIdGenre getBooksByIdAuthor
+
+[33mcommit 9184b637e5e6ae0c5be8ebf0cb36cf8bb5255bbf[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 27 14:59:06 2022 +0300
+
+    added controllers
+
+[33mcommit 9ecebb52b40981dad14f97929116a4ac5dbbca26[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Wed Oct 26 23:55:25 2022 +0300
+
+    the variant is working
+
+[33mcommit 7294ac4901807e151b074166d5642dbb5c31a8bf[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Wed Oct 26 22:50:05 2022 +0300
+
+    the variant is working
+
+[33mcommit 2ec1ae04b550d5bc1037ac3dafbff515465b4b2d[m
+Author: stvort <stvort@mail.ru>
+Date:   Wed Oct 26 19:43:08 2022 +0400
+
+    update spring boot version in mongock example
+
+[33mcommit a78cab4df0e74914068e1cfb68864c182dbf7e93[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Tue Oct 25 20:53:36 2022 +0300
+
+    added book Dao
+
+[33mcommit 9486da454c54449fde54bd9d82b7b63c57444a88[m[33m ([m[1;31morigin/SpringShell[m[33m)[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 23 17:30:01 2022 +0300
+
+    execute lesson tasks
+
+[33mcommit e247d64c830b5a58334b6fa75fa620b137425f5d[m
+Merge: 14f01e0 a407f29
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 23 15:45:47 2022 +0300
+
+    Merge branch 'master' into SpringShell
+
+[33mcommit a407f291fae7b0861817db3fa8cdbe480bd827a9[m
+Merge: b69515e bd668b7
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 23 15:44:26 2022 +0300
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit bd668b7a21b8352ce7ec148a473ef544f8b0d087[m
+Author: DiK <realcorwin@mail.ru>
+Date:   Fri Oct 21 23:08:52 2022 +0200
+
+    2022-08\spring-data-nosql
+
+[33mcommit 24dd6d482e997376b839dd0ec076caf66716bd65[m
+Author: stvort <stvort@mail.ru>
+Date:   Fri Oct 21 19:23:32 2022 +0400
+
+    examples updated
+
+[33mcommit 14f01e0325d005fff11e4de182745b3af5fa35b9[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 16 00:22:43 2022 +0300
+
+    home Fork spring shell - first attempt
+
+[33mcommit 6f7919834b1874b03c8a32f78614dd10d299e683[m
+Author: DiK <realcorwin@mail.ru>
+Date:   Fri Oct 14 23:44:16 2022 +0200
+
+    2022-08\spring-data-jpa
+
+[33mcommit 154904fea809728564ff30f2da9f9e438a1a0396[m[33m ([m[1;31morigin/home_work_03[m[33m)[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Oct 10 22:48:44 2022 +0300
+
+    hw 3
+
+[33mcommit 367cd894a6e3669aa3a2b0ea428ee7172875de91[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Oct 10 21:58:03 2022 +0300
+
+    hw3
+
+[33mcommit a0593e3c4eb14d2ab90cbdc7d2ded336bc7116a1[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Oct 10 21:56:28 2022 +0300
+
+    hw2
+
+[33mcommit 6faa47f7dd27d7c12ad2442300d50b9925ac162c[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Oct 10 21:54:22 2022 +0300
+
+    test
+
+[33mcommit b69515ed5d171b76c381929a6ec0a2c5bcb2ee55[m
+Merge: 24e0036 fdec462
+Author: Timur17 <43404694+Timur17@users.noreply.github.com>
+Date:   Mon Oct 10 21:46:42 2022 +0300
+
+    Merge pull request #6 from Timur17/home_work_03
+    
+    Home work 03
+
+[33mcommit fdec4626e9edeceda68956938080dd30c26cc794[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Oct 10 21:41:53 2022 +0300
+
+    home_work 3
+
+[33mcommit 6d359fb7fbbc7fab599d135517bcc91b4a09ac79[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Mon Oct 10 21:40:51 2022 +0300
+
+    nome_work_3
+
+[33mcommit 933e04c09f7754718edb66a5f9d01e1d0f04af6c[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 16:59:32 2022 +0300
+
+    added spring doot
+
+[33mcommit 7cf75ce98a769de20fb0b51eb0fd7269025c9619[m
+Merge: 6325e24 24e0036
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 16:35:39 2022 +0300
+
+    Merge branch 'master' into home_work_03
+
+[33mcommit 6325e24b67d81959952f2c2e2291789b6bd4b618[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 16:34:45 2022 +0300
+
+    remove hw 4
+
+[33mcommit 1938e73fc4eb70c5b303ff359ac95ebce17810c2[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 16:31:49 2022 +0300
+
+    changed files name from appsrs.properties to appmessages.properties
+
+[33mcommit 24e0036247f77d95c385cc99b54fe7680d459f04[m
+Merge: d789a8a 36ea8ef
+Author: Timur17 <43404694+Timur17@users.noreply.github.com>
+Date:   Sun Oct 9 15:36:27 2022 +0300
+
+    Merge pull request #5 from Timur17/home_work_02
+    
+    minor changing
+
+[33mcommit 36ea8efad89a6d9f1b1a4ded64c07a4a988aea5f[m[33m ([m[1;31morigin/home_work_02[m[33m)[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 15:35:45 2022 +0300
+
+    minor changing
+
+[33mcommit d789a8a7c652084c7b6f63370d8b0dfdd173dbcf[m
+Merge: 53fb253 ccb048c
+Author: Timur17 <43404694+Timur17@users.noreply.github.com>
+Date:   Sun Oct 9 15:33:54 2022 +0300
+
+    Merge pull request #3 from Timur17/home_work_02
+    
+    home work2
+
+[33mcommit ccb048c0e267e3bde1d807dc65132a887ce029fd[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 15:19:52 2022 +0300
+
+    resolve conflict
+
+[33mcommit 2d3e982f175591219f2dffe8bba224fc18148259[m
+Merge: 53fb253 5fd3c4a
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 15:08:48 2022 +0300
+
+    Merge branch 'home_work_02'
+    
+    # Conflicts:
+    #       2022-08/spring-02/home_work_02/src/main/java/ru/otus/spring/spring/services/ApplicationRunner.java
+
+[33mcommit f390295083ab810b99b30e9d32d1a0c4c18d3984[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 9 15:03:34 2022 +0300
+
+    minor changing
+
+[33mcommit fda71a6673b145abf41940b9c29b6424a8e02d28[m
+Author: stvort <stvort@mail.ru>
+Date:   Sat Oct 8 00:09:07 2022 +0400
+
+    2022-08 spring-11-jpql added
+
+[33mcommit 804d9f622628998d26c2025cdfeaad67ffc1610c[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 6 22:45:10 2022 +0300
+
+    remove unnedeed file
+
+[33mcommit 40165a047e4ac950a4b59fec3809b3dbc4df6bc0[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 6 22:39:27 2022 +0300
+
+    home work 3
+
+[33mcommit 53fb253855f0d35fab3c93733062220a767c1726[m
+Merge: 0354d51 806f779
+Author: Timur17 <43404694+Timur17@users.noreply.github.com>
+Date:   Thu Oct 6 22:38:46 2022 +0300
+
+    Merge pull request #4 from Timur17/home_work_03
+    
+    Home work 03
+
+[33mcommit 5fd3c4a9c835726e171e23a83c498ffd51ea0e59[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 6 21:10:31 2022 +0300
+
+    fixing - "Давайте перенесем всю логику под контекст, спринг должен для нас создать бины и связать их между собой"
+
+[33mcommit 806f779a9458f7d4404de84ee3210cddfe1d0963[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Thu Oct 6 21:03:09 2022 +0300
+
+    demo
+
+[33mcommit 66559500e4f6065f18d78cce2673823eee388e08[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Wed Oct 5 22:19:03 2022 +0300
+
+    preoered for hm 3
+
+[33mcommit 411b39128b6fc9f75b6f29cf551fab658c7abc1f[m
+Author: stvort <stvort@mail.ru>
+Date:   Tue Oct 4 23:39:17 2022 +0400
+
+    2022-08 orm example added
+
+[33mcommit 60f4f9d65b3b3770161d89a70f9f5798c024fd15[m
+Merge: 4c27e91 f0b1b5c
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 2 21:43:21 2022 +0300
+
+    Merge branch 'home_work_02' into home_work_03
+
+[33mcommit 4c27e910ed75afe57e968470599d1b93c5490b83[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 2 21:41:53 2022 +0300
+
+    add pattern spring doot for hm3
+
+[33mcommit e26cbe8e5f11476290b0463bc75a4189e89c13f7[m
+Merge: 523797b a460aee
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 2 19:57:12 2022 +0300
+
+    Merge branch 'master' of https://github.com/OtusTeam/Spring
+
+[33mcommit f0b1b5cc21aa9ff07d52393aa37d8e67d076ed92[m
+Author: TimurTS <for_work17@mail.ru>
+Date:   Sun Oct 2 15:48:11 2022 +0300
+
+    second attempt
+
+[33mcommit a460aee28d679ffd352b2e196f1b127d9469eff5[m
+Author: stvort <stvort@mail.ru>
+Date:   Sat Oct 1 15:18:00 2022 +0400
+
+    2022-08 jdbc examples updated
+
+[33mcommit 2849a3ec996af36285a6639ca53a95a93d379019[m
+Author: stvort <stvort@mail.ru>
+Date:   Sat Oct 1 11:57:27 2022 +0400
+
+    2022-08 jdbc examples updated
+
+[33mcommit c6811e921d4c7411da60246c98334694aa4c0532[m
+Author: stvort <stvort@mail.ru>
+Date:   Fri Sep 30 20:25:56 2022 +0400
+
+    2022-08 jdbc examples added
+
+[33mcommit 56cb3b10d7f7b6b6dbf9c24a7fa2e3a933af0fd7[m
+Merge: e9092d6 52fe915
+Author: sergey <petrelevich@yandex.ru>
+Date:   Fri Sep 30 18:36:11 2022 +0300
+
+    Merge remote-tracking branch 'origin/master'

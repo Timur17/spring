@@ -36,11 +36,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td>John Doe</td>
+    <tr th:each="p: ${persons}" th:object="${p}">
+        <td th:text="*{id}">1</td>
+        <td th:text="*{name}">John Doe</td>
         <td>
-            <a href="edit.html">Edit</a>
+            <a href="edit.html" th:href="@{/edit(id=*{id})}">Edit</a>
         </td>
     </tr>
     </tbody>

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.otus.spring.domain.Person;
 import ru.otus.spring.repostory.PersonRepository;
@@ -25,6 +26,16 @@ public class PersonController {
 
     @GetMapping("/edit")
     public String editPage(@RequestParam("id") long id, Model model) {
-        return null;
+        var person = repository.findById(id).orElseThrow(NotFoundException::new);
+        model.addAttribute("person", person);
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String editPerson(Person person) {
+        var personSaved = repository.findById(person.getId()).orElseThrow(NotFoundException::new);
+        personSaved.setName(person.getName());
+        repository.save(personSaved);
+        return "redirect:/";
     }
 }

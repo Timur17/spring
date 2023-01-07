@@ -49,6 +49,8 @@ class BookServiceImplTest {
         Book book = service.updateById(newBook, EXPECTED_BOOK_ID);
         assertEquals(newBook, book.getTitle());
 
+        System.out.println("Test::: " + service.getAll());
+
         Book bookNotExistId = service.updateById(newBook, 3);
         assertNull(bookNotExistId);
 

@@ -5,8 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.Genre;
+import ru.otus.spring.service.AuthorService;
 import ru.otus.spring.service.BookService;
+import ru.otus.spring.service.GenreService;
 import ru.otus.spring.service.ioservice.ConsoleIOService;
 
 import java.util.List;
@@ -16,10 +20,15 @@ public class BookController {
 
     private final BookService bookService;
     private final ConsoleIOService consoleIOService;
+    private final AuthorService authorService;
+    private final GenreService genreService;
 
-    public BookController(BookService bookService, ConsoleIOService consoleIOService) {
+    public BookController(BookService bookService, ConsoleIOService consoleIOService,
+                          AuthorService authorService, GenreService genreService) {
         this.bookService = bookService;
         this.consoleIOService = consoleIOService;
+        this.authorService = authorService;
+        this.genreService = genreService;
     }
 
     @GetMapping("/")
@@ -53,14 +62,20 @@ public class BookController {
 //    }
 
     @GetMapping("/add")
-    public String addPage() {
+    public String addPage(Model model) {
+        List<Author> authors = authorService.getAll();
+        List<Genre> genres = genreService.getAll();
+        model.addAttribute("authors", authors);
+        model.addAttribute("genres", genres);
         return "add";
     }
 
     @PostMapping("/add")
-    public String addBook(@RequestParam("title") String title) {
+    public String addBook(@RequestParam("title") String title,
+                          @RequestParam("authorBook") String authorBook, @RequestParam("genreBook") String genreBook) {
         System.out.println("Test2::: " + title);
-        Book book = bookService.insert(title, title, title);
+        System.out.println("Test2::: " + authorBook);
+        Book book = bookService.insert(title, authorBook, genreBook);
         if (book == null) {
             consoleIOService.outputString("Store already has book - " + book);
         } else {

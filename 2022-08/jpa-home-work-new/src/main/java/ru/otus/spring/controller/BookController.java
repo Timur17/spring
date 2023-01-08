@@ -20,14 +20,11 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final ConsoleIOService consoleIOService;
     private final AuthorService authorService;
     private final GenreService genreService;
 
-    public BookController(BookService bookService, ConsoleIOService consoleIOService,
-                          AuthorService authorService, GenreService genreService) {
+    public BookController(BookService bookService, AuthorService authorService, GenreService genreService) {
         this.bookService = bookService;
-        this.consoleIOService = consoleIOService;
         this.authorService = authorService;
         this.genreService = genreService;
     }

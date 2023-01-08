@@ -29,15 +29,16 @@
 <form id="add-form" action="add.html"  th:action="@{/add}" th:method="POST">
     <h3>Add new book:</h3>
 
-    <div class="row">
+    <div class="row" th:object="${book}">
         <label for="person-name-input">Title:</label>
-        <input id="person-name-input" name="title" type="text" value="TYPE TEXT" />
+        <input id="person-name-input" name="title" type="text" value="" />
+        <div class="errors" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</div>
     </div>
 
     <div class="authorBook">
         <label for="Author list selectors">Author:</label>
         <select class="form-control" id="Author list selectors" name="authorBook">
-            <option value="0">select author</option>
+            <option value="">select author</option>
             <option th:each="author : ${authors}" th:value="${author.authorBook}" th:text="${author.authorBook}"></option>
         </select>
     </div>
@@ -45,7 +46,7 @@
     <div class="genreBook">
         <label for="Genre list selectors">Genre:</label>
         <select class="form-control" id="Genre list selectors" name="genreBook">
-            <option value="0">select genre</option>
+            <option value="">select genre</option>
             <option th:each="genre : ${genres}" th:value="${genre.genreBook}" th:text="${genre.genreBook}"></option>
         </select>
     </div>

@@ -25,9 +25,9 @@
 </head>
 <body>
 
-<!-- Book edition -->
-<form id="edit-form" action="edit.html" th:object ="${book}" th:action="@{/edit(id=*{id})}" th:method="POST" >
-    <h3>Book Info:</h3>
+<!-- Delete book -->
+<form id="delete-form" action="delete.html" th:object ="${book}" th:action="@{/delete(id=*{id})}" th:method="POST" >
+    <h3>Delete book:</h3>
 
     <div class="row">
         <label for="id-input">ID:</label>
@@ -36,12 +36,11 @@
 
     <div class="row">
         <label for="person-name-input">Title:</label>
-        <input id="person-name-input" name="title" type="text" value="John Doe" th:value="*{title}"/>
-        <div class="errors" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</div>
+        <input id="person-name-input" name="title" type="text" readonly="readonly" value="John Doe" th:value="*{title}"/>
     </div>
 
     <div class="row">
-        <button type="submit">Save</button>
+        <button type="submit">Delete</button>
         <a href="list.html" th:href="@{/}"><button type="button">Cancel</button></a>
     </div>
 

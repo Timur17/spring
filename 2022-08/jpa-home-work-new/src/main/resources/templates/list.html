@@ -45,13 +45,13 @@
         <td th:text="*{genre.genreBook}">John Doe</td>
         <td>
             <a href="edit.html" th:href="@{/edit(id=*{id})}">Edit</a>
+            <a href="delete.html" th:href="@{/delete(id=*{id})}">Delete</a>
         </td>
     </tr>
     </tbody>
 </table>
 <div class="row">
-    <a href="add.html" th:href="@{/add}"><button type="submit">Add book</button></a>
-    <a href="delete.html" th:href="@{/delete}"><button type="submit">Delete book</button></a>
+    <a href="add.html" th:href="@{/add}"><button type="submit">Add new book</button></a>
 </div>
 </body>
 </html>

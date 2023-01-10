@@ -38,18 +38,27 @@ public class BookController {
 
     @GetMapping("/edit")
     public String editPage(@RequestParam("id") long id, Model model) {
+        List<Author> authors = authorService.getAll();
+        List<Genre> genres = genreService.getAll();
+        model.addAttribute("authors", authors);
+        model.addAttribute("genres", genres);
+
         var book = bookService.getById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("book", book);
         return "edit";
     }
 
     @PostMapping("/edit")
-    public String editPerson(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model) {
+    public String editPerson(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model,
+                             Author author, Genre genre) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
+
+        book.setAuthor(author);
+        book.setGenre(genre);
         Book bookSaved = bookService.getById(book.getId()).orElseThrow(NotFoundException::new);
-        bookService.updateById(book.getTitle(), bookSaved.getId());
+        bookService.updateById(book, bookSaved.getId());
         return "redirect:/";
     }
 
@@ -70,6 +79,7 @@ public class BookController {
     public String addPage(Model model) {
         List<Author> authors = authorService.getAll();
         List<Genre> genres = genreService.getAll();
+        System.out.println("Testauthors::: " + authors);
         model.addAttribute("authors", authors);
         model.addAttribute("genres", genres);
         model.addAttribute("book", new Book());

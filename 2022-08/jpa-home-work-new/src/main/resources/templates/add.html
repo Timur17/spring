@@ -37,7 +37,7 @@
 
     <div class="authorBook">
         <label for="Author list selectors">Author:</label>
-        <select class="form-control" id="Author list selectors" name="authorBook">
+        <select class="form-control" id="Author list selectors" name="authorBook" required="required">
             <option value="">select author</option>
             <option th:each="author : ${authors}" th:value="${author.authorBook}" th:text="${author.authorBook}"></option>
         </select>
@@ -45,7 +45,7 @@
 
     <div class="genreBook">
         <label for="Genre list selectors">Genre:</label>
-        <select class="form-control" id="Genre list selectors" name="genreBook">
+        <select class="form-control" id="Genre list selectors" name="genreBook" required="required">
             <option value="">select genre</option>
             <option th:each="genre : ${genres}" th:value="${genre.genreBook}" th:text="${genre.genreBook}"></option>
         </select>

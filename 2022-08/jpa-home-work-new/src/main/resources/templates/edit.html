@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit person</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Book edition -->
+<form id="edit-form" action="edit.html" th:object ="${book}" th:action="@{/edit(id=*{id})}" th:method="POST" >
+    <h3>Book Info:</h3>
+
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" name="id" type="text" readonly="readonly" value="1" th:value="*{id}"/>
+    </div>
+
+    <div class="row">
+        <label for="person-name-input">Title:</label>
+        <input id="person-name-input" name="title" type="text" value="John Doe" th:value="*{title}"/>
+        <div class="errors" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</div>
+    </div>
+
+    <div class="row">
+        <label for="Author list selectors">Author:</label>
+        <select class="form-control" id="Author list selectors" name="authorBook" required="required">
+            <option value="">select author</option>
+            <option th:each="author : ${authors}" th:value="${author.authorBook}" th:text="${author.authorBook}"></option>
+        </select>
+    </div>
+
+    <div class="row">
+        <label for="Genre list selectors">Genre:</label>
+        <select class="form-control" id="Genre list selectors" name="genreBook" required="required">
+            <option value="">select genre</option>
+            <option th:each="genre : ${genres}" th:value="${genre.genreBook}" th:text="${genre.genreBook}"></option>
+        </select>
+    </div>
+
+    <div class="row">
+        <button type="submit">Save</button>
+        <a href="list.html" th:href="@{/}"><button type="button">Cancel</button></a>
+    </div>
+
+</form>
+
+</body>
+</html>

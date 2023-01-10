@@ -47,6 +47,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book updateById(Book bookNew, long id) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        Book book = optionalBook.orElse(null);
+        if (book != null) {
+            book.setTitle(bookNew.getTitle());
+            book.getAuthor().setAuthorBook(bookNew.getAuthor().getAuthorBook());
+            book.getGenre().setGenreBook(bookNew.getGenre().getGenreBook());
+            return bookRepository.save(book);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void deleteById(long id) {
         bookRepository.deleteById(id);
     }

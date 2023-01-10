@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 
@@ -20,6 +22,8 @@ public class Book {
     @Id
     private long id;
 
+    @NotBlank(message = "Title must not be blank")
+    @Size(min = 2, max = 15, message = "Size must be between 2 and 10 characters")
     @Column(name = "title")
     private String title;
 

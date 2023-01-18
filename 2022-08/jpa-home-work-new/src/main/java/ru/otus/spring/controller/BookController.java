@@ -1,22 +1,19 @@
 package ru.otus.spring.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import ru.otus.spring.domain.Author;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.domain.Genre;
+import ru.otus.spring.domain.dto.BookDto;
 import ru.otus.spring.service.AuthorService;
 import ru.otus.spring.service.BookService;
 import ru.otus.spring.service.GenreService;
-import ru.otus.spring.service.ioservice.ConsoleIOService;
 
-import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Controller
+@RestController
 public class BookController {
 
     private final BookService bookService;
@@ -29,83 +26,16 @@ public class BookController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/")
-    public String listPage(Model model) {
-        List<Book> books = bookService.getAll();
-        model.addAttribute("books", books);
-        return "list";
+    @GetMapping("/api/books")
+    public List<BookDto> listPage() {
+        List<BookDto> bookList = bookService.getAll().stream().map(BookDto::toDto).collect(Collectors.toList());
+        return bookList;
     }
 
-    @GetMapping("/edit")
-    public String editPage(@RequestParam("id") long id, Model model) {
-        List<Author> authors = authorService.getAll();
-        List<Genre> genres = genreService.getAll();
-        model.addAttribute("authors", authors);
-        model.addAttribute("genres", genres);
-
-        var book = bookService.getById(id).orElseThrow(NotFoundException::new);
-        model.addAttribute("book", book);
-        return "edit";
-    }
-
-    @PostMapping("/edit")
-    public String editPerson(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model,
-                             Author author, Genre genre) {
-        if (bindingResult.hasErrors()) {
-            return "edit";
-        }
-
-        book.setAuthor(author);
-        book.setGenre(genre);
-        Book bookSaved = bookService.getById(book.getId()).orElseThrow(NotFoundException::new);
-        bookService.updateById(book, bookSaved.getId());
-        return "redirect:/";
-    }
-
-    @GetMapping("/delete")
-    public String deletePage(@RequestParam("id") long id, Model model) {
-        var book = bookService.getById(id).orElseThrow(NotFoundException::new);
-        model.addAttribute("book", book);
-        return "delete";
-    }
-
-    @PostMapping("/delete")
-    public String deletePerson(Book book) {
-        bookService.deleteById(book.getId());
-        return "redirect:/";
-    }
-
-    @GetMapping("/add")
-    public String addPage(Model model) {
-        List<Author> authors = authorService.getAll();
-        List<Genre> genres = genreService.getAll();
-        System.out.println("Testauthors::: " + authors);
-        model.addAttribute("authors", authors);
-        model.addAttribute("genres", genres);
-        model.addAttribute("book", new Book());
-        return "add";
-    }
-
-    @PostMapping("/add")
-    public String addBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult,
-                          Model model, Author author, Genre genre) {
-        if (bindingResult.hasErrors()) {
-            return "add";
-        }
-        Book bookSaved = bookService.insert(book.getTitle(), author.getAuthorBook(), genre.getGenreBook());
-        if (bookSaved == null) {
-            throw new AlreadyStoredException();
-        }
-        return "redirect:/";
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<String> notFoundException(NotFoundException e) {
-        return ResponseEntity.badRequest().body("Book not present!");
-    }
-
-    @ExceptionHandler(AlreadyStoredException.class)
-    public ResponseEntity<String> notFoundException(AlreadyStoredException e) {
-        return ResponseEntity.badRequest().body("The book already stored!");
+    @GetMapping("/books/{id}")
+    public BookDto getBook(@PathVariable long id) {
+        Optional<Book> book = bookService.getById(id);
+        Book bookDb = book.orElseThrow(NotFoundException::new);
+        return BookDto.toDto(bookDb);
     }
 }

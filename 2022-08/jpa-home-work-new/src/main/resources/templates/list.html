@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
+    <meta name="keywords" th:content="${keywords}"/>
     <title>List of all books</title>
     <style type="text/css">
         body {
@@ -23,9 +24,10 @@
             width: 50px;
         }
     </style>
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<h3>Books:</h3>
+<h1>Books:</h1>
 
 <table class="books">
     <thead>
@@ -34,24 +36,29 @@
         <th>Title</th>
         <th>Author</th>
         <th>Genre</th>
-        <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="p: ${books}" th:object="${p}">
-        <td th:text="*{id}">1</td>
-        <td th:text="*{title}">John Doe</td>
-        <td th:text="*{author.authorBook}">John Doe</td>
-        <td th:text="*{genre.genreBook}">John Doe</td>
-        <td>
-            <a href="edit.html" th:href="@{/edit(id=*{id})}">Edit</a>
-            <a href="delete.html" th:href="@{/delete(id=*{id})}">Delete</a>
-        </td>
-    </tr>
     </tbody>
 </table>
-<div class="row">
-    <a href="add.html" th:href="@{/add}"><button type="submit">Add new book</button></a>
-</div>
+
+<script>
+    $(function () {
+        $.get('/api/books').done(function (books) {
+            books.forEach(function (book) {
+                $('tbody').append(`
+                    <tr>
+                        <td>${book.id}</td>
+                        <td>${book.title}</td>
+                        <td>${book.author}</td>
+                        <td>${book.genre}</td>
+                    </tr>
+                `)
+            });
+        })
+    });
+
+</script>
+
 </body>
 </html>
